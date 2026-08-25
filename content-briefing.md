@@ -1,24 +1,27 @@
-# Content Briefing: Kev & Andre Peter's Wedding Website
+# Content Briefing: Oghenekevwe & Andre Peter's Wedding Website
 
-Synthesized from Kev's Wedding Vision form responses and the Wedding
-Planner spreadsheet (Dashboard, Ceremony, Reception tabs). Andre Peter has
-not yet filled out a matching form, so his personal answers (bio,
-hobbies, faith story, fun facts) are marked as open items below.
-Placeholders for these should stay on the site until he answers.
+Synthesized from Oghenekevwe's Wedding Vision form responses, the Wedding
+Planner spreadsheet (Dashboard, Ceremony, Reception tabs), and Andre
+Peter's own written answers (his bio, story, faith, and family document).
 
 ---
 
 ## 1. The Couple
 
-- **Names as displayed:** Kev & Andre Peter. Andre Peter is known as
-  "Peter" to Brazilian family and friends and "Andre" to Nigerian family
-  and friends. Rather than picking one, the couple has chosen to use his
-  full name, "Andre Peter," everywhere on the site, so it reads as one
-  name that belongs equally to both sides of the family.
-- **Hashtag:** not yet chosen, an open item.
-- **Fun or quirky fact:** Andre Peter asked for Kev's LinkedIn instead of
-  her phone number when they met. They wrote a song together, a musical
-  depiction of shared dreams and uncertainties, from his eyes and hers.
+- **Names as displayed:** Oghenekevwe & Andre Peter. Andre Peter is known
+  as "Peter" to Brazilian family and friends and "Andre" to Nigerian
+  family and friends. Rather than picking one, the couple has chosen to
+  use his full name, "Andre Peter," everywhere on the site, so it reads
+  as one name that belongs equally to both sides of the family.
+- **Hashtag:** Andre Peter likes the idea of circles, alliance, physics,
+  and Christ as themes. The site currently uses #OurAlliance2027 as a
+  working choice, playing on "aliança" (the Portuguese word for wedding
+  ring and covenant). Confirm or swap before it goes on signage.
+- **Fun or quirky fact:** Andre Peter asked for Oghenekevwe's LinkedIn
+  instead of her phone number when they met. They wrote a song together,
+  a musical depiction of shared dreams and uncertainties, from his eyes
+  and hers. Andre Peter confirmed this story is the one to use for both
+  of them.
 - **Vibe or adjectives for the whole site:** Elegant and timeless, warm
   and intimate.
 
@@ -31,13 +34,15 @@ Placeholders for these should stay on the site until he answers.
   developing, and growing, built on a commitment to learn together and an
   openness to learn each other's language (emotional, life, safety).
 - **Favorite memory to share publicly:** The night Andre Peter proposed.
-- **Proposal story:** Kev prefers this be told from Andre Peter's point of
-  view (open item, he should supply the narrative). She'll only say: "I
-  have a very intentional man."
+- **Proposal story:** Told in full on the Our Story page, in Andre
+  Peter's own words. Six days together in his hometown, a trip to Vale
+  do Capão, dinner at the pier of Amado, walking Porto da Barra beach,
+  and a friend named Gaela who secretly filmed the moment. It happened
+  on July 9, 2026.
 
 ## 3. Meet the Couple
 
-**Kev:**
+**Oghenekevwe:**
 - Believes in being a lifelong learner, and in encouraging others to be
   lifelong learners too.
 - Born to parents who are pastors and church planters. She and her sister
@@ -51,38 +56,59 @@ Placeholders for these should stay on the site until he answers.
   people, teaching them to fish rather than just handing them a fish.
 
 **Andre Peter:**
-- Open item. His own bio, profession and passion for education, hobbies,
-  faith story, and favorite books or art have not been collected yet.
-  Leave a clear placeholder on the site for his section.
+- International educator, specializing in design and computer science.
+  Started his career in educational technology research, then moved into
+  teaching, and now travels the world helping kids and young adults
+  reach their full potential.
+- Music: keyboards and drums from early childhood in his father's
+  church, self taught guitar from the seventh grade onward (first song:
+  Bob Marley's "Redemption Song"). Had a band in college, still writes
+  songs today, and his guitar travels everywhere with him.
+- Sports: surfing is his favorite (by his own admission he isn't great
+  at it), plus a serious background in adventure racing, including
+  serving on his state's board for the sport. He only took up surfing
+  after moving to Nigeria, through a village community in Tarkwa Bay he
+  serves through an educational project.
+- Books and authors: Eckhart Tolle, Machiavelli, Paulo Freire.
+- Cause: Tarkwa Tech, a project he created teaching technology and
+  digital marketing to the people of Tarkwa Bay Village, Nigeria.
+- Declined to add a separate fun fact, the LinkedIn and song story above
+  covers both of them.
 
 ## 4. Our Faith
 
-- It is important to Kev and Andre Peter that God is at the center of
-  their wedding, and this should come through clearly on the site.
-- **Kev's faith story:** Born into a Christian home to parents who are
-  pastors. They always taught her she needed her own relationship with
-  God, that she couldn't ride on her parents' faith. That began her
-  journey to know God for herself. Despite ups and downs and real
-  mistakes, God has been consistently faithful and has drawn her in. He
-  also showed her she needed to choose Him fully, not sit on the fence,
-  and be completely His.
-- **Andre Peter's faith story:** open item, not yet collected.
+- It is important to Oghenekevwe and Andre Peter that God is at the
+  center of their wedding, and this should come through clearly on the
+  site.
+- **Oghenekevwe's faith story:** Born into a Christian home to parents
+  who are pastors. They always taught her she needed her own
+  relationship with God, that she couldn't ride on her parents' faith.
+  That began her journey to know God for herself. Despite ups and downs
+  and real mistakes, God has been consistently faithful and has drawn
+  her in. He also showed her she needed to choose Him fully, not sit on
+  the fence, and be completely His.
+- **Andre Peter's faith story:** Grew up in the church, his dad is an
+  apostle. He stepped away from the safety of church tradition to find
+  his own way to God, then chose to come back, this time by choice. God
+  has been his guide, teacher, protector, and comforter. Learning to
+  listen, see, and feel led him to a deep understanding of gratitude, and
+  he chooses to offer his life to God daily.
 - **Featured verse:** Philippians 1:6, "Being confident of this very
   thing, that He who has begun a good work in you will perform it until
   the day of Jesus Christ."
 - **Ceremony worship songs:** "What a Beautiful Name" and "Awake My
-  Soul," in addition to the wedding playlist. Andre Peter and Kev will
-  lead worship themselves with acoustic guitar and cajon.
-- **Officiant:** Andre Peter's dad (a pastor).
+  Soul," in addition to the wedding playlist. Andre Peter and Oghenekevwe
+  will lead worship themselves with acoustic guitar and cajon.
+- **Officiant:** Andre Peter's father, Anton Wiggins, an apostle.
 - **Welcoming but not watered down:** Guests come from many backgrounds
   (Brazilian, Nigerian, American, evangelical Christian, other faiths,
   and no faith). It matters a lot to the couple that everyone feels
   genuinely welcome, without compromising their own values and faith.
   They see the ceremony as an opportunity for guests to encounter the
   light of God, not a barrier to keep anyone out.
-- **Guest participation in the ceremony:** Kev wants guests actively
-  participating, not just watching: a responsive reading, and a shared
-  worship moment.
+- **Guest participation in the ceremony:** Oghenekevwe wants guests
+  actively participating, not just watching: a responsive reading, and a
+  shared worship moment.
 
 ## 5. Nigerian Traditions & Urhobo Glossary
 
@@ -97,8 +123,8 @@ Placeholders for these should stay on the site until he answers.
   be included, as a sign of respect.
 - **Aso ebi** (matching family and guest fabric) is being adapted, not
   done in the fully traditional form.
-- **Money spraying** is being adapted. Kev's general preference is to
-  leave it out, but a modified, toned down version may appear.
+- **Money spraying** is being adapted. Oghenekevwe's general preference
+  is to leave it out, but a modified, toned down version may appear.
 - **Outfit change** between ceremony and reception is possible. The
   venue has private suites available for this. Treat as a maybe on the
   site (in the schedule, not a hard commitment).
@@ -106,10 +132,6 @@ Placeholders for these should stay on the site until he answers.
 **Nigerian dishes and drinks guests would love to see** (subject to the
 venue's caterer being able to adapt them): Jollof rice, fried rice, Asun,
 small chops. Drinks: Zobo.
-
-**Elder or family acknowledgment:** Kev's dad, Mr. Robert Akpokiniovo,
-should be acknowledged as very important. Other family (mother, siblings)
-may also be acknowledged. See Section 7.
 
 **Urhobo and Pidgin glossary**: keep these phrases as they are in both the
 English and Portuguese versions of the site (do not translate the phrases
@@ -125,32 +147,46 @@ themselves, only the surrounding explanatory text).
 
 ## 6. Brazilian & Bahian Touches
 
-- Kev loves the sea and Bahia's colors, and specifically loves acarajé
-  (she noted "minus the je," an open item to confirm exactly what she
-  means, whether that's shorthand for a casual name, or an ingredient or
-  prep step to adjust).
+- Acarajé, resolved: in Nigeria the same fritter is called "Akara," and
+  it's eaten without any filling, just the dough. Oghenekevwe's "minus
+  the je" comment referred to this simpler, Nigerian style preparation.
+  Worth a small nod on the Traditions page connecting the two dishes.
 - The reception should include an even mix of Nigerian and Brazilian
   gospel music, and an even mix of Nigerian and Brazilian culture
   generally throughout (see Section 11).
+- Design motif: Andre Peter would like something that evokes water,
+  waves, or Brazilian indigenous patterns, used moderately, as small
+  details rather than a dominant pattern. The site currently uses a
+  small gold diamond motif (Home and Traditions page headers) and a wave
+  shape under the Home hero.
 
 ## 7. Wedding Party & Family
 
 **Wedding party:**
-- Maid of Honor: Kev's sister
+- Maid of Honor: Oghenekevwe's sister
 - Bridesmaids: Jay Jay, Mirabel, Rejoyce, Labake, Oyin
+- Groomsmen: Kleber Lima, Luan Michel, Lucas Bomfim, Bruno Andrade,
+  Rafael Santiago
 
-**Kev's family:**
+**Oghenekevwe's living family:**
 - Mother: Dr. Funmi Akpokiniovo
-- Father: Mr. Robert Akpokiniovo (important to acknowledge specifically)
 - Sister: Tejiri Akpokiniovo
 - Brothers: Ufuoma & Ruona Akpokiniovo
 
-**Andre Peter's family:** open item, not yet collected. His dad is
-confirmed as the officiating pastor.
+**Andre Peter's family:**
+- Father: Anton Wiggins (officiating)
+- Mother: Angela Vaz
+- Stepmother: Ide Wiggins
+- Stepfather: Aloisio Vaz (passed away)
+- Sister: Agatha Vaz
+- Brother: Anton Jr
+- Sister: Hadassa Wiggins
 
-**In memoriam:** Kev did not note a specific family member who has passed
-to be honored. Leave this as an optional section, only include if the
-couple later requests it.
+**In memoriam:** the site now includes a dedicated tribute honoring
+Oghenekevwe's father, Mr. Robert Akpokiniovo, per Andre Peter's answer
+that this section should be included. The same tribute also names Andre
+Peter's stepfather, Aloisio Vaz, who is noted as having passed away in
+his family list.
 
 **Family travel:** Roughly 40 family members are expected to travel from
 Nigeria and will need visa information. Guests from Namibia and the US
@@ -160,19 +196,18 @@ section to everyone for reference.
 ## 8. Event Details & Schedule
 
 - **Venue:** Tropicalia Eventos, Salvador, Bahia, Brazil.
-- **Wedding date:** Not yet confirmed. The planning range is late June to
-  mid July 2027. Kev's preferred RSVP deadline is roughly 6 months before
-  the wedding, which would put RSVPs due around January 2027 if the
-  wedding lands in the planned window. Treat the date as a clear
-  placeholder everywhere on the site until it's confirmed.
+- **Wedding date:** Confirmed to keep as a range for now, late June to
+  mid July 2027. Oghenekevwe's preferred RSVP deadline is roughly 6
+  months before the wedding. Treat the date as a clear placeholder
+  everywhere on the site until it's locked in.
 - **Ceremony orientation:** Facing the ocean (Frente Mar), not the
   lagoon.
 - **Ceremony time:** Late afternoon into sunset, ending around sunset.
 - **Ceremony duration:** roughly 45 minutes.
 - **Seating:** Circular, around the couple, facing the ocean.
-- **Officiant:** Andre Peter's dad.
-- **Ceremony music:** Andre Peter & Kev, live, with acoustic guitar and
-  cajon.
+- **Officiant:** Andre Peter's father, Anton Wiggins, an apostle.
+- **Ceremony music:** Andre Peter & Oghenekevwe, live, with acoustic
+  guitar and cajon.
 
 **Day of schedule** (from the planner spreadsheet, display as a friendly
 timeline on the Event Details or Schedule page):
@@ -197,22 +232,17 @@ timeline on the Event Details or Schedule page):
 
 - **Color mood:** Spring, blended with a beach sunset. Elegant and
   minimal, with a tropical, beach feel. Pull in Bahia's colors and a
-  sense of the sea. Starting palette used on the site so far (set as CSS
-  variables so Kev and Andre Peter can adjust later):
-  - Warm sunset coral as an accent
-  - Soft sand and cream as a light neutral base
-  - Deep ocean teal for contrast and text
-  - A soft blush as a secondary accent
-  - A muted gold for small details
+  sense of the sea. Palette used on the site (set as CSS variables so
+  the couple can adjust later): warm sunset coral as the main accent,
+  soft sand and cream as the base, deep ocean teal for contrast and
+  text, a soft blush as a secondary accent, a muted gold for small
+  details.
 - **Visual style:** Elegant and minimal.
 - **Photos:** No existing photos to feature yet. Andre Peter is expected
   to plan a photoshoot. Use clearly labeled placeholders until real
   photos exist.
-- **Cultural visual motifs:** Open item. Kev didn't specify particular
-  Nigerian patterns or fabrics (for example adire) for the design. Keep
-  the palette and layout as the primary cultural language for now rather
-  than literal pattern motifs, and revisit if the couple wants to add
-  them later.
+- **Cultural visual motifs:** Resolved, see Section 6. A small gold
+  diamond motif and a wave shape are in place, used moderately.
 
 ## 10. Guest Inclusion & Community
 
@@ -226,14 +256,15 @@ should help everyone feel equally included:
   Know page).
 - Mention that the day includes moments of mixed seating in short
   bursts, a cultural showcase moment, and a shared or collaborative
-  activity. Kev specifically loves the idea of a collaborative art piece
-  and a cultural showcase moment.
+  activity. Oghenekevwe specifically loves the idea of a collaborative
+  art piece and a cultural showcase moment.
 
 ## 11. Music
 
 - **Reception playlist:** Upbeat, lively, dance friendly, all celebrating
   God. An even mix of Nigerian and Brazilian gospel or worship music.
-  Songs that must be included: open item, not yet specified.
+  Andre Peter is putting together a Spotify playlist rather than a fixed
+  list, link to be added to the RSVP or FAQ page once he shares it.
 - **Live music:** Yes, a moment for live music from the couple or
   musician friends and family, within the venue's acoustic hall rules.
 - **Ceremony songs:** "What a Beautiful Name," "Awake My Soul."
@@ -254,16 +285,30 @@ should help everyone feel equally included:
 - About 40 guests traveling from Nigeria will need visa guidance. Guests
   from the US and Namibia won't need visas but should still see the
   information for reference.
+- Where to stay: six Airbnb listings the couple likes near the venue are
+  linked on the Travel & Accommodation page. Traditional hotel options
+  and any room blocks are still open, add if the couple sets any up.
 - Guests have asked most often about accommodation options, activities
   in Salvador and Brazil, and budget expectations. The FAQ and Travel &
-  Accommodation pages should answer these directly.
+  Accommodation pages should answer these directly. A short Salvador
+  activity guide and trip budgeting guidance are still open items.
 
 ## 14. Registry
 
 - Preference: a honeymoon fund or cash fund rather than a traditional
-  gift registry. No specific stores or causes named. Keep this simple
-  and optional feeling on the site ("your presence is the gift, if you'd
-  like to bless us further, here's how").
+  gift registry. Keep this simple and optional feeling on the site
+  ("your presence is the gift, if you'd like to bless us further, here's
+  how").
+- Brazilian guests: Pix key (phone number) 71991598445, name Andre Peter
+  Duque Wiggins. Live on the site now.
+  Do not publish any other financial details beyond this Pix key without
+  the couple's direct confirmation.
+- International guests (Nigeria, the US, and elsewhere): Andre Peter
+  asked for a suggestion that accepts dollars, naira, and reais. PayPal.me
+  was recommended (Nigerian guests can send payments through PayPal even
+  though PayPal does not support Nigerian recipients, and it converts
+  currencies automatically for the giver). Still an open item: Andre
+  Peter needs to create the account himself and share the link to embed.
 
 ## 15. Gallery
 
@@ -290,12 +335,11 @@ should help everyone feel equally included:
 
 ## 18. Confidentiality
 
-- Kev did not flag anything from the form as needing to stay private.
-  Nothing discussed should be withheld from the public site content
-  based on her answers. Still use normal judgment: omit personal contact
-  info (phone numbers, addresses, budget figures) from anything public
-  facing, since those came from planning documents, not the couple's own
-  words for the website.
+- Nothing discussed should be withheld from the public site content
+  based on the couple's answers, with normal judgment applied: omit
+  personal contact info (phone numbers, addresses, budget figures) from
+  anything public facing, except the Pix key, which the couple explicitly
+  provided for the Registry page.
 
 ## 19. Writing Style
 
@@ -309,24 +353,18 @@ should help everyone feel equally included:
 
 ## Open Items (confirm before go live)
 
-1. **Exact wedding date**, currently a range (late June to mid July
-   2027).
-2. **Wedding hashtag**, not chosen yet.
-3. **Andre Peter's personal content**: his story and proposal narrative,
-   bio, hobbies, faith story, favorite books or art, cause, and a fun
-   fact of his own.
-4. **Andre Peter's family**: names and roles for his side, to match
-   Kev's family section, plus his groomsmen.
-5. **Songs that must be included** at the reception, list not yet
-   provided.
-6. **In memoriam section**, confirm whether the couple wants to include
-   one.
-7. **Acarajé note**, confirm exactly what Kev meant by "minus the je."
-8. **Registry or fund details**, bank or fund link once set up.
-9. **Cultural visual motifs**, confirm if the couple wants specific
-   Nigerian patterns or fabrics reflected in the design beyond the color
-   palette.
-10. **Exact color values**, a starting palette is proposed in Section 9,
-    confirm or adjust with the couple once they see it live.
-11. **Travel specifics**: recommended hotels, a short Salvador guide, and
-    trip budgeting guidance for the Travel & Accommodation page.
+1. **Exact wedding date**, currently kept as a range (late June to mid
+   July 2027) at the couple's request.
+2. **Wedding hashtag**, #OurAlliance2027 is live as a working choice,
+   confirm or swap.
+3. **Songs that must be included** at the reception: coming as a Spotify
+   playlist from Andre Peter, not yet linked.
+4. **International registry option**: PayPal.me recommended, Andre Peter
+   needs to create the account and share the link.
+5. **Exact color values**: palette proposed in Section 9 is live on the
+   site, confirm or adjust once the couple sees it.
+6. **Salvador activity guide and trip budgeting guidance** for the
+   Travel & Accommodation page.
+7. **Traditional hotel options or room blocks**, if the couple sets any
+   up, to sit alongside the Airbnb suggestions already on the site.
+8. **Photos**: none yet, Andre Peter is expected to plan a photoshoot.

@@ -365,7 +365,7 @@ section {
   background: linear-gradient(
     180deg,
     var(--color-blush) 0%,
-    var(--color-sand) 65%
+    var(--color-sand) 100%
   );
 }
 
@@ -392,6 +392,30 @@ section {
   gap: var(--space-sm);
   justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Small geometric accent, echoing adire patterns and Brazilian indigenous
+   geometric marks. Used sparingly, as a quiet divider rather than a motif
+   that repeats on every page. */
+.motif-diamonds {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: var(--space-sm) 0;
+  color: var(--color-gold);
+}
+
+.motif-diamonds svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Wave transition under a hero, a small nod to the ocean at the venue. */
+.hero__wave {
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  margin-top: var(--space-md);
 }
 
 /* ------------------------------- Card grid -------------------------------- */

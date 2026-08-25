@@ -1,4 +1,4 @@
-This project is a bilingual (English and Portuguese) wedding website for Kev
+This project is a bilingual (English and Portuguese) wedding website for Oghenekevwe
 and Andre Peter, marrying at Tropicalia Eventos in Salvador, Bahia, likely
 late June to mid July 2027 (date not yet confirmed, treat as a placeholder
 everywhere). The full content and design brief lives in content-briefing.md,

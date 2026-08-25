@@ -96,10 +96,11 @@ Peter's own written answers (his bio, story, faith, and family document).
 - **Featured verse:** Philippians 1:6, "Being confident of this very
   thing, that He who has begun a good work in you will perform it until
   the day of Jesus Christ."
-- **Ceremony worship songs:** "What a Beautiful Name" and "Awake My
-  Soul," in addition to the wedding playlist. Andre Peter and Oghenekevwe
+- **Ceremony worship songs:** "What a Beautiful Name" (sung in Portuguese
+  as "Quão lindo esse nome é"), "Behold," and "Awake My Soul," in
+  addition to the wedding playlist. Andre Peter and Oghenekevwe
   will lead worship themselves with acoustic guitar and cajon.
-- **Officiant:** Andre Peter's father, Anton Wiggins, an apostle.
+- **Officiant:** Andre Peter's father, Anton Andre Wiggins, an apostle.
 - **Welcoming but not watered down:** Guests come from many backgrounds
   (Brazilian, Nigerian, American, evangelical Christian, other faiths,
   and no faith). It matters a lot to the couple that everyone feels
@@ -118,10 +119,14 @@ Peter's own written answers (his bio, story, faith, and family document).
 - A ceremony welcoming in the bride
 - Drumming and live percussion
 
+The Traditions and Menu page only calls out the first two of these
+(traditional attire, family blessing) to keep the list short. The rest
+still happen at the ceremony, they're just not spelled out on the site.
+
 **Traditions being adapted:**
 - **Prostration of the groom and groomsmen before the bride's family** to
   be included, as a sign of respect.
-- **Aso ebi** (matching family and guest fabric) is being adapted, not
+- **Aso-ebi** (matching family and guest fabric) is being adapted, not
   done in the fully traditional form.
 - **Money spraying** is being adapted. Oghenekevwe's general preference
   is to leave it out, but a modified, toned down version may appear.
@@ -174,7 +179,7 @@ themselves, only the surrounding explanatory text).
 - Brothers: Ufuoma & Ruona Akpokiniovo
 
 **Andre Peter's family:**
-- Father: Anton Wiggins (officiating)
+- Father: Anton Andre Wiggins (officiating)
 - Mother: Angela Vaz
 - Stepmother: Ide Wiggins
 - Stepfather: Aloisio Vaz (passed away)
@@ -205,7 +210,7 @@ section to everyone for reference.
 - **Ceremony time:** Late afternoon into sunset, ending around sunset.
 - **Ceremony duration:** roughly 45 minutes.
 - **Seating:** Circular, around the couple, facing the ocean.
-- **Officiant:** Andre Peter's father, Anton Wiggins, an apostle.
+- **Officiant:** Andre Peter's father, Anton Andre Wiggins, an apostle.
 - **Ceremony music:** Andre Peter & Oghenekevwe, live, with acoustic
   guitar and cajon.
 
@@ -267,7 +272,7 @@ should help everyone feel equally included:
   list, link to be added to the RSVP or FAQ page once he shares it.
 - **Live music:** Yes, a moment for live music from the couple or
   musician friends and family, within the venue's acoustic hall rules.
-- **Ceremony songs:** "What a Beautiful Name," "Awake My Soul."
+- **Ceremony songs:** "What a Beautiful Name," "Behold," "Awake My Soul."
 
 ## 12. RSVP
 

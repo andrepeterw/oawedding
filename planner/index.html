@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#163f42">
+<title>Planner | Oghenekevwe &amp; Andre Peter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/planner/planner.css">
+</head>
+<body class="min-h-screen">
+
+<noscript>
+  <p style="padding:2rem;text-align:center">This planner needs JavaScript. Please turn it on in your browser.</p>
+</noscript>
+
+<div id="app">
+
+<!-- HEADER / COUNTDOWN -->
+<header class="relative overflow-hidden hero-gradient text-cream">
+  <div class="absolute inset-0 pattern opacity-45" aria-hidden="true"></div>
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="uppercase tracking-[.25em] text-xs" data-i18n="Private wedding planner">Private wedding planner</p>
+        <h1 class="font-serif text-4xl sm:text-5xl font-semibold leading-tight">Kev <span class="italic text-gold-soft ml-1 mr-1">&amp;</span> Andre Peter</h1>
+        <p class="text-sm mt-1" id="subTitle"></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+          <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang-btn="pt" aria-pressed="false">PT</button>
+        </div>
+        <button id="btnData" class="rounded-full bg-cream/15 hover:bg-cream/25 px-4 py-2 text-sm font-medium backdrop-blur" data-i18n="Backup &amp; data">Backup &amp; data</button>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-4 md:grid-cols-[1fr_auto] items-end">
+      <div>
+        <div id="countdown" class="flex gap-2 sm:gap-3" role="timer" aria-live="off"></div>
+        <div class="mt-3 flex flex-wrap items-center gap-2 text-sm">
+          <label for="weddingDate" data-i18n="Wedding date">Wedding date</label>
+          <input id="weddingDate" type="date" class="rounded-lg bg-cream/15 border border-cream/30 px-2 py-1 text-cream [color-scheme:dark]">
+          <span id="dateNote" class="text-xs"></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 bg-cream/10 backdrop-blur rounded-2xl px-4 py-3">
+        <svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="ringLabel">
+          <title id="ringLabel">Progress</title>
+          <circle class="ring-track" cx="32" cy="32" r="27" fill="none" stroke-width="7"/>
+          <circle id="ring" class="ring-bar" cx="32" cy="32" r="27" fill="none" stroke-width="7" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6" transform="rotate(-90 32 32)" style="transition:stroke-dashoffset .6s ease"/>
+          <text id="ringText" class="ring-text" x="32" y="37" text-anchor="middle" font-size="14" font-weight="700">0%</text>
+        </svg>
+        <div class="text-sm leading-snug" id="headerStats"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="sticky top-0 z-30 bg-cream/90 backdrop-blur border-b border-sand" aria-label="Planner sections" data-i18n-aria="Planner sections">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2 flex gap-1 overflow-x-auto" role="tablist">
+    <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-checklist" role="tab" aria-controls="tab-checklist" data-tab="checklist"><span aria-hidden="true">✓</span> <span data-i18n="Checklist">Checklist</span> <span id="badgeTasks" class="ml-1 text-xs"></span></button>
+    <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-budget" role="tab" aria-controls="tab-budget" data-tab="budget"><span aria-hidden="true">◎</span> <span data-i18n="Budget">Budget</span></button>
+    <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-guests" role="tab" aria-controls="tab-guests" data-tab="guests"><span aria-hidden="true">♡</span> <span data-i18n="Guests">Guests</span> <span id="badgeGuests" class="ml-1 text-xs"></span></button>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 pb-24">
+
+  <!-- ================= CHECKLIST ================= -->
+  <section id="tab-checklist" class="tab-panel space-y-5" role="tabpanel" aria-labelledby="tabbtn-checklist">
+    <div id="taskAlerts"></div>
+
+    <div class="bg-white rounded-2xl shadow-card p-4 space-y-3">
+      <div class="flex flex-wrap gap-2 items-center">
+        <div class="flex rounded-full bg-ivory p-1 text-sm" role="group" aria-label="View" data-i18n-aria="View">
+          <button class="view-btn chip rounded-full px-3 py-1.5 border border-transparent" data-view="focus" data-i18n="Focus">Focus</button>
+          <button class="view-btn chip rounded-full px-3 py-1.5 border border-transparent" data-view="timeline" data-i18n="Timeline">Timeline</button>
+          <button class="view-btn chip rounded-full px-3 py-1.5 border border-transparent" data-view="stream" data-i18n="By workstream">By workstream</button>
+        </div>
+        <div class="flex-1 min-w-[180px]">
+          <input id="taskSearch" class="field" placeholder="Search tasks…  (press / )" data-i18n-ph="Search tasks…  (press / )" aria-label="Search tasks" data-i18n-aria="Search tasks" type="search">
+        </div>
+        <button id="btnAddTask" class="rounded-full bg-coral hover:bg-coral-deep text-white px-4 py-2 text-sm font-semibold" data-i18n="+ Add task">+ Add task</button>
+      </div>
+      <div class="flex flex-wrap gap-2 items-center text-sm">
+        <select id="fStream" class="field !w-auto" aria-label="Workstream" data-i18n-aria="Workstream"></select>
+        <select id="fOwner" class="field !w-auto" aria-label="Owner" data-i18n-aria="Owner"></select>
+        <select id="fStatus" class="field !w-auto" aria-label="Status" data-i18n-aria="Status"></select>
+        <div class="flex gap-1" id="fPriority" role="group" aria-label="Priority" data-i18n-aria="Priority">
+          <button class="chip rounded-full border border-sand px-3 py-1 text-xs" data-p="Critical" aria-pressed="false">Critical</button>
+          <button class="chip rounded-full border border-sand px-3 py-1 text-xs" data-p="High" aria-pressed="false">High</button>
+          <button class="chip rounded-full border border-sand px-3 py-1 text-xs" data-p="Medium" aria-pressed="false">Medium</button>
+        </div>
+        <label class="flex items-center gap-2 text-xs text-muted ml-auto cursor-pointer"><input type="checkbox" id="fHideDone"> <span data-i18n="Hide completed">Hide completed</span></label>
+        <button id="btnClearFilters" class="text-xs text-sea underline" data-i18n="Clear">Clear</button>
+      </div>
+    </div>
+
+    <div id="taskList" class="space-y-6"></div>
+  </section>
+
+  <!-- ================= BUDGET ================= -->
+  <section id="tab-budget" class="tab-panel space-y-5 hidden" role="tabpanel" aria-labelledby="tabbtn-budget">
+    <div id="budgetCards" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+    <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+      <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+        <h2 class="font-serif text-2xl font-semibold" data-i18n="Budget pots">Budget pots</h2>
+        <p id="potNote" class="text-xs text-muted"></p>
+      </div>
+      <div id="potCards" class="grid sm:grid-cols-3 gap-3"></div>
+    </div>
+
+    <div class="space-y-5">
+      <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <h2 class="font-serif text-2xl font-semibold mr-auto" data-i18n="Expenses">Expenses</h2>
+          <select id="bCatFilter" class="field !w-auto text-sm" aria-label="Category" data-i18n-aria="Category"></select>
+          <button id="btnAddExpense" class="rounded-full bg-coral hover:bg-coral-deep text-white px-4 py-2 text-sm font-semibold" data-i18n="+ Add expense">+ Add expense</button>
+        </div>
+        <form id="quickExpense" class="grid grid-cols-2 sm:grid-cols-12 gap-2 mb-3 bg-ivory/60 rounded-xl p-2">
+          <input name="item" class="field col-span-2 sm:col-span-3" placeholder="Quick add: e.g. Photographer deposit" data-i18n-ph="Quick add: e.g. Photographer deposit" aria-label="Expense item" data-i18n-aria="Expense item" required>
+          <select name="pot" class="field sm:col-span-2" aria-label="Pot" data-i18n-aria="Pot"></select>
+          <select name="category" class="field sm:col-span-2" aria-label="Category" data-i18n-aria="Category"></select>
+          <input name="estimate" class="field sm:col-span-2" type="number" step="any" min="0" placeholder="Amount" data-i18n-ph="Amount" aria-label="Amount" data-i18n-aria="Amount" required>
+          <select name="currency" class="field sm:col-span-2" aria-label="Currency" data-i18n-aria="Currency"></select>
+          <button class="rounded-lg bg-ink text-cream text-sm font-semibold sm:col-span-1 py-2" data-i18n="Add">Add</button>
+        </form>
+        <div class="scroll-x">
+          <table class="w-full text-sm min-w-[960px] table-fixed">
+            <colgroup><col style="width:22%"><col style="width:12%"><col style="width:14%"><col style="width:10%"><col style="width:10%"><col style="width:7%"><col style="width:12%"><col style="width:10%"><col style="width:3%"></colgroup>
+            <thead class="text-left text-xs uppercase tracking-wider text-muted">
+              <tr><th class="py-2 px-1" data-i18n="Item">Item</th><th class="px-1" data-i18n="Pot">Pot</th><th class="px-1" data-i18n="Category">Category</th><th class="px-1 text-right" data-i18n="Estimate">Estimate</th><th class="px-1 text-right" data-i18n="Paid">Paid</th><th class="px-1" data-i18n="Cur.">Cur.</th><th class="px-1" data-i18n="Status">Status</th><th class="px-1" data-i18n="Next due">Next due</th><th><span class="sr-only" data-i18n="Delete">Delete</span></th></tr>
+            </thead>
+            <tbody id="expenseRows"></tbody>
+          </table>
+        </div>
+        <p id="expenseEmpty" class="hidden text-center text-muted py-10 text-sm" data-i18n="No expenses yet. Add your first one above, a venue quote or a deposit is a good start.">No expenses yet. Add your first one above, a venue quote or a deposit is a good start.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+        <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-serif text-2xl font-semibold" data-i18n="Funds">Funds</h2>
+            <button id="btnAddFund" class="text-sm text-sea font-semibold" data-i18n="+ Add">+ Add</button>
+          </div>
+          <div id="fundRows" class="space-y-2"></div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+          <h2 class="font-serif text-2xl font-semibold mb-3" data-i18n="By category">By category</h2>
+          <div id="catBars" class="space-y-3"></div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+          <h2 class="font-serif text-2xl font-semibold mb-1" data-i18n="Next payments">Next payments</h2>
+          <p class="text-xs text-muted mb-3" data-i18n="Unpaid balances with a due date">Unpaid balances with a due date</p>
+          <div id="nextPayments" class="space-y-2 text-sm"></div>
+        </div>
+        <details class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+          <summary class="cursor-pointer flex items-center justify-between"><span class="font-serif text-xl font-semibold" data-i18n="Currency settings">Currency settings</span><span class="text-xs text-muted"><span data-i18n="edit">edit</span> ▾</span></summary>
+          <div class="mt-3 space-y-3 text-sm">
+            <label class="block"><span data-i18n="Show totals in">Show totals in</span>
+              <select id="baseCur" class="field mt-1"></select>
+            </label>
+            <p class="text-xs text-muted" data-i18n="Value of 1 unit in USD. Defaults follow your budget sheet (N$1 = R$0.33 = ₦81, Nov 2026). Update them when you pay.">Value of 1 unit in USD. Defaults follow your budget sheet (N$1 = R$0.33 = ₦81, Nov 2026). Update them when you pay.</p>
+            <div id="rateRows" class="grid grid-cols-2 gap-2"></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GUESTS ================= -->
+  <section id="tab-guests" class="tab-panel space-y-5 hidden" role="tabpanel" aria-labelledby="tabbtn-guests">
+    <div id="guestCards" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+
+    <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <div class="flex rounded-full bg-ivory p-1 text-sm" role="group" aria-label="Side" data-i18n-aria="Side">
+          <button class="side-btn chip rounded-full px-3 py-1.5 border border-transparent" data-side="" data-i18n="All">All</button>
+          <button class="side-btn chip rounded-full px-3 py-1.5 border border-transparent" data-side="Bride" data-i18n="Bride's side">Bride's side</button>
+          <button class="side-btn chip rounded-full px-3 py-1.5 border border-transparent" data-side="Groom" data-i18n="Groom's side">Groom's side</button>
+        </div>
+        <input id="guestSearch" type="search" class="field flex-1 min-w-[160px]" placeholder="Search guests…" data-i18n-ph="Search guests…" aria-label="Search guests" data-i18n-aria="Search guests">
+        <select id="gRsvpFilter" class="field !w-auto" aria-label="RSVP" data-i18n-aria="RSVP"></select>
+        <select id="gDietFilter" class="field !w-auto" aria-label="Dietary" data-i18n-aria="Dietary"></select>
+        <button id="btnBulkGuests" class="rounded-full border border-sand px-4 py-2 text-sm font-semibold hover:bg-ivory" data-i18n="Paste list">Paste list</button>
+      </div>
+
+      <form id="quickGuest" class="grid grid-cols-2 sm:grid-cols-12 gap-2 mb-4 bg-ivory/60 rounded-xl p-2">
+        <input name="name" class="field col-span-2 sm:col-span-4" placeholder="Guest name" data-i18n-ph="Guest name" aria-label="Guest name" data-i18n-aria="Guest name" required>
+        <select name="side" class="field sm:col-span-2" aria-label="Side" data-i18n-aria="Side"></select>
+        <select name="country" class="field sm:col-span-2" aria-label="From" data-i18n-aria="From"></select>
+        <select name="diet" class="field sm:col-span-3" aria-label="Dietary" data-i18n-aria="Dietary"></select>
+        <button class="rounded-lg bg-ink text-cream text-sm font-semibold sm:col-span-1 py-2" data-i18n="Add">Add</button>
+      </form>
+
+      <div class="scroll-x">
+        <table class="w-full text-sm min-w-[940px] table-fixed">
+          <colgroup><col style="width:20%"><col style="width:9%"><col style="width:10%"><col style="width:8%"><col style="width:12%"><col style="width:15%"><col style="width:6%"><col style="width:17%"><col style="width:3%"></colgroup>
+          <thead class="text-left text-xs uppercase tracking-wider text-muted">
+            <tr><th class="py-2 px-1" data-i18n="Name">Name</th><th class="px-1" data-i18n="Side">Side</th><th class="px-1" data-i18n="From">From</th><th class="px-1" data-i18n="Event">Event</th><th class="px-1" data-i18n="RSVP">RSVP</th><th class="px-1" data-i18n="Dietary">Dietary</th><th class="px-1 text-center" data-i18n="+1s">+1s</th><th class="px-1" data-i18n="Notes">Notes</th><th><span class="sr-only" data-i18n="Remove">Remove</span></th></tr>
+          </thead>
+          <tbody id="guestRows"></tbody>
+        </table>
+      </div>
+      <p id="guestEmpty" class="hidden text-center text-muted py-10 text-sm" data-i18n="No guests here yet. Add one above, or use “Paste list” to drop in many names at once.">No guests here yet. Add one above, or use “Paste list” to drop in many names at once.</p>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-ink/40 backdrop-blur-sm" data-close></div>
+  <div class="relative mx-auto mt-[6vh] w-[min(560px,92vw)] max-h-[86vh] overflow-y-auto bg-cream rounded-2xl shadow-2xl p-5 fade-in" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="flex items-start justify-between gap-4 mb-3">
+      <h3 id="modalTitle" class="font-serif text-2xl font-semibold"></h3>
+      <button class="text-2xl leading-none text-muted hover:text-ink" data-close aria-label="Close" data-i18n-aria="Close">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 hidden" role="status" aria-live="polite">
+  <div class="toast-bar flex items-center gap-3 bg-ink text-cream rounded-full pl-5 pr-2 py-2 shadow-2xl text-sm">
+    <span id="toastMsg"></span>
+    <button id="toastUndo" class="hidden rounded-full bg-cream/15 hover:bg-cream/25 px-3 py-1 font-semibold" data-i18n="Undo">Undo</button>
+  </div>
+</div>
+
+</div><!-- /#app -->
+
+<script src="/js/main.js" defer></script>
+<script src="/planner/tasks.js" defer></script>
+<script src="/planner/planner.js" defer></script>
+</body>
+</html>

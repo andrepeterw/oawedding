@@ -32,3 +32,16 @@ page and handles the EN/PT language toggle (via .lang-en/.lang-pt spans
 and html[data-lang]) and the mobile nav. Content-briefing.md lists several
 open items (exact date, Andre Peter's bio, hashtag, etc.), leave clearly
 marked placeholders for these rather than inventing facts.
+
+Planner (added Nov 2026): a couples planning tool at /planner (planner/index.html,
+planner.css, planner.js, tasks.js, sw.js). It is not linked from the public nav or
+footer, has noindex, and robots.txt disallows it, but it has no password. Never
+commit real figures, guest names or phone numbers: all money amounts stay 0 in
+freshState(), real data goes in through the Backup and data panel (restore a
+JSON backup). Data lives in the browser only (localStorage key
+kp-wedding-planner-v1, keep the key and the mergeState and STATE_VERSION
+migration). Every read and write goes through load() and save(), so a shared
+store can replace them later. Interface labels are English and Portuguese from
+a dictionary in planner.js, task text stays English. Colors and fonts come from
+the shared css/tokens.css, and the planner's own stylesheet is separate so the
+public page rules do not leak in.

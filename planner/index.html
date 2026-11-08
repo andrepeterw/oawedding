@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#163f42">
-<title>Planner | Oghenekevwe &amp; Andre Peter</title>
+<title>Planner | Kev &amp; Andre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
         <p class="uppercase tracking-[.25em] text-xs" data-i18n="Private wedding planner">Private wedding planner</p>
-        <h1 class="font-serif text-4xl sm:text-5xl font-semibold leading-tight">Kev <span class="italic text-gold-soft ml-1 mr-1">&amp;</span> Andre Peter</h1>
+        <h1 class="font-serif text-4xl sm:text-5xl font-semibold leading-tight">Kev <span class="italic text-gold-soft ml-1 mr-1">&amp;</span> Andre</h1>
         <p class="text-sm mt-1" id="subTitle"></p>
       </div>
       <div class="flex items-center gap-2">
@@ -66,6 +66,7 @@
     <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-checklist" role="tab" aria-controls="tab-checklist" data-tab="checklist"><span aria-hidden="true">✓</span> <span data-i18n="Checklist">Checklist</span> <span id="badgeTasks" class="ml-1 text-xs"></span></button>
     <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-budget" role="tab" aria-controls="tab-budget" data-tab="budget"><span aria-hidden="true">◎</span> <span data-i18n="Budget">Budget</span></button>
     <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-guests" role="tab" aria-controls="tab-guests" data-tab="guests"><span aria-hidden="true">♡</span> <span data-i18n="Guests">Guests</span> <span id="badgeGuests" class="ml-1 text-xs"></span></button>
+    <button class="tab-btn rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap" id="tabbtn-documents" role="tab" aria-controls="tab-documents" data-tab="documents"><span aria-hidden="true">▤</span> <span data-i18n="Documents">Documents</span> <span id="badgeDocs" class="ml-1 text-xs"></span></button>
   </div>
 </nav>
 
@@ -208,6 +209,22 @@
         </table>
       </div>
       <p id="guestEmpty" class="hidden text-center text-muted py-10 text-sm" data-i18n="No guests here yet. Add one above, or use “Paste list” to drop in many names at once.">No guests here yet. Add one above, or use “Paste list” to drop in many names at once.</p>
+    </div>
+  </section>
+
+  <!-- ================= DOCUMENTS ================= -->
+  <section id="tab-documents" class="tab-panel space-y-5 hidden" role="tabpanel" aria-labelledby="tabbtn-documents">
+    <div class="bg-white rounded-2xl shadow-card p-4 sm:p-5">
+      <h2 class="font-serif text-2xl font-semibold mb-1" data-i18n="Documents">Documents</h2>
+      <p class="text-xs text-muted mb-3" data-i18n="Paste the share link of a Google Doc, Sheet or any web page. The people who open it need access in Google as well.">Paste the share link of a Google Doc, Sheet or any web page. The people who open it need access in Google as well.</p>
+      <form id="quickDoc" class="grid grid-cols-2 sm:grid-cols-12 gap-2 mb-4 bg-ivory/60 rounded-xl p-2">
+        <input name="doctitle" class="field col-span-2 sm:col-span-3" placeholder="Document title" data-i18n-ph="Document title" aria-label="Document title" data-i18n-aria="Document title">
+        <input name="url" type="url" class="field col-span-2 sm:col-span-4" placeholder="https://docs.google.com/..." aria-label="Link to the document" data-i18n-aria="Link to the document" required>
+        <input name="note" class="field col-span-2 sm:col-span-4" placeholder="Note (optional)" data-i18n-ph="Note (optional)" aria-label="Note (optional)" data-i18n-aria="Note (optional)">
+        <button class="rounded-lg bg-ink text-cream text-sm font-semibold col-span-2 sm:col-span-1 py-2" data-i18n="Add">Add</button>
+      </form>
+      <div id="docList" class="grid md:grid-cols-2 gap-3"></div>
+      <p id="docEmpty" class="hidden text-center text-muted py-10 text-sm" data-i18n="No documents yet. Paste a link above to add your first one.">No documents yet. Paste a link above to add your first one.</p>
     </div>
   </section>
 </main>

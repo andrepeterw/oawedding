@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Private wedding planner for Kev and Andre Peter. Plain JavaScript, no
+   Private wedding planner for Kev and Andre. Plain JavaScript, no
    framework. Data lives only in this browser (localStorage), nothing is sent
    anywhere. Seed tasks come from planner/tasks.js (window.SEED_TASKS).
 
@@ -46,7 +46,7 @@ const PT = {
   'done': 'concluídas', 'overdue': 'em atraso', 'critical open': 'críticas em aberto',
   'tasks done': 'tarefas concluídas', 'of': 'de',
   // tabs
-  'Planner sections': 'Seções do planejador', 'Checklist': 'Tarefas', 'Budget': 'Orçamento', 'Guests': 'Convidados',
+  'Planner sections': 'Seções do planejador', 'Checklist': 'Tarefas', 'Budget': 'Orçamento', 'Guests': 'Convidados', 'Documents': 'Documentos',
   // checklist
   'View': 'Visualização', 'Focus': 'Foco', 'Timeline': 'Cronograma', 'By workstream': 'Por frente de trabalho',
   'Search tasks…  (press / )': 'Buscar tarefas…  (tecle / )', 'Search tasks': 'Buscar tarefas',
@@ -122,6 +122,15 @@ const PT = {
   'Music & sound': 'Música e som', 'Decor & flowers': 'Decoração e flores', 'Traditional items': 'Itens tradicionais',
   'Legal & documents': 'Documentos e jurídico', 'Travel': 'Viagens', 'Accommodation': 'Hospedagem', 'Stationery & website': 'Papelaria e site',
   'Generator & power': 'Gerador e energia', 'Staff & security': 'Equipe e segurança', 'Gifts & favors': 'Presentes e lembranças', 'Contingency': 'Contingência',
+  // documents
+  'Title': 'Título', 'Link': 'Link', 'Note (optional)': 'Nota (opcional)',
+  'Document title': 'Título do documento', 'Link to the document': 'Link do documento',
+  'Open': 'Abrir', 'opens in a new tab': 'abre em uma nova aba', 'Check the link': 'Confira o link',
+  'Please paste a full link that starts with https': 'Cole um link completo que comece com https',
+  'Document added': 'Documento adicionado',
+  'Paste the share link of a Google Doc, Sheet or any web page. The people who open it need access in Google as well.': 'Cole o link de compartilhamento de um Google Docs, Planilha ou qualquer página. Quem abrir também precisa ter acesso no Google.',
+  'No documents yet. Paste a link above to add your first one.': 'Ainda não há documentos. Cole um link acima para adicionar o primeiro.',
+  'Google Doc': 'Google Docs', 'Google Sheet': 'Google Planilhas', 'Google Slides': 'Google Apresentações', 'Google Form': 'Google Formulários',
   // backup panel and shared
   'Backup and data': 'Backup e dados',
   'Everything is saved automatically in this browser only. Make a backup to move your data to another device or share it with Kev.': 'Tudo é salvo automaticamente só neste navegador. Faça um backup para levar seus dados a outro aparelho ou compartilhar com a Kev.',
@@ -171,6 +180,10 @@ function freshState() {
     ],
     expenses: [],
     guests: [],
+    docs: [
+      { id: 'd1', title: 'Draft Brasil Reception Ceremony', url: 'https://docs.google.com/document/d/1BmVHfKHLijPR0S6_OIG5mO4Lh2UJbJxvhE-AbOhx_ds/edit?usp=sharing', note: '' },
+      { id: 'd2', title: 'Draft Church Wedding Ceremony Order', url: 'https://docs.google.com/document/d/16pdQo_XMtGXmQe3tCAhkped5IVY9MqwylllxSLMH4Qs/edit?usp=sharing', note: '' }
+    ],
     rates: { ...DEFAULT_RATES },
     baseCurrency: 'NAD',
     ui: { tab: 'checklist', view: 'focus', side: '' }
@@ -197,6 +210,8 @@ function mergeState(s) {
   merged.expenses = (merged.expenses || []).map(x => ({ pot: 'ng', ...x }));
   merged.tasks = merged.tasks || [];
   merged.guests = merged.guests || [];
+  // older saved data has no documents yet: start with the seed links once (deleting them later sticks)
+  if (!Array.isArray(merged.docs)) merged.docs = base.docs;
   // bring in any seed tasks that are missing (e.g. after a spreadsheet update)
   const have = new Set(merged.tasks.map(t => t.id));
   (window.SEED_TASKS || []).forEach(t => { if (!have.has(t.id)) merged.tasks.push({ ...t, custom: false }); });
@@ -235,6 +250,21 @@ const money = (v, cur = S.baseCurrency) => {
 };
 // <option> list where the stored value stays English and the label is translated
 const options = (list, sel) => list.map(o => `<option value="${esc(o)}" ${o === sel ? 'selected' : ''}>${esc(tr(o))}</option>`).join('');
+// only plain web links are allowed, so a restored backup can never inject a script link
+const safeUrl = u => { try { const x = new URL(String(u || '').trim()); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : ''; } catch (e) { return ''; } };
+const docKind = u => {
+  try {
+    const x = new URL(u);
+    if (x.hostname === 'docs.google.com') {
+      if (x.pathname.startsWith('/document')) return 'Google Doc';
+      if (x.pathname.startsWith('/spreadsheets')) return 'Google Sheet';
+      if (x.pathname.startsWith('/presentation')) return 'Google Slides';
+      if (x.pathname.startsWith('/forms')) return 'Google Form';
+    }
+    if (x.hostname === 'drive.google.com') return 'Google Drive';
+    return x.hostname.replace(/^www\./, '');
+  } catch (e) { return 'Link'; }
+};
 const isOverdue = t => t.status !== 'Completed' && t.due && parseD(t.due) < today();
 
 /* ---------- static labels ---------- */
@@ -277,7 +307,7 @@ function closeModal() {
 
 /* ---------- tabs (hash routing) ---------- */
 function setTab(tab) {
-  if (!['checklist','budget','guests'].includes(tab)) tab = 'checklist';
+  if (!['checklist','budget','guests','documents'].includes(tab)) tab = 'checklist';
   S.ui.tab = tab; save();
   $$('.tab-btn').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
   $$('.tab-panel').forEach(p => p.classList.toggle('hidden', p.id !== 'tab-' + tab));
@@ -319,6 +349,7 @@ function renderHeader() {
   $('#badgeTasks').textContent = `${total - done}`;
   const head = S.guests.reduce((a, g) => a + 1 + (Number(g.plusOnes) || 0), 0);
   $('#badgeGuests').textContent = head ? head : '';
+  $('#badgeDocs').textContent = S.docs.length ? S.docs.length : '';
 }
 
 /* ================= CHECKLIST ================= */
@@ -583,6 +614,31 @@ function addGuest(d) {
   S.guests.push({ id: uid(), name: d.name.trim(), side: d.side || 'Bride', country: d.country || 'Nigeria', event: d.event || 'Lagos', rsvp: d.rsvp || 'Not sent', diet: d.diet || 'No restrictions', plusOnes: Number(d.plusOnes) || 0, notes: d.notes || '' });
 }
 
+/* ================= DOCUMENTS ================= */
+function renderDocs() {
+  $('#docEmpty').classList.toggle('hidden', S.docs.length > 0);
+  $('#docList').innerHTML = S.docs.map(d => {
+    const href = safeUrl(d.url);
+    const open = href
+      ? `<a class="rounded-full bg-sea text-cream px-3 py-1.5 text-xs font-semibold" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(tr('Open'))}<span class="sr-only"> (${esc(tr('opens in a new tab'))})</span></a>`
+      : `<span class="text-xs text-coral-deep font-semibold">${esc(tr('Check the link'))}</span>`;
+    return `<article class="doc rounded-xl border border-sand/70 bg-white p-3" data-id="${esc(d.id)}">
+      <div class="flex items-start gap-3">
+        <div class="flex-1 min-w-0 space-y-2">
+          <div class="text-[11px] uppercase tracking-wider text-muted px-1.5">${esc(tr(docKind(href || d.url)))}</div>
+          <input class="cell font-medium" data-f="title" value="${esc(d.title)}" aria-label="${esc(tr('Title'))}">
+          <input class="cell text-xs text-muted" data-f="url" value="${esc(d.url)}" aria-label="${esc(tr('Link'))}">
+          <input class="cell text-xs" data-f="note" value="${esc(d.note || '')}" placeholder="${esc(tr('Note (optional)'))}" aria-label="${esc(tr('Note (optional)'))}">
+        </div>
+        <div class="flex flex-col items-end gap-2 shrink-0">
+          ${open}
+          <button class="text-xs text-muted hover:text-coral-deep px-1" data-del>${esc(tr('Remove'))}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
 /* ================= DATA / BACKUP ================= */
 function toCSV(rows, cols) {
   const q = v => { const s = String(v ?? ''); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
@@ -602,6 +658,7 @@ function render() {
   if (S.ui.tab === 'checklist') renderTasks();
   if (S.ui.tab === 'budget') renderBudget();
   if (S.ui.tab === 'guests') renderGuests();
+  if (S.ui.tab === 'documents') renderDocs();
 }
 function renderEverything() {
   applyI18n();
@@ -810,6 +867,31 @@ function startApp() {
         save(); closeModal(); render(); toast(tx(`${n} guest${n === 1 ? '' : 's'} added`, `${n} convidado${n === 1 ? '' : 's'} adicionado${n === 1 ? '' : 's'}`));
       });
     });
+  });
+
+  /* documents */
+  const BAD_LINK = 'Please paste a full link that starts with https';
+  $('#quickDoc').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target.elements;
+    const url = safeUrl(f.url.value);
+    if (!url) { toast(tr(BAD_LINK)); f.url.focus(); return; }
+    S.docs.push({ id: uid(), title: f.doctitle.value.trim() || tr(docKind(url)), url, note: f.note.value.trim() });
+    save(); e.target.reset(); f.doctitle.focus(); render(); toast(tr('Document added'));
+  });
+  $('#docList').addEventListener('change', e => {
+    const row = e.target.closest('[data-id]'); const d = S.docs.find(v => v.id === row.dataset.id); const k = e.target.dataset.f; if (!d || !k) return;
+    if (k === 'url') {
+      const u = safeUrl(e.target.value);
+      if (!u) { toast(tr(BAD_LINK)); e.target.value = d.url; return; }
+      d.url = u;
+    } else { d[k] = e.target.value.trim(); }
+    save(); render();
+  });
+  $('#docList').addEventListener('click', e => {
+    if (!e.target.closest('[data-del]')) return;
+    const id = e.target.closest('[data-id]').dataset.id; const idx = S.docs.findIndex(v => v.id === id); const [d] = S.docs.splice(idx, 1);
+    save(); render(); toast(tx(`${d.title} removed`, `${d.title} removido`), () => { S.docs.splice(idx, 0, d); save(); render(); });
   });
 
   /* backup and data */

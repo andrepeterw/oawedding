@@ -122,6 +122,26 @@ const PT = {
   'Music & sound': 'Música e som', 'Decor & flowers': 'Decoração e flores', 'Traditional items': 'Itens tradicionais',
   'Legal & documents': 'Documentos e jurídico', 'Travel': 'Viagens', 'Accommodation': 'Hospedagem', 'Stationery & website': 'Papelaria e site',
   'Generator & power': 'Gerador e energia', 'Staff & security': 'Equipe e segurança', 'Gifts & favors': 'Presentes e lembranças', 'Contingency': 'Contingência',
+  // sync
+  'Sync': 'Sincronizar', 'Sync between devices': 'Sincronizar entre aparelhos',
+  'Sync off': 'Sincronização desligada', 'Synced': 'Sincronizado', 'Syncing…': 'Sincronizando…', 'Offline': 'Sem conexão', 'Not synced': 'Não sincronizado',
+  "Right now this planner is saved only in this browser. Turn on sync to share one planner between your devices and Kev's.": 'Por enquanto este planejador fica salvo só neste navegador. Ative a sincronização para compartilhar um único planejador entre os seus aparelhos e os da Kev.',
+  'Create a new sync code': 'Criar um novo código de sincronização', 'Or use a code you already have': 'Ou use um código que você já tem',
+  'Paste the sync code': 'Cole o código de sincronização', 'Connect': 'Conectar',
+  'Sync is on. Changes on any device that uses this code show up on the others within a few seconds.': 'A sincronização está ligada. As mudanças em qualquer aparelho que use este código aparecem nos outros em poucos segundos.',
+  'Sync code': 'Código de sincronização', 'Copy invite link': 'Copiar link de convite', 'Copy code': 'Copiar código',
+  'Anyone who has this code can see and change the planner. Share it only with Kev.': 'Quem tiver este código pode ver e alterar o planejador. Compartilhe só com a Kev.',
+  'Sync now': 'Sincronizar agora', 'Turn off sync on this device': 'Desligar a sincronização neste aparelho', 'Last synced': 'Última sincronização',
+  'You are offline. Changes are saved here and will sync when you are back online.': 'Você está sem conexão. As mudanças ficam salvas aqui e serão sincronizadas quando a conexão voltar.',
+  'Sync is not set up on the server yet. Follow the setup steps, then try again.': 'A sincronização ainda não foi configurada no servidor. Siga os passos de configuração e tente de novo.',
+  'Sync only works on the live website, not on this address.': 'A sincronização só funciona no site publicado, não neste endereço.',
+  'Could not reach the sync service. It will try again soon.': 'Não foi possível acessar o serviço de sincronização. Vai tentar de novo em breve.',
+  'Open the planner over https to use sync.': 'Abra o planejador por https para usar a sincronização.',
+  'The code must be letters and numbers, at least 16 characters.': 'O código deve ter letras e números, com pelo menos 16 caracteres.',
+  'This code already has planner data from another device. Load it here? What is on this device now will be replaced.': 'Este código já tem dados do planejador de outro aparelho. Carregar aqui? O que está neste aparelho agora será substituído.',
+  'Planner loaded from sync': 'Planejador carregado da sincronização', 'Sync turned off on this device': 'Sincronização desligada neste aparelho',
+  'This device already uses a different sync code. Turn that off first.': 'Este aparelho já usa outro código. Desligue-o primeiro.',
+  'Sync is on, so this also resets the shared copy.': 'A sincronização está ligada, então isso também apaga a cópia compartilhada.',
   // documents
   'Title': 'Título', 'Link': 'Link', 'Note (optional)': 'Nota (opcional)',
   'Document title': 'Título do documento', 'Link to the document': 'Link do documento',
@@ -218,10 +238,11 @@ function mergeState(s) {
   return merged;
 }
 let S = null;
-function save() {
+function persist() {
   memoryFallback = S;
   try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
 }
+function save() { persist(); scheduleSync(); }
 
 /* ---------- helpers ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -652,6 +673,216 @@ function tryDownload(name, text, type) {
   } catch (e) {}
 }
 
+/* ================= SYNC (optional, shared between devices) ================= */
+/* Local first: the planner always works from this browser's own copy. When Sync
+   is on, changes are pushed to /api/planner and other devices' changes are pulled
+   and merged in. The merge is three way (last synced copy, this device, remote), per
+   record and per field, so two people editing different things never overwrite
+   each other. The sync code never leaves the browser, only its hash does. */
+const SYNC_KEY = 'kp-wedding-planner-sync';
+let SYNC = null;                          // { code, id, rev, base, last } while sync is on
+try { SYNC = JSON.parse(localStorage.getItem(SYNC_KEY)) || null; } catch (e) {}
+let syncState = SYNC ? 'idle' : 'off';    // off | idle | busy | error | offline
+let syncProblem = '';
+let syncBusy = false, syncAgain = false, syncTimer = null, pendingRender = false;
+const CODE_RE = /^[A-Za-z0-9]{16,64}$/;
+const saveSyncMeta = () => { try { if (SYNC) localStorage.setItem(SYNC_KEY, JSON.stringify(SYNC)); else localStorage.removeItem(SYNC_KEY); } catch (e) {} };
+const clone = o => JSON.parse(JSON.stringify(o));
+const stripUI = st => { const c = { ...st }; delete c.ui; return c; };   // tab and view choices stay per device
+const canon = v => Array.isArray(v) ? '[' + v.map(canon).join(',') + ']'
+  : (v && typeof v === 'object') ? '{' + Object.keys(v).sort().map(k => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}'
+  : (v === undefined ? 'undefined' : JSON.stringify(v));
+const same = (a, b) => canon(a) === canon(b);
+const isObj = x => x && typeof x === 'object' && !Array.isArray(x);
+// Keep what changed: if only one side changed it, take that side. If both changed, this device wins.
+const pickWhole = (b, l, r) => (same(b, l) ? r : l);
+function mergeRecord(b, l, r) {
+  if (!isObj(b) || !isObj(l) || !isObj(r)) return pickWhole(b, l, r);   // added or deleted on one side
+  const out = {};
+  for (const k of new Set([...Object.keys(b), ...Object.keys(l), ...Object.keys(r)])) {
+    const v = pickWhole(b[k], l[k], r[k]);
+    if (v !== undefined) out[k] = v;
+  }
+  return same(out, l) ? l : out;
+}
+function mergeList(B, L, R) {
+  const idx = a => new Map((a || []).map(x => [x.id, x]));
+  const b = idx(B), l = idx(L), r = idx(R);
+  const order = [...(R || []).map(x => x.id), ...(L || []).map(x => x.id).filter(id => !r.has(id))];
+  const out = [];
+  for (const id of order) { const v = mergeRecord(b.get(id), l.get(id), r.get(id)); if (v !== undefined) out.push(v); }
+  return out;
+}
+function mergeMap(B, L, R) {
+  const out = {}; B = B || {}; L = L || {}; R = R || {};
+  for (const k of new Set([...Object.keys(B), ...Object.keys(L), ...Object.keys(R)])) { const v = pickWhole(B[k], L[k], R[k]); if (v !== undefined) out[k] = v; }
+  return out;
+}
+function merge3(B, L, R) {
+  B = B || {};
+  const out = { ...R };
+  ['tasks', 'funds', 'pots', 'expenses', 'guests', 'docs'].forEach(k => { out[k] = mergeList(B[k], L[k], R[k]); });
+  out.rates = mergeMap(B.rates, L.rates, R.rates);
+  ['weddingDate', 'baseCurrency', 'version'].forEach(k => { out[k] = pickWhole(B[k], L[k], R[k]); });
+  delete out.ui;
+  return out;
+}
+
+async function hashCode(code) {
+  if (!(window.crypto && crypto.subtle)) { const e = new Error('no_crypto'); e.code = 'no_crypto'; throw e; }
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('kp-planner-sync:' + code));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function newCode() {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';   // no look alike characters
+  let out = '';
+  while (out.length < 24) {
+    const bytes = crypto.getRandomValues(new Uint8Array(32));
+    for (const b of bytes) { if (b < 228 && out.length < 24) out += alphabet[b % alphabet.length]; }   // 228 = 4 x 57, no bias
+  }
+  return out;
+}
+async function api(method, id, body) {
+  const opt = { method, headers: { 'Content-Type': 'application/json' }, cache: 'no-store' };
+  let url = '/api/planner';
+  if (method === 'GET') url += '?id=' + id;
+  else { const payload = JSON.stringify({ id, ...body }); opt.body = payload; opt.keepalive = payload.length < 60000; }
+  const res = await fetch(url, opt);
+  const json = await res.json().catch(() => ({}));
+  if (res.status === 409) return { ok: false, rev: json.rev, data: json.data };
+  if (!res.ok) { const e = new Error(json.error || ('http_' + res.status)); e.code = json.error || ('http_' + res.status); throw e; }
+  return { ok: true, ...json };
+}
+
+function setSyncState(state, problem) {
+  syncState = state; syncProblem = problem || '';
+  renderSyncBadge(); renderSyncPanel();
+}
+function renderSyncBadge() {
+  if (!$('#btnSync')) return;
+  const labels = { off: 'Sync off', idle: 'Synced', busy: 'Syncing…', offline: 'Offline', error: 'Not synced' };
+  $('#syncLabel').textContent = tr(labels[syncState] || labels.off);
+  $('#syncDot').className = 'sync-dot sync-' + syncState;
+}
+// true only while the person is really typing in a visible field (a hidden one that kept focus does not count)
+const isEditing = () => { const a = document.activeElement; return !!(a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.closest('#app') && a.offsetParent !== null); };
+// a screen refresh postponed because someone was typing happens as soon as they stop
+function flushPending() { if (pendingRender && !isEditing()) { pendingRender = false; renderEverything(); } }
+function applyMerged(merged) {
+  const before = canon(stripUI(S));
+  Object.assign(S, merged);
+  persist();
+  if (canon(stripUI(S)) !== before) { if (isEditing()) pendingRender = true; else renderEverything(); }
+}
+function scheduleSync(delay = 1200) {
+  if (!SYNC) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => syncNow(), delay);
+}
+async function syncNow() {
+  if (!SYNC) return;
+  if (navigator.onLine === false) { setSyncState('offline'); return; }
+  if (syncBusy) { syncAgain = true; return; }
+  syncBusy = true; setSyncState('busy');
+  try {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const remote = await api('GET', SYNC.id);
+      if (remote.rev !== SYNC.rev) {                                   // someone saved since our last sync
+        applyMerged(remote.data ? merge3(SYNC.base, S, remote.data) : stripUI(S));
+        SYNC.rev = remote.rev; SYNC.base = clone(remote.data || {});
+      }
+      const mine = stripUI(S);
+      if (same(mine, SYNC.base)) { SYNC.last = Date.now(); saveSyncMeta(); setSyncState('idle'); return; }
+      const put = await api('PUT', SYNC.id, { baseRev: SYNC.rev, data: mine });
+      if (put.ok) { SYNC.rev = put.rev; SYNC.base = clone(mine); SYNC.last = Date.now(); saveSyncMeta(); setSyncState('idle'); return; }
+      // 409: the other device saved in between, loop again to pull and merge
+    }
+    throw new Error('busy');
+  } catch (e) {
+    setSyncState(navigator.onLine === false ? 'offline' : 'error', e.code || e.message);
+  } finally {
+    syncBusy = false;
+    if (syncAgain) { syncAgain = false; scheduleSync(300); }
+  }
+}
+// Turn sync on for this device with a code (new or existing).
+async function connectCode(code, { create = false, silent = false } = {}) {
+  code = String(code || '').trim();
+  if (!CODE_RE.test(code)) { toast(tr('The code must be letters and numbers, at least 16 characters.')); return false; }
+  setSyncState('busy');
+  try {
+    const id = await hashCode(code);
+    const remote = await api('GET', id);
+    if (remote.data && !create) {
+      if (!silent && !confirm(tr('This code already has planner data from another device. Load it here? What is on this device now will be replaced.'))) { setSyncState(SYNC ? 'idle' : 'off'); return false; }
+      Object.assign(S, mergeState({ ...remote.data, ui: S.ui }));
+      SYNC = { code, id, rev: remote.rev, base: clone(remote.data), last: Date.now() };
+      persist(); saveSyncMeta(); renderEverything();
+      toast(tr('Planner loaded from sync'));
+    } else {
+      SYNC = { code, id, rev: remote.rev, base: remote.data ? clone(remote.data) : {}, last: 0 };
+      saveSyncMeta();
+    }
+    await syncNow();
+    return true;
+  } catch (e) {
+    SYNC = SYNC && SYNC.id ? SYNC : null;
+    setSyncState(SYNC ? 'error' : 'off', e.code || e.message);
+    return false;
+  }
+}
+function syncStatusLine() {
+  if (syncState === 'busy') return tr('Syncing…');
+  if (syncState === 'offline') return tr('You are offline. Changes are saved here and will sync when you are back online.');
+  if (syncState === 'error' || (syncState === 'off' && syncProblem)) {
+    if (syncProblem === 'not_configured') return tr('Sync is not set up on the server yet. Follow the setup steps, then try again.');
+    if (syncProblem === 'no_crypto') return tr('Open the planner over https to use sync.');
+    if (/^http_(404|405)$/.test(syncProblem)) return tr('Sync only works on the live website, not on this address.');
+    return tr('Could not reach the sync service. It will try again soon.');
+  }
+  if (SYNC && SYNC.last) return `${tr('Last synced')}: ${new Date(SYNC.last).toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit' })}`;
+  return '';
+}
+async function copyText(text, inputEl) {
+  try { await navigator.clipboard.writeText(text); toast(tr('Copied')); }
+  catch (e) { if (inputEl) { inputEl.select(); toast(tr('Selected: press Ctrl or Cmd + C')); } }
+}
+function renderSyncPanel() {
+  const box = $('#syncPanel'); if (!box) return;
+  if (SYNC) {
+    const bad = syncState === 'error' || syncState === 'offline';
+    box.innerHTML = `<p class="text-muted">${esc(tr('Sync is on. Changes on any device that uses this code show up on the others within a few seconds.'))}</p>
+      <div class="rounded-xl bg-ivory/60 p-3 space-y-2">
+        <label class="block text-xs uppercase tracking-wider text-muted" for="syncCodeShow">${esc(tr('Sync code'))}</label>
+        <input id="syncCodeShow" class="field font-mono text-sm" readonly value="${esc(SYNC.code)}">
+        <div class="flex flex-wrap gap-2">
+          <button id="syncCopyInvite" class="rounded-full bg-ink text-cream px-4 py-2 text-sm font-semibold">${esc(tr('Copy invite link'))}</button>
+          <button id="syncCopyCode" class="rounded-full border border-sand px-4 py-2 text-sm font-semibold">${esc(tr('Copy code'))}</button>
+        </div>
+        <p class="text-xs text-muted">${esc(tr('Anyone who has this code can see and change the planner. Share it only with Kev.'))}</p>
+      </div>
+      <p id="syncStatus" class="text-xs ${bad ? 'text-coral-deep font-semibold' : 'text-muted'}" role="status">${esc(syncStatusLine())}</p>
+      <div class="flex flex-wrap gap-2">
+        <button id="syncNowBtn" class="rounded-full border border-sand px-4 py-2 text-sm font-semibold">${esc(tr('Sync now'))}</button>
+        <button id="syncOffBtn" class="rounded-full border border-sand px-4 py-2 text-sm font-semibold text-coral-deep">${esc(tr('Turn off sync on this device'))}</button>
+      </div>`;
+    $('#syncCopyInvite', box).onclick = () => copyText(`${location.origin}/planner/#sync=${SYNC.code}`, $('#syncCodeShow', box));
+    $('#syncCopyCode', box).onclick = () => copyText(SYNC.code, $('#syncCodeShow', box));
+    $('#syncNowBtn', box).onclick = () => syncNow();
+    $('#syncOffBtn', box).onclick = () => { SYNC = null; saveSyncMeta(); setSyncState('off'); toast(tr('Sync turned off on this device')); };
+  } else {
+    box.innerHTML = `<p class="text-muted">${esc(tr("Right now this planner is saved only in this browser. Turn on sync to share one planner between your devices and Kev's."))}</p>
+      <button id="syncCreate" class="w-full rounded-full bg-coral text-white py-2.5 font-semibold">${esc(tr('Create a new sync code'))}</button>
+      <hr class="border-sand">
+      <label class="block text-xs" for="syncCodeIn">${esc(tr('Or use a code you already have'))}</label>
+      <input id="syncCodeIn" class="field font-mono text-sm" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(tr('Paste the sync code'))}">
+      <button id="syncUse" class="w-full rounded-full bg-sea text-cream py-2 font-semibold">${esc(tr('Connect'))}</button>
+      <p id="syncStatus" class="text-xs ${syncProblem ? 'text-coral-deep font-semibold' : 'text-muted'}" role="status">${esc(syncStatusLine())}</p>`;
+    $('#syncCreate', box).onclick = () => connectCode(newCode(), { create: true });
+    $('#syncUse', box).onclick = () => connectCode($('#syncCodeIn', box).value);
+  }
+}
+
 /* ---------- render ---------- */
 function render() {
   renderHeader();
@@ -662,6 +893,7 @@ function render() {
 }
 function renderEverything() {
   applyI18n();
+  renderSyncBadge();
   fillTaskFilters();
   renderDateNote();
   renderCountdown();
@@ -673,6 +905,8 @@ let started = false;
 function startApp() {
   if (started) return;
   started = true;
+  let firstVisit = true;
+  try { firstVisit = !localStorage.getItem(STORE_KEY); } catch (e) {}
   S = load();
   applyI18n();
 
@@ -917,7 +1151,7 @@ function startApp() {
       </div>
       <hr class="border-sand">
       <details><summary class="cursor-pointer text-coral-deep text-xs font-semibold">${esc(tr('Reset everything…'))}</summary>
-        <p class="text-xs text-muted mt-2">${esc(tr('Type RESET to wipe guests, expenses and task progress and return to the original spreadsheet.'))}</p>
+        <p class="text-xs text-muted mt-2">${esc(tr('Type RESET to wipe guests, expenses and task progress and return to the original spreadsheet.'))}${SYNC ? ' ' + esc(tr('Sync is on, so this also resets the shared copy.')) : ''}</p>
         <div class="flex gap-2 mt-2"><input id="resetTxt" class="field" placeholder="RESET" aria-label="RESET"><button id="resetGo" class="rounded-full bg-coral text-white px-4 font-semibold">${esc(tr('Reset'))}</button></div>
       </details>
     </div>`, body => {
@@ -952,14 +1186,30 @@ function startApp() {
     });
   });
 
+  /* sync */
+  $('#btnSync').addEventListener('click', () => openModal(tr('Sync between devices'), '<div id="syncPanel" class="space-y-3 text-sm"></div>', () => renderSyncPanel()));
+  document.addEventListener('focusout', () => setTimeout(flushPending, 80));
+  document.addEventListener('visibilitychange', () => { if (SYNC) syncNow(); });
+  window.addEventListener('online', () => { if (SYNC) syncNow(); });
+  window.addEventListener('offline', () => { if (SYNC) setSyncState('offline'); });
+  setInterval(() => { if (SYNC && document.visibilityState === 'visible') syncNow(); }, 20000);
+
   /* language switch from the shared toggle (js/main.js sets html[data-lang]) */
-  new MutationObserver(() => { if (S) { renderEverything(); } else { applyI18n(); } })
+  new MutationObserver(() => { renderEverything(); renderSyncPanel(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
 
   /* boot */
   renderEverything();
-  setInterval(renderCountdown, 1000);
+  setInterval(() => { renderCountdown(); flushPending(); }, 1000);
+  // an invite link (#sync=CODE) connects this device, then the code is removed from the address bar
+  const invite = location.hash.match(/^#sync=([A-Za-z0-9]{16,64})$/);
+  if (invite) {
+    try { history.replaceState(null, '', location.pathname); } catch (e) {}
+    if (!SYNC) connectCode(invite[1], { silent: firstVisit });
+    else if (SYNC.code !== invite[1]) toast(tr('This device already uses a different sync code. Turn that off first.'));
+  }
   setTab(location.hash.slice(1) || S.ui.tab);
+  if (SYNC) syncNow();
 }
 
 /* ---------- offline support (see planner/sw.js) ---------- */

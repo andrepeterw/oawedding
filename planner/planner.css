@@ -360,4 +360,13 @@ details > summary::-webkit-details-marker { display: none; }
 .lang-toggle button { background: transparent; border: none; padding: .35rem .7rem; cursor: pointer; color: inherit; }
 .lang-toggle button[aria-pressed="true"] { background: var(--p-on-dark); color: var(--color-ocean); }
 
+/* sync status dot, the text next to it always says the state too */
+.sync-dot { display: inline-block; width: .6rem; height: .6rem; border-radius: 999px; margin-right: .45rem; border: 2px solid currentColor; vertical-align: baseline; }
+.sync-idle { background: var(--p-sage-soft); border-color: var(--p-sage-soft); }
+.sync-busy { background: var(--p-gold-soft); border-color: var(--p-gold-soft); }
+.sync-error, .sync-offline { background: var(--p-coral-soft); border-color: var(--p-coral-soft); }
+.sync-off { background: transparent; }
+@media (prefers-reduced-motion: no-preference) { .sync-busy { animation: syncpulse 1s ease-in-out infinite; } }
+@keyframes syncpulse { 50% { opacity: .35; } }
+
 

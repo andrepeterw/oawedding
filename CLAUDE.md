@@ -45,3 +45,14 @@ store can replace them later. Interface labels are English and Portuguese from
 a dictionary in planner.js, task text stays English. Colors and fonts come from
 the shared css/tokens.css, and the planner's own stylesheet is separate so the
 public page rules do not leak in.
+
+Planner sync (optional): api/planner.js is a Vercel Function that stores one copy
+of the planner in a free Upstash Redis database (the REST URL and token are
+added to the Vercel project by the Redis integration, the function finds them
+by name pattern). The browser sends only a SHA 256 hash of the user's sync code
+as the storage address, so there is no login. Writes use compare and set on a
+revision number. The client (the SYNC section of planner.js) is local first,
+debounced, and merges three ways per record and per field, so both people can
+edit at once. The ui section of the state is never synced. Without the database
+the planner keeps working on one device and the Sync panel explains why sync is
+off. No npm packages, keep it that way.

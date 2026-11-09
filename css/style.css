@@ -587,30 +587,19 @@ html:not([data-lang]) .lang-pt {
 }
 
 /* ------------------------------ Sunrise (Home) ---------------------------- */
-/* The sky is a sticky background that stays in view while the page scrolls over it.
-   js/home.js sets --p (0 dawn to 1 full sunrise) from the scroll position, the sky warms
-   from lavender and rose to gold and the sun rises over the sea. The content scrolls
-   normally, so it never gets clipped on a short screen. Without JavaScript, or with reduced
-   motion, --p rests at a still mid sunrise. */
-.sunrise {
+/* The sky is fixed behind the whole page, the content scrolls in front of it.
+   js/home.js sets --p on the page from 0 (dawn) to 1 (full sunrise), reaching 1 as the
+   footer comes into view. Without JavaScript, or with reduced motion, --p rests at a
+   still mid sunrise. */
+:root {
   --p: 0.55;
-  position: relative;
-  min-height: 150vh;
-  min-height: 150svh;
-  padding: 0 var(--space-sm);
-  background: var(--color-sand);
-  color: var(--color-ocean);
 }
 
-.sunrise__bg {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  margin: 0 calc(-1 * var(--space-sm)) -100vh;
-  margin-bottom: -100svh;
+.sunrise-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   overflow: hidden;
-  z-index: 0;
   pointer-events: none;
 }
 
@@ -657,33 +646,49 @@ html:not([data-lang]) .lang-pt {
   opacity: calc(0.3 + var(--p) * 0.7);
 }
 
+/* The sea stays pale so dark text in front of it always stays readable. */
 .sunrise__sea {
   left: 0;
   right: 0;
   bottom: -1px;
   width: 100%;
-  height: 16vh;
-  color: var(--color-ocean);
+  height: 14vh;
+  color: var(--color-ocean-soft);
 }
 
 .sunrise__sea--far {
-  opacity: 0.45;
+  opacity: 0.2;
   transform: translateY(calc((1 - var(--p)) * 2vh));
 }
 
 .sunrise__sea--near {
-  opacity: 0.92;
+  opacity: 0.3;
   transform: translateY(calc((1 - var(--p)) * 5vh));
 }
 
+/* Home: the content sits in front of the sky. */
+.home .section--sand {
+  background: transparent;
+}
+
+.home .panel {
+  background: rgba(247, 241, 230, 0.84);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(22, 63, 66, 0.1);
+  border-radius: var(--radius);
+  padding: var(--space-md) var(--space-sm);
+}
+
+.sunrise {
+  padding: 5.5rem var(--space-sm) var(--space-lg);
+  color: var(--color-ocean);
+}
+
 .sunrise__content {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 58rem;
   margin-inline: auto;
-  padding-top: 5.5rem;
-  padding-bottom: 12vh;
   text-align: center;
 }
 
@@ -717,21 +722,6 @@ html:not([data-lang]) .lang-pt {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ocean);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sunrise {
-    min-height: 0;
-    --p: 0.7;
-    padding-bottom: 5rem;
-  }
-
-  .sunrise__bg {
-    position: absolute;
-    inset: 0;
-    height: auto;
-    margin: 0;
-  }
 }
 
 /* -------------------------------- Countdown ------------------------------- */

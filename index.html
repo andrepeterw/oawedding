@@ -10,15 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body data-page="index">
-  <header id="site-header" class="site-header"></header>
-
-  <main>
-    <!-- Sunrise: the sky is a sticky background, the content scrolls over it. js/home.js sets --p
-         (0 to 1) as the visitor scrolls, the sky warms from dawn lavender and rose to gold and the
-         sun rises over the sea. With reduced motion or no JavaScript it rests as a still sunrise. -->
-    <section class="sunrise" id="sunrise" style="padding-block:0;">
-      <div class="sunrise__bg" aria-hidden="true">
+<body data-page="index" class="home">
+  <div class="sunrise-bg" aria-hidden="true">
         <div class="sunrise__sky sunrise__sky--dawn" aria-hidden="true"></div>
         <div class="sunrise__sky sunrise__sky--day" aria-hidden="true"></div>
         <div class="sunrise__glow" aria-hidden="true"></div>
@@ -31,7 +24,14 @@
         </svg>
       </div>
 
-        <div class="sunrise__content">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <!-- Sunrise: the sky is a fixed background behind the whole page (see .sunrise-bg above), the content
+         scrolls in front of it. js/home.js sets --p (0 dawn to 1 full sunrise) from the scroll position, reaching
+         1 as the footer comes into view. With reduced motion or no JavaScript it rests as a still sunrise. -->
+    <section class="sunrise" id="sunrise">
+      <div class="sunrise__content">
           <p class="eyebrow lang-en">We're getting married</p>
           <p class="eyebrow lang-pt">Vamos nos casar</p>
           <h1>Oghenekevwe &amp; Andre Peter</h1>
@@ -73,7 +73,7 @@
     </section>
 
     <section>
-      <div class="container container--narrow" style="text-align:center;">
+      <div class="container container--narrow panel" style="text-align:center;">
         <div class="motif-diamonds" aria-hidden="true">
           <svg viewBox="0 0 10 10"><rect x="1.4" y="1.4" width="7.2" height="7.2" fill="currentColor" transform="rotate(45 5 5)" /></svg>
           <svg viewBox="0 0 10 10"><rect x="1.4" y="1.4" width="7.2" height="7.2" fill="currentColor" transform="rotate(45 5 5)" /></svg>
@@ -150,7 +150,7 @@
     </section>
 
     <section>
-      <div class="container container--narrow" style="text-align:center;">
+      <div class="container container--narrow panel" style="text-align:center;">
         <h2 class="lang-en">Share the joy</h2>
         <h2 class="lang-pt">Compartilhe a alegria</h2>
         <p class="hashtag">#OurAlliance2027</p>

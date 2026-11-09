@@ -4,16 +4,19 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- Sunrise: --p goes from 0 (dawn) to 1 (full sunrise) while scrolling the tall wrapper ---- */
-  var sunrise = document.getElementById("sunrise");
-  if (sunrise && !reduceMotion) {
+  /* ---- Sunrise: --p goes from 0 (dawn) to 1 (full sunrise) over the whole page, reaching 1 as
+          the footer comes into view. The sky is fixed behind the content (see .sunrise-bg). ---- */
+  var root = document.documentElement;
+  if (!reduceMotion) {
     var ticking = false;
     var update = function () {
       ticking = false;
-      var rect = sunrise.getBoundingClientRect();
-      var span = rect.height - window.innerHeight;
-      var p = span > 0 ? Math.min(1, Math.max(0, -rect.top / span)) : 0.7;
-      sunrise.style.setProperty("--p", p.toFixed(3));
+      var footer = document.getElementById("site-footer");
+      // the scroll position at which the footer's top edge reaches the bottom of the screen
+      var end = footer ? footer.getBoundingClientRect().top + window.pageYOffset - window.innerHeight : 0;
+      if (!(end > 0)) end = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      var p = Math.min(1, Math.max(0, window.pageYOffset / end));
+      root.style.setProperty("--p", p.toFixed(3));
     };
     var onScroll = function () {
       if (!ticking) {
@@ -23,7 +26,13 @@
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    window.addEventListener("load", onScroll);
+    // the shared footer is loaded after the page, so measure again once it is in place
+    setTimeout(onScroll, 600);
+    setTimeout(onScroll, 1800);
     update();
+  } else {
+    root.style.setProperty("--p", "0.7");
   }
 
   /* ---- Countdown to the Nigerian Ceremony, the nearer date ---- */

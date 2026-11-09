@@ -23,7 +23,7 @@ Reception), Travel and Accommodation group (Getting to Lagos, Getting to
 Salvador), RSVP (event selector), Registry, Gallery (one album per city), FAQ,
 Contact. The old Meet the Couple, Wedding Party and Family, Traditions and Menu,
 Schedule, Event Details and Travel pages are retired and redirect through
-vercel.json. A footer of small flowers in the bottom left corner appears on every
+vercel.json. A footer of small flowers in the bottom right corner appears on every
 page.
 
 Naming: Andre Peter goes by "Peter" to Brazilian family and friends and

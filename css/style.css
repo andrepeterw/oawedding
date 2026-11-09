@@ -178,11 +178,21 @@ section {
 }
 
 .site-header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: clamp(0.95rem, 3.8vw, 1.3rem);
+  line-height: 1.15;
   color: var(--color-ocean);
   text-decoration: none;
   letter-spacing: 0.02em;
+}
+
+.site-header__monogram {
+  height: clamp(2rem, 7vw, 2.6rem);
+  width: auto;
+  flex: none;
 }
 
 .site-header__controls {
@@ -697,6 +707,13 @@ html:not([data-lang]) .lang-pt {
   font-size: clamp(2.1rem, 6.4vw, 3.5rem);
 }
 
+.hero__monogram {
+  display: block;
+  width: clamp(5.5rem, 22vw, 8.5rem);
+  height: auto;
+  margin: 0.4rem auto 0.8rem;
+}
+
 .sunrise__content .eyebrow {
   color: color-mix(in srgb, var(--color-coral-text) 70%, #000);
 }
@@ -921,7 +938,7 @@ html:not([data-lang]) .lang-pt {
 
 .site-footer__flowers {
   position: absolute;
-  left: 0.5rem;
+  right: 0.5rem;
   bottom: 0.2rem;
   width: 7.5rem;
   height: 6rem;
@@ -929,7 +946,7 @@ html:not([data-lang]) .lang-pt {
 }
 
 .site-footer__bottom {
-  padding-left: 7rem;
+  padding-right: 8.5rem;
 }
 
 .flower-petal {

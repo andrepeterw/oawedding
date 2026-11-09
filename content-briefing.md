@@ -30,7 +30,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 
 Retired pages and where their content went: Meet the Couple and Wedding Party and Family became Our Alliance. Traditions and Menu moved into the Nigerian Ceremony (traditions, glossary, Nigerian dishes) and the Brazilian Reception (Brazilian dishes). Schedule moved into the Brazilian Reception as a draft order of the day. Event Details became the Brazilian Reception. Travel became Getting to Salvador. Old addresses redirect through vercel.json.
 
-A persistent navigation with the English and Portuguese toggle sits on every page, and a footer of small flowers in varying sizes sits in the bottom left corner of every page.
+A persistent navigation with the English and Portuguese toggle sits on every page, and a footer of small flowers in varying sizes sits in the bottom right corner of every page.
 
 ## Page content that is settled
 

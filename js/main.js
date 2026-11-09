@@ -42,6 +42,11 @@
       if (link.dataset.nav === current) {
         link.classList.add("is-active");
         link.setAttribute("aria-current", "page");
+        var group = link.closest(".nav-group");
+        if (group) {
+          var label = group.querySelector(".nav-group__label");
+          if (label) label.classList.add("is-active-group");
+        }
       }
     });
   }

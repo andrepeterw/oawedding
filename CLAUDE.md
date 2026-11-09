@@ -1,14 +1,30 @@
-This project is a bilingual (English and Portuguese) wedding website for Oghenekevwe
-and Andre Peter, marrying at Tropicalia Eventos in Salvador, Bahia, likely
-late June to mid July 2027 (date not yet confirmed, treat as a placeholder
-everywhere). The full content and design brief lives in content-briefing.md,
-read that first in every session. Tone: elegant and timeless, warm and
-intimate. The couple is Christian, evangelical, and wants faith visibly at
-the center of the site without excluding guests of other backgrounds.
-Guests are Brazilian, Nigerian (mostly Urhobo), and American (plus some
-from Namibia). Build mobile first, static, fast, and simple. Do not add a
-backend database, use third party tools for RSVP (Tally/Formspree) and
-photo uploads (shared Google Photos album) instead.
+This project is a bilingual (English and Portuguese) wedding website for
+Oghenekevwe and Andre Peter. There are two linked celebrations: the Nigerian
+Ceremony (Urhobo traditional and white wedding, same day) on June 12, 2027, in
+Lagos, Nigeria, followed by the Brazilian Reception on June 19, 2027, in
+Salvador, Bahia (a smaller gathering at a beach house, venue still to be
+chosen, Espaco Tropicalia is no longer the plan). The full content and design
+brief lives in content-briefing.md, read that first in every session. The site
+should read as one love story told in two homes. Tone: elegant and timeless,
+warm and intimate. The couple is Christian, evangelical, and wants faith
+visibly at the center of the site without excluding guests of other
+backgrounds. Guests are Brazilian, Nigerian (mostly Urhobo), American, and
+Namibian. Build mobile first, static, fast, and simple. Do not add a backend
+database for the public site, use third party tools for RSVP (Tally or
+Formspree) and photo uploads (shared Google Photos albums, one per city)
+instead. There is also a planner page at /planner for the couple only,
+specified in CLAUDE_CODE_add_planner_page.md, never link to it from the public
+site.
+
+Site map: Home (sunrise scroll effect, both dates and cities, countdown to the
+nearer date), Our Story, Our Alliance (couple, wedding party, family, in loving
+memory), Our Faith, Our Ceremonies group (Nigerian Ceremony, Brazilian
+Reception), Travel and Accommodation group (Getting to Lagos, Getting to
+Salvador), RSVP (event selector), Registry, Gallery (one album per city), FAQ,
+Contact. The old Meet the Couple, Wedding Party and Family, Traditions and Menu,
+Schedule, Event Details and Travel pages are retired and redirect through
+vercel.json. A footer of small flowers in the bottom left corner appears on every
+page.
 
 Naming: Andre Peter goes by "Peter" to Brazilian family and friends and
 "Andre" to Nigerian family and friends. The couple has chosen to display

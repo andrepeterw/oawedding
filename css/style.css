@@ -103,7 +103,7 @@ section {
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-coral);
+  color: var(--color-coral-text);
   font-weight: 600;
   margin-bottom: var(--space-xs);
 }
@@ -141,12 +141,12 @@ section {
 }
 
 .btn--primary {
-  background: var(--color-coral);
+  background: var(--color-coral-strong);
   color: var(--color-cream-text);
 }
 
 .btn--primary:hover {
-  background: var(--color-coral-dark);
+  background: var(--color-coral-text);
 }
 
 .btn--outline {
@@ -278,7 +278,7 @@ section {
 }
 
 .site-nav a.is-active {
-  color: var(--color-coral);
+  color: var(--color-coral-text);
 }
 
 /* --------------------------------- Footer --------------------------------- */
@@ -440,7 +440,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-ocean-soft);
+  color: var(--color-ocean);
   font-size: 0.85rem;
   text-align: center;
   padding: var(--space-sm);
@@ -508,7 +508,7 @@ section {
   border: 1px dashed var(--color-coral);
   border-radius: var(--radius);
   padding: var(--space-sm);
-  color: var(--color-coral-dark);
+  color: var(--color-coral-text);
   font-size: 0.9rem;
 }
 
@@ -552,4 +552,418 @@ html[data-lang="pt"] .lang-en {
 /* Default (before JS runs) to English so content isn't hidden if JS fails. */
 html:not([data-lang]) .lang-pt {
   display: none;
+}
+
+/* ==========================================================================
+   Structure update: two ceremonies, grouped navigation, sunrise Home,
+   flower footer, forms and small components.
+   ========================================================================== */
+
+/* ----------------------------- Grouped navigation ------------------------- */
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-block: 0.35rem;
+  padding-block: 0.45rem;
+  border-block: 1px solid var(--color-border);
+}
+
+.nav-group__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  padding: 0.2rem 0.5rem;
+}
+
+.nav-group__label.is-active-group {
+  color: var(--color-coral-text);
+}
+
+.site-nav .nav-group a {
+  padding-left: 1.25rem;
+}
+
+/* ------------------------------ Sunrise (Home) ---------------------------- */
+/* The sky is a sticky background that stays in view while the page scrolls over it.
+   js/home.js sets --p (0 dawn to 1 full sunrise) from the scroll position, the sky warms
+   from lavender and rose to gold and the sun rises over the sea. The content scrolls
+   normally, so it never gets clipped on a short screen. Without JavaScript, or with reduced
+   motion, --p rests at a still mid sunrise. */
+.sunrise {
+  --p: 0.55;
+  position: relative;
+  min-height: 150vh;
+  min-height: 150svh;
+  padding: 0 var(--space-sm);
+  background: var(--color-sand);
+  color: var(--color-ocean);
+}
+
+.sunrise__bg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  margin: 0 calc(-1 * var(--space-sm)) -100vh;
+  margin-bottom: -100svh;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sunrise__sky,
+.sunrise__glow,
+.sunrise__sun,
+.sunrise__sea {
+  position: absolute;
+  pointer-events: none;
+}
+
+.sunrise__sky {
+  inset: 0;
+}
+
+.sunrise__sky--dawn {
+  background: linear-gradient(180deg, var(--color-dawn) 0%, var(--color-dawn-rose) 48%, var(--color-blush) 100%);
+  opacity: calc(1 - var(--p));
+}
+
+.sunrise__sky--day {
+  background: linear-gradient(180deg, #f6e1cf 0%, var(--color-sunrise) 58%, #f1c47f 100%);
+  opacity: var(--p);
+}
+
+.sunrise__glow {
+  left: 50%;
+  bottom: -18vh;
+  width: 150vmax;
+  height: 90vh;
+  transform: translateX(-50%) scale(calc(0.6 + var(--p) * 0.5));
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 244, 205, 0.95) 0%, rgba(255, 226, 160, 0.5) 32%, rgba(255, 226, 160, 0) 68%);
+  opacity: calc(0.25 + var(--p) * 0.75);
+}
+
+.sunrise__sun {
+  left: 50%;
+  bottom: 9vh;
+  width: min(36vmin, 15rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #fff6d4 0%, #f9dc8b 58%, #f3c364 100%);
+  transform: translate(-50%, calc((1 - var(--p)) * 62%));
+  opacity: calc(0.3 + var(--p) * 0.7);
+}
+
+.sunrise__sea {
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 16vh;
+  color: var(--color-ocean);
+}
+
+.sunrise__sea--far {
+  opacity: 0.45;
+  transform: translateY(calc((1 - var(--p)) * 2vh));
+}
+
+.sunrise__sea--near {
+  opacity: 0.92;
+  transform: translateY(calc((1 - var(--p)) * 5vh));
+}
+
+.sunrise__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 58rem;
+  margin-inline: auto;
+  padding-top: 5.5rem;
+  padding-bottom: 12vh;
+  text-align: center;
+}
+
+.sunrise__content h1 {
+  color: var(--color-ocean);
+  font-size: clamp(2.1rem, 6.4vw, 3.5rem);
+}
+
+.sunrise__content .eyebrow {
+  color: color-mix(in srgb, var(--color-coral-text) 70%, #000);
+}
+
+.sunrise__content .hero__verse {
+  color: var(--color-ocean);
+}
+
+.dates-device {
+  display: grid;
+  gap: 0.1rem;
+  margin: var(--space-xs) 0 var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 5vw, 2.1rem);
+  line-height: 1.25;
+  color: var(--color-ocean);
+}
+
+.dates-device small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ocean);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sunrise {
+    min-height: 0;
+    --p: 0.7;
+    padding-bottom: 5rem;
+  }
+
+  .sunrise__bg {
+    position: absolute;
+    inset: 0;
+    height: auto;
+    margin: 0;
+  }
+}
+
+/* -------------------------------- Countdown ------------------------------- */
+.countdown {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  margin-block: var(--space-sm) var(--space-xs);
+}
+
+.countdown__box {
+  min-width: 4.2rem;
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(22, 63, 66, 0.14);
+  text-align: center;
+}
+
+.countdown__num {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown__label {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ocean-soft);
+}
+
+.countdown-note {
+  font-size: 0.9rem;
+  color: var(--color-ocean);
+  margin: 0;
+}
+
+/* ---------------------------- Event cards and tags ------------------------ */
+.event-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.event-card__when {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--color-ocean);
+  margin: 0;
+}
+
+.tba {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 1px dashed var(--color-ocean-soft);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-ocean);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 40rem) {
+  .facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.facts dt {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  font-weight: 600;
+}
+
+.facts dd {
+  margin: 0.15rem 0 0;
+}
+
+.cal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-xs);
+}
+
+.btn--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.livestream {
+  border: 1px dashed var(--color-ocean-soft);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-top: var(--space-sm);
+  font-size: 0.9rem;
+}
+
+.map-embed {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-sand-dark);
+}
+
+.map-embed iframe {
+  display: block;
+  width: 100%;
+  height: 20rem;
+  border: 0;
+}
+
+.hashtag {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-ocean);
+}
+
+/* ------------------------------- Forms ----------------------------------- */
+.form {
+  display: grid;
+  gap: var(--space-sm);
+  text-align: left;
+}
+
+.form label,
+.form legend {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="number"],
+.form textarea {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  font: inherit;
+  color: var(--color-ink);
+}
+
+.form fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm);
+  margin: 0;
+  background: #fff;
+}
+
+.form .choice {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-weight: 400;
+  padding-block: 0.25rem;
+}
+
+.form .choice input {
+  margin-top: 0.35rem;
+}
+
+.form :disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ----------------------------- Flower footer ------------------------------ */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+}
+
+.site-footer__flowers {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.2rem;
+  width: 7.5rem;
+  height: 6rem;
+  pointer-events: none;
+}
+
+.site-footer__bottom {
+  padding-left: 7rem;
+}
+
+.flower-petal {
+  fill: var(--color-blush);
+}
+
+.flower-petal--gold {
+  fill: var(--color-sunrise);
+}
+
+.flower-core {
+  fill: var(--color-gold);
+}
+
+.flower-stem {
+  fill: none;
+  stroke: rgba(251, 247, 239, 0.45);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* eyebrow labels on the dark ocean hero need a light color */
+.section--ocean .eyebrow {
+  color: var(--color-blush);
 }

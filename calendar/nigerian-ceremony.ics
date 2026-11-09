@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kev and Andre Peter Wedding//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:nigerian-ceremony-20270612@wedding
+DTSTAMP:20261109T000000Z
+DTSTART;VALUE=DATE:20270612
+DTEND;VALUE=DATE:20270613
+SUMMARY:Nigerian Ceremony: Kev and Andre Peter
+LOCATION:Lagos\, Nigeria
+DESCRIPTION:Church wedding and Urhobo traditional ceremony on the same day. Church\, venue and time will be added to our wedding website.
+END:VEVENT
+END:VCALENDAR

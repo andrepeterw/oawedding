@@ -19,45 +19,60 @@
         <p class="eyebrow lang-pt">Confirmar Presença</p>
         <h1 class="lang-en">We can't wait to see you</h1>
         <h1 class="lang-pt">Mal podemos esperar para ver você</h1>
-        <p class="lang-en">Please RSVP by <strong>[deadline to be confirmed, roughly 6 months before the wedding]</strong>.</p>
-        <p class="lang-pt">Por favor, confirme sua presença até <strong>[prazo a confirmar, aproximadamente 6 meses antes do casamento]</strong>.</p>
+        <p class="lang-en">Please reply by <strong>[deadline to be confirmed, around December 2026]</strong>.</p>
+        <p class="lang-pt">Por favor, responda até <strong>[prazo a confirmar, por volta de dezembro de 2026]</strong>.</p>
       </div>
     </section>
 
     <section>
       <div class="container container--narrow">
-        <!--
-          RSVP form embed goes here. Per the build guide (Step 9), create a
-          free Tally (tally.so) or Formspree (formspree.io) form with the
-          fields below, then either:
-            (a) paste the embed <iframe> Tally/Formspree provides in place
-                of the placeholder card below, or
-            (b) tell Claude Code the form's endpoint URL and ask it to wire
-                this page's <form> to submit there directly.
+        <p class="placeholder-text lang-en" style="margin-bottom: var(--space-sm);">The RSVP form opens very soon. Below is a preview of the questions we will ask, including which celebration, or both, you will join.</p>
+        <p class="placeholder-text lang-pt" style="margin-bottom: var(--space-sm);">O formulário de confirmação abre muito em breve. Abaixo está uma prévia das perguntas que vamos fazer, incluindo de qual celebração, ou das duas, você vai participar.</p>
 
-          Suggested fields (see content-briefing.md, Section 12):
-            Full name
-            Attending: yes or no
-            Number of guests
-            Dietary restrictions and allergies
-            Country traveling from
-            Need visa or travel info: yes or no
-            Song requests (optional)
-            Message for the couple (optional)
+        <!--
+          RSVP form: Per the build guide (Step 9), create a free Tally (tally.so) or
+          Formspree (formspree.io) form with the same fields as below, then either
+          (a) replace this whole <form> with the embed Tally or Formspree provides, or
+          (b) set this form's action to the Formspree endpoint, remove "disabled" from
+              the fieldset, and re-enable the button.
+          Fields: name, which event (Nigerian Ceremony, Brazilian Reception, both, or
+          cannot attend), number of guests, dietary notes, travel or visa help.
         -->
-        <div class="card placeholder-text" style="text-align:center;">
-          <p class="lang-en">
-            The RSVP form isn't connected yet. Once you've created a free
-            Tally or Formspree form, tell Claude Code the link and it will
-            embed or wire it up here.
-          </p>
-          <p class="lang-pt">
-            O formulário de confirmação de presença ainda não está
-            conectado. Assim que você criar um formulário gratuito no Tally
-            ou no Formspree, informe o link ao Claude Code para que ele
-            seja incorporado ou conectado aqui.
-          </p>
-        </div>
+        <form class="form" action="#" method="post" onsubmit="return false;">
+          <fieldset class="form__fields" disabled style="border:0;padding:0;margin:0;display:grid;gap:var(--space-sm);">
+            <label>
+              <span class="lang-en">Full name</span><span class="lang-pt">Nome completo</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+
+            <fieldset>
+              <legend class="lang-en">Which celebration will you join?</legend>
+              <legend class="lang-pt">De qual celebração você vai participar?</legend>
+              <label class="choice"><input type="radio" name="event" value="lagos" /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027</span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027</span></label>
+              <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027</span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027</span></label>
+              <label class="choice"><input type="radio" name="event" value="both" /> <span class="lang-en">Both celebrations</span><span class="lang-pt">As duas celebrações</span></label>
+              <label class="choice"><input type="radio" name="event" value="no" /> <span class="lang-en">I am sorry, I cannot come</span><span class="lang-pt">Sinto muito, não poderei ir</span></label>
+            </fieldset>
+
+            <label>
+              <span class="lang-en">Number of guests, including you</span><span class="lang-pt">Número de convidados, incluindo você</span>
+              <input type="number" name="guests" min="1" max="10" value="1" />
+            </label>
+
+            <label>
+              <span class="lang-en">Dietary notes or allergies</span><span class="lang-pt">Restrições alimentares ou alergias</span>
+              <textarea name="dietary" rows="3"></textarea>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" name="travel_help" value="yes" />
+              <span class="lang-en">I would like travel or visa guidance for the city that is new to me</span>
+              <span class="lang-pt">Gostaria de orientação de viagem ou de visto para a cidade que é nova para mim</span>
+            </label>
+
+            <button class="btn btn--primary" type="submit"><span class="lang-en">Send my RSVP</span><span class="lang-pt">Enviar minha confirmação</span></button>
+          </fieldset>
+        </form>
       </div>
     </section>
   </main>

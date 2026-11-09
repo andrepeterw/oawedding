@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/meet-the-couple.html", "destination": "/our-alliance.html", "permanent": true },
+    { "source": "/wedding-party.html", "destination": "/our-alliance.html#wedding-party", "permanent": true },
+    { "source": "/traditions.html", "destination": "/nigerian-ceremony.html#traditions", "permanent": true },
+    { "source": "/schedule.html", "destination": "/brazilian-reception.html#order-of-the-day", "permanent": true },
+    { "source": "/event-details.html", "destination": "/brazilian-reception.html", "permanent": true },
+    { "source": "/travel.html", "destination": "/getting-to-salvador.html", "permanent": true }
+  ]
+}

@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kev and Andre Peter Wedding//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:brazilian-reception-20270619@wedding
+DTSTAMP:20261109T000000Z
+DTSTART;VALUE=DATE:20270619
+DTEND;VALUE=DATE:20270620
+SUMMARY:Brazilian Reception: Kev and Andre Peter
+LOCATION:Salvador\, Bahia\, Brazil
+DESCRIPTION:A smaller gathering at a beach house\, late afternoon into sunset. Venue and time will be added to our wedding website.
+END:VEVENT
+END:VCALENDAR

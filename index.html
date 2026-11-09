@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oghenekevwe &amp; Andre Peter | Our Wedding</title>
-  <meta name="description" content="Oghenekevwe and Andre Peter are getting married at Tropicalia Eventos in Salvador, Bahia. Join us for the details, our story, and how to celebrate with us." />
+  <meta name="description" content="Oghenekevwe and Andre Peter are getting married in two homes: the Nigerian Ceremony in Lagos on June 12, 2027, and the Brazilian Reception in Salvador, Bahia on June 19, 2027." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -14,89 +14,158 @@
   <header id="site-header" class="site-header"></header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <p class="eyebrow lang-en">We're getting married</p>
-        <p class="eyebrow lang-pt">Vamos nos casar</p>
-        <h1>Oghenekevwe &amp; Andre Peter</h1>
-        <p class="hero__date lang-en">Late June to Mid July 2027 &middot; exact date coming soon</p>
-        <p class="hero__date lang-pt">Final de junho a meados de julho de 2027 &middot; data exata em breve</p>
-        <p class="hero__date lang-en">Tropicalia Eventos, Salvador, Bahia, Brazil</p>
-        <p class="hero__date lang-pt">Tropicalia Eventos, Salvador, Bahia, Brasil</p>
+    <!-- Sunrise: the sky is a sticky background, the content scrolls over it. js/home.js sets --p
+         (0 to 1) as the visitor scrolls, the sky warms from dawn lavender and rose to gold and the
+         sun rises over the sea. With reduced motion or no JavaScript it rests as a still sunrise. -->
+    <section class="sunrise" id="sunrise" style="padding-block:0;">
+      <div class="sunrise__bg" aria-hidden="true">
+        <div class="sunrise__sky sunrise__sky--dawn" aria-hidden="true"></div>
+        <div class="sunrise__sky sunrise__sky--day" aria-hidden="true"></div>
+        <div class="sunrise__glow" aria-hidden="true"></div>
+        <div class="sunrise__sun" aria-hidden="true"></div>
+        <svg class="sunrise__sea sunrise__sea--far" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0,58 C180,20 360,92 560,60 C760,28 980,96 1180,58 C1300,36 1380,50 1440,62 L1440,120 L0,120 Z" fill="currentColor" />
+        </svg>
+        <svg class="sunrise__sea sunrise__sea--near" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0,84 C220,52 420,110 660,84 C900,58 1100,108 1300,82 C1370,74 1410,78 1440,84 L1440,120 L0,120 Z" fill="currentColor" />
+        </svg>
+      </div>
 
+        <div class="sunrise__content">
+          <p class="eyebrow lang-en">We're getting married</p>
+          <p class="eyebrow lang-pt">Vamos nos casar</p>
+          <h1>Oghenekevwe &amp; Andre Peter</h1>
+          <p class="hero__verse lang-en">Two very different worlds, meeting on purpose.</p>
+          <p class="hero__verse lang-pt">Dois mundos muito diferentes, se encontrando de propósito.</p>
+
+          <p class="dates-device lang-en">
+            <span>Lagos. June 12.</span>
+            <span>Salvador. June 19.</span>
+            <small>2027</small>
+          </p>
+          <p class="dates-device lang-pt">
+            <span>Lagos. 12 de junho.</span>
+            <span>Salvador. 19 de junho.</span>
+            <small>2027</small>
+          </p>
+
+          <div class="countdown" id="countdown" data-target="2027-06-12T00:00:00+01:00" role="timer" aria-live="off">
+            <div class="countdown__box"><span class="countdown__num" data-unit="days">000</span><span class="countdown__label"><span class="lang-en">days</span><span class="lang-pt">dias</span></span></div>
+            <div class="countdown__box"><span class="countdown__num" data-unit="hours">00</span><span class="countdown__label"><span class="lang-en">hours</span><span class="lang-pt">horas</span></span></div>
+            <div class="countdown__box"><span class="countdown__num" data-unit="minutes">00</span><span class="countdown__label"><span class="lang-en">min</span><span class="lang-pt">min</span></span></div>
+            <div class="countdown__box"><span class="countdown__num" data-unit="seconds">00</span><span class="countdown__label"><span class="lang-en">sec</span><span class="lang-pt">seg</span></span></div>
+          </div>
+          <p class="countdown-note lang-en">Counting down to the Nigerian Ceremony in Lagos. The Brazilian Reception in Salvador follows one week later, on June 19.</p>
+          <p class="countdown-note lang-pt">Contagem regressiva para a Cerimônia Nigeriana em Lagos. A Recepção Brasileira em Salvador acontece uma semana depois, em 19 de junho.</p>
+
+          <p class="hero__verse lang-en" style="margin-top: var(--space-sm);">&ldquo;It is important to us that God is at the center of our wedding.&rdquo;</p>
+          <p class="hero__verse lang-pt" style="margin-top: var(--space-sm);">&ldquo;É importante para nós que Deus esteja no centro do nosso casamento.&rdquo;</p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="/rsvp.html">
+              <span class="lang-en">RSVP</span><span class="lang-pt">Confirmar Presença</span>
+            </a>
+            <a class="btn btn--outline" href="/our-story.html">
+              <span class="lang-en">Our Story</span><span class="lang-pt">Nossa História</span>
+            </a>
+          </div>
+        </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow" style="text-align:center;">
         <div class="motif-diamonds" aria-hidden="true">
           <svg viewBox="0 0 10 10"><rect x="1.4" y="1.4" width="7.2" height="7.2" fill="currentColor" transform="rotate(45 5 5)" /></svg>
           <svg viewBox="0 0 10 10"><rect x="1.4" y="1.4" width="7.2" height="7.2" fill="currentColor" transform="rotate(45 5 5)" /></svg>
           <svg viewBox="0 0 10 10"><rect x="1.4" y="1.4" width="7.2" height="7.2" fill="currentColor" transform="rotate(45 5 5)" /></svg>
         </div>
-
-        <p class="hero__verse lang-en">&ldquo;Being confident of this very thing, that He who has begun a good work in you will perform it until the day of Jesus Christ.&rdquo; — Philippians 1:6</p>
-        <p class="hero__verse lang-pt">&ldquo;Tendo por certo isto: que aquele que em vós começou a boa obra a aperfeiçoará até ao dia de Cristo Jesus.&rdquo; — Filipenses 1:6</p>
-
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="/rsvp.html">
-            <span class="lang-en">RSVP</span><span class="lang-pt">Confirmar Presença</span>
-          </a>
-          <a class="btn btn--outline" href="/our-story.html">
-            <span class="lang-en">Our Story</span><span class="lang-pt">Nossa História</span>
-          </a>
-        </div>
-      </div>
-      <svg class="hero__wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,32 C240,58 480,4 720,20 C960,36 1200,58 1440,30 L1440,60 L0,60 Z" fill="var(--color-sand)" />
-      </svg>
-    </section>
-
-    <section>
-      <div class="container container--narrow" style="text-align:center;">
-        <h2 class="lang-en">Welcome, with love</h2>
-        <h2 class="lang-pt">Sejam bem vindos, com amor</h2>
+        <h2 class="lang-en">One love story, told in two homes</h2>
+        <h2 class="lang-pt">Uma história de amor, contada em dois lares</h2>
         <p class="lang-en">
           We come from different countries, different families, and different
           stories. One of us is Nigerian, one of us is Brazilian, and we were
           raised an ocean apart. God brought us together in His timing, and
           we've built our relationship on a shared commitment to learn each
-          other's language, in every sense of the word. Now we get to bring
-          our worlds together in Salvador, and we would love for you to be
-          part of it. Whatever your background or beliefs, you are genuinely
-          welcome here.
+          other's language, in every sense of the word. So we are celebrating
+          twice: first in Lagos, with the sunrise, and one week later in
+          Salvador, by the sea. Wherever you join us from, whatever your
+          background or beliefs, you are genuinely welcome.
         </p>
         <p class="lang-pt">
           Viemos de países diferentes, de famílias diferentes e de histórias
           diferentes. Um de nós é nigeriano, a outra é brasileira, e fomos
           criados a um oceano de distância. Deus nos uniu no tempo dEle, e
           construímos nosso relacionamento sobre um compromisso de aprender a
-          linguagem um do outro, em todos os sentidos. Agora vamos unir
-          nossos mundos em Salvador, e adoraríamos ter você conosco. Seja
-          qual for sua origem ou crença, você é verdadeiramente bem vindo
-          aqui.
+          linguagem um do outro, em todos os sentidos. Por isso vamos
+          celebrar duas vezes: primeiro em Lagos, com o nascer do sol, e uma
+          semana depois em Salvador, à beira mar. De onde quer que você venha,
+          seja qual for sua origem ou crença, você é verdadeiramente bem vindo.
         </p>
+        <p class="hero__verse lang-en" style="color: var(--color-ocean-soft);">&ldquo;Being confident of this very thing, that He who has begun a good work in you will perform it until the day of Jesus Christ.&rdquo; — Philippians 1:6</p>
+        <p class="hero__verse lang-pt" style="color: var(--color-ocean-soft);">&ldquo;Tendo por certo isto: que aquele que em vós começou a boa obra a aperfeiçoará até ao dia de Cristo Jesus.&rdquo; — Filipenses 1:6</p>
       </div>
     </section>
 
     <section class="section--sand">
       <div class="container">
-        <div class="grid grid--2">
-          <div class="card">
-            <h3 class="lang-en">Save the Date</h3>
-            <h3 class="lang-pt">Reserve a Data</h3>
-            <p class="placeholder-text lang-en">Exact wedding date to be confirmed. The planning window is late June to mid July 2027. This page will be updated as soon as it's locked in.</p>
-            <p class="placeholder-text lang-pt">Data exata do casamento a confirmar. A janela de planejamento é do final de junho a meados de julho de 2027. Esta página será atualizada assim que a data for definida.</p>
+        <h2 style="text-align:center;">
+          <span class="lang-en">Two celebrations, one week apart</span>
+          <span class="lang-pt">Duas celebrações, com uma semana de diferença</span>
+        </h2>
+        <div class="grid grid--2" style="margin-top: var(--space-md);">
+          <div class="card event-card">
+            <p class="eyebrow lang-en">Lagos, Nigeria</p>
+            <p class="eyebrow lang-pt">Lagos, Nigéria</p>
+            <h3 class="lang-en">Nigerian Ceremony</h3>
+            <h3 class="lang-pt">Cerimônia Nigeriana</h3>
+            <p class="event-card__when lang-en">June 12, 2027</p>
+            <p class="event-card__when lang-pt">12 de junho de 2027</p>
+            <p class="lang-en">The church wedding and the Urhobo traditional ceremony, on the same day.</p>
+            <p class="lang-pt">O casamento na igreja e a cerimônia tradicional urhobo, no mesmo dia.</p>
+            <p><span class="tba lang-en">Church, venue and time coming soon</span><span class="tba lang-pt">Igreja, local e horário em breve</span></p>
+            <div class="cal-links">
+              <a class="btn btn--primary btn--small" href="/nigerian-ceremony.html"><span class="lang-en">Ceremony details</span><span class="lang-pt">Detalhes da cerimônia</span></a>
+              <a class="btn btn--outline btn--small" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Nigerian+Ceremony%3A+Kev+and+Andre+Peter&amp;dates=20270612/20270613&amp;details=Church+wedding+and+Urhobo+traditional+ceremony.+Venue+and+time+coming+soon+on+our+wedding+website.&amp;location=Lagos%2C+Nigeria" target="_blank" rel="noopener"><span class="lang-en">Google Calendar</span><span class="lang-pt">Google Agenda</span></a>
+              <a class="btn btn--outline btn--small" href="/calendar/nigerian-ceremony.ics" download><span class="lang-en">Apple or Outlook</span><span class="lang-pt">Apple ou Outlook</span></a>
+            </div>
           </div>
-          <div class="card">
-            <h3 class="lang-en">Where</h3>
-            <h3 class="lang-pt">Onde</h3>
-            <p class="lang-en">Tropicalia Eventos, facing the ocean, Salvador, Bahia, Brazil. Full travel and accommodation guidance is on the Travel page.</p>
-            <p class="lang-pt">Tropicalia Eventos, de frente para o mar, Salvador, Bahia, Brasil. As orientações completas de viagem e hospedagem estão na página Viagem.</p>
-            <a href="/travel.html" class="btn btn--outline" style="margin-top:0.5rem;">
-              <span class="lang-en">Travel &amp; Accommodation</span><span class="lang-pt">Viagem e Hospedagem</span>
-            </a>
+          <div class="card event-card">
+            <p class="eyebrow lang-en">Salvador, Bahia</p>
+            <p class="eyebrow lang-pt">Salvador, Bahia</p>
+            <h3 class="lang-en">Brazilian Reception</h3>
+            <h3 class="lang-pt">Recepção Brasileira</h3>
+            <p class="event-card__when lang-en">June 19, 2027</p>
+            <p class="event-card__when lang-pt">19 de junho de 2027</p>
+            <p class="lang-en">A smaller gathering at a beach house, late afternoon into sunset.</p>
+            <p class="lang-pt">Um encontro menor em uma casa de praia, do final da tarde até o pôr do sol.</p>
+            <p><span class="tba lang-en">Venue coming soon</span><span class="tba lang-pt">Local em breve</span></p>
+            <div class="cal-links">
+              <a class="btn btn--primary btn--small" href="/brazilian-reception.html"><span class="lang-en">Reception details</span><span class="lang-pt">Detalhes da recepção</span></a>
+              <a class="btn btn--outline btn--small" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Brazilian+Reception%3A+Kev+and+Andre+Peter&amp;dates=20270619/20270620&amp;details=A+smaller+gathering+at+a+beach+house+in+Salvador%2C+Bahia.+Venue+and+time+coming+soon+on+our+wedding+website.&amp;location=Salvador%2C+Bahia%2C+Brazil" target="_blank" rel="noopener"><span class="lang-en">Google Calendar</span><span class="lang-pt">Google Agenda</span></a>
+              <a class="btn btn--outline btn--small" href="/calendar/brazilian-reception.ics" download><span class="lang-en">Apple or Outlook</span><span class="lang-pt">Apple ou Outlook</span></a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section>
+      <div class="container container--narrow" style="text-align:center;">
+        <h2 class="lang-en">Share the joy</h2>
+        <h2 class="lang-pt">Compartilhe a alegria</h2>
+        <p class="hashtag">#OurAlliance2027</p>
+        <p class="lang-en">Tag your photos and videos with our hashtag, and pass this page on to anyone who should be there.</p>
+        <p class="lang-pt">Marque suas fotos e vídeos com a nossa hashtag, e passe esta página adiante para quem deveria estar conosco.</p>
+        <div class="cal-links" style="justify-content:center;">
+          <button type="button" class="btn btn--outline btn--small" data-share><span class="lang-en">Share this site</span><span class="lang-pt">Compartilhar este site</span></button>
+          <a class="btn btn--outline btn--small" data-whatsapp href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+          <button type="button" class="btn btn--outline btn--small" data-copy-link><span class="lang-en">Copy link</span><span class="lang-pt">Copiar link</span></button>
+        </div>
+        <p class="countdown-note" role="status" data-share-status></p>
+      </div>
+    </section>
+
+    <section class="section--sand">
       <div class="container">
         <h2 style="text-align:center;">
           <span class="lang-en">Find your way around</span>
@@ -109,17 +178,17 @@
             <p class="lang-en">Why God is at the center of our day, and why everyone is welcome at the table.</p>
             <p class="lang-pt">Por que Deus está no centro do nosso dia, e por que todos são bem vindos.</p>
           </a>
-          <a class="card" href="/traditions.html" style="text-decoration:none;">
-            <h3 class="lang-en">Traditions &amp; Words to Know</h3>
-            <h3 class="lang-pt">Tradições e Palavras</h3>
-            <p class="lang-en">Nigerian traditions we're honoring, and a few Urhobo &amp; Pidgin words to know.</p>
-            <p class="lang-pt">Tradições nigerianas que estamos honrando, e algumas palavras em urhobo e pidgin.</p>
+          <a class="card" href="/getting-to-salvador.html" style="text-decoration:none;">
+            <h3 class="lang-en">Getting there</h3>
+            <h3 class="lang-pt">Como chegar</h3>
+            <p class="lang-en">Visas, places to stay and things to do, for Lagos and for Salvador.</p>
+            <p class="lang-pt">Vistos, hospedagem e o que fazer, em Lagos e em Salvador.</p>
           </a>
-          <a class="card" href="/schedule.html" style="text-decoration:none;">
-            <h3 class="lang-en">Schedule</h3>
-            <h3 class="lang-pt">Programação</h3>
-            <p class="lang-en">A look at how the day will flow, from ceremony to dancing.</p>
-            <p class="lang-pt">Como o dia vai fluir, da cerimônia à pista de dança.</p>
+          <a class="card" href="/rsvp.html" style="text-decoration:none;">
+            <h3 class="lang-en">RSVP</h3>
+            <h3 class="lang-pt">Confirmar Presença</h3>
+            <p class="lang-en">Tell us which celebration, or both, you will join.</p>
+            <p class="lang-pt">Conte para nós de qual celebração, ou das duas, você vai participar.</p>
           </a>
         </div>
       </div>
@@ -129,5 +198,6 @@
   <footer id="site-footer" class="site-footer"></footer>
 
   <script src="/js/main.js" defer></script>
+  <script src="/js/home.js" defer></script>
 </body>
 </html>

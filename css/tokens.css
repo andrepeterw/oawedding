@@ -12,6 +12,11 @@
   --color-ocean-soft: #3d6b6a;  /* lighter teal for secondary text/links */
   --color-coral: #e2764f;       /* sunset coral — primary accent, buttons */
   --color-coral-dark: #c85f3a;  /* coral hover state */
+  --color-coral-text: color-mix(in srgb, var(--color-coral-dark) 70%, #000);    /* coral text on light backgrounds, AA */
+  --color-coral-strong: color-mix(in srgb, var(--color-coral-dark) 85%, #000);  /* filled buttons with light text, AA */
+  --color-dawn: #cfc7e3;        /* dawn lavender, top of the Home sunrise */
+  --color-dawn-rose: #e9cfdd;   /* dawn rose */
+  --color-sunrise: #f3d79a;     /* sunrise gold */
   --color-blush: #f2c9b8;       /* spring blush — soft accent, dividers */
   --color-gold: #b9924f;        /* muted gold — small accents, rules */
   --color-cream-text: #fbf7ef;  /* near-white text on dark backgrounds */

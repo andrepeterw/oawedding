@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Oghenekevwe &amp; Andre Peter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body data-page="contact">
+  <header id="site-header" class="site-header"></header>
+
+  <main>
+    <section class="hero" style="padding-block: var(--space-lg);">
+      <div class="container">
+        <p class="eyebrow lang-en">Contact</p>
+        <p class="eyebrow lang-pt">Contato</p>
+        <h1 class="lang-en">Questions? We're here</h1>
+        <h1 class="lang-pt">Dúvidas? Estamos aqui</h1>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <p class="lang-en" style="text-align:center;">
+          Write to Andre Peter or to our wedding party with any question
+          about the day, travel or the RSVP. We read every message, and we
+          will answer as soon as we can, in English or in Portuguese.
+        </p>
+        <p class="lang-pt" style="text-align:center;">
+          Escreva para o Andre Peter ou para os nossos padrinhos e madrinhas
+          com qualquer dúvida sobre o dia, a viagem ou a confirmação de
+          presença. Lemos todas as mensagens e responderemos assim que
+          pudermos, em inglês ou em português.
+        </p>
+        <p class="placeholder-text lang-en" style="margin-bottom: var(--space-sm);">The contact form opens soon. For now, a preview of the fields.</p>
+        <p class="placeholder-text lang-pt" style="margin-bottom: var(--space-sm);">O formulário de contato abre em breve. Por enquanto, uma prévia dos campos.</p>
+        <!--
+          Contact form: connect a free Formspree or Tally form the same way as the RSVP form,
+          then remove "disabled". Do not publish a personal email address or phone number here.
+        -->
+        <form class="form" action="#" method="post" onsubmit="return false;">
+          <fieldset class="form__fields" disabled style="border:0;padding:0;margin:0;display:grid;gap:var(--space-sm);">
+            <label>
+              <span class="lang-en">Your name</span><span class="lang-pt">Seu nome</span>
+              <input type="text" name="name" autocomplete="name" required />
+            </label>
+            <label>
+              <span class="lang-en">Your email</span><span class="lang-pt">Seu email</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+            <label>
+              <span class="lang-en">Your message</span><span class="lang-pt">Sua mensagem</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <button class="btn btn--primary" type="submit"><span class="lang-en">Send message</span><span class="lang-pt">Enviar mensagem</span></button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="site-footer"></footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

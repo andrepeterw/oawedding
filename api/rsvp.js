@@ -78,7 +78,8 @@ module.exports = async (req, res) => {
 
     const code = String(process.env.PLANNER_KEY || '').trim();
     const db = store();
-    if (!code || !db) return send(503, { error: 'not_ready' });
+    if (!code) return send(503, { error: 'no_planner_key' });     // PLANNER_KEY is not set (or the project was not redeployed after adding it)
+    if (!db) return send(503, { error: 'no_database' });
     const id = hashCode(code);
 
     // Flood control. If the counters themselves fail, carry on rather than lose a real RSVP.
@@ -91,7 +92,7 @@ module.exports = async (req, res) => {
 
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       const { rev, data } = await readCurrent(db, id);
-      if (!data || typeof data !== 'object') return send(503, { error: 'not_ready' });   // sync was never turned on
+      if (!data || typeof data !== 'object') return send(503, { error: 'no_planner_record' });   // nothing saved under this key yet: sync never ran, or PLANNER_KEY is not the sync code
       const outcome = applySubmission(data, sub, new Date().toISOString());
       if (outcome === 'full') return send(503, { error: 'try_again' });
       const text = JSON.stringify(data);

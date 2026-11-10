@@ -101,11 +101,14 @@
         }
         return res.json().catch(function () { return {}; }).then(function (body) {
           showError(res.status === 429 ? "too_many" : res.status === 400 ? "invalid" : "generic");
+          // a short reference so the couple can tell what went wrong
+          if (res.status >= 500 || res.status === 413) errorBox.textContent += " (" + (body.error || "error " + res.status) + ")";
           send.disabled = false;
         });
       })
       .catch(function () {
         showError("generic");
+        errorBox.textContent += " (network)";
         send.disabled = false;
       });
   });

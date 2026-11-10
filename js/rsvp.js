@@ -12,6 +12,8 @@
   var errorBox = document.getElementById("rsvp-error");
   var thanks = document.getElementById("rsvp-thanks");
   var again = document.getElementById("rsvp-again");
+  var thanksYes = document.getElementById("rsvp-thanks-yes");
+  var thanksNo = document.getElementById("rsvp-thanks-no");
 
   var MESSAGES = {
     en: {
@@ -93,6 +95,9 @@
     })
       .then(function (res) {
         if (res.ok) {
+          // the message follows the guest's own answer, not whether we matched them to the list
+          thanksYes.hidden = payload.event === "no";
+          thanksNo.hidden = payload.event !== "no";
           form.hidden = true;
           thanks.hidden = false;
           thanks.focus();

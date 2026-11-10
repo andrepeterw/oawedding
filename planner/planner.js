@@ -108,6 +108,10 @@ const PT = {
   'Headcount by event': 'Pessoas por evento', 'Both events': 'Os dois eventos', 'Lagos only': 'Só Lagos', 'Brazil only': 'Só Brasil',
   'Not confirmed yet': 'Ainda não confirmado', 'In Lagos in total': 'Em Lagos no total', 'In Salvador in total': 'Em Salvador no total',
   'Counts include plus ones. Declined guests are left out. Change a guest’s event in the table below.': 'A contagem inclui acompanhantes. Quem recusou fica de fora. Mude o evento de um convidado na tabela abaixo.',
+  'RSVP answers to review': 'Respostas de RSVP para revisar', 'Match to an existing guest': 'Associar a um convidado',
+  'Match': 'Associar', 'Add as new guest': 'Adicionar como novo convidado', 'Cannot come': 'Não poderá ir', 'wants travel help': 'quer ajuda de viagem',
+  'These names did not match exactly one guest on your list. Pick the right guest, or add them as new.': 'Estes nomes não correspondem a exatamente um convidado da lista. Escolha o convidado certo, ou adicione como novo.',
+  'Set side': 'Definir lado',
   'Dietary for caterer': 'Alimentação para o buffet', 'No restrictions recorded': 'Nenhuma restrição registrada',
   'Allergy, table, visa…': 'Alergia, mesa, visto…',
   'Paste a guest list': 'Colar uma lista de convidados',
@@ -203,6 +207,7 @@ function freshState() {
     ],
     expenses: [],
     guests: [],
+    rsvpInbox: [],
     docs: [
       { id: 'd1', title: 'Draft Brasil Reception Ceremony', url: 'https://docs.google.com/document/d/1BmVHfKHLijPR0S6_OIG5mO4Lh2UJbJxvhE-AbOhx_ds/edit?usp=sharing', note: '' },
       { id: 'd2', title: 'Draft Church Wedding Ceremony Order', url: 'https://docs.google.com/document/d/16pdQo_XMtGXmQe3tCAhkped5IVY9MqwylllxSLMH4Qs/edit?usp=sharing', note: '' }
@@ -233,6 +238,7 @@ function mergeState(s) {
   merged.expenses = (merged.expenses || []).map(x => ({ pot: 'ng', ...x }));
   merged.tasks = merged.tasks || [];
   merged.guests = merged.guests || [];
+  merged.rsvpInbox = Array.isArray(merged.rsvpInbox) ? merged.rsvpInbox : [];   // answers from the public RSVP page that need a human
   // older saved data has no documents yet: start with the seed links once (deleting them later sticks)
   if (!Array.isArray(merged.docs)) merged.docs = base.docs;
   // bring in any seed tasks that are missing (e.g. after a spreadsheet update)
@@ -374,6 +380,11 @@ function renderHeader() {
   const head = S.guests.reduce((a, g) => a + 1 + (Number(g.plusOnes) || 0), 0);
   $('#badgeGuests').textContent = head ? head : '';
   $('#badgeDocs').textContent = S.docs.length ? S.docs.length : '';
+  const waiting = (S.rsvpInbox || []).length;
+  const ib = $('#badgeInbox');
+  ib.textContent = waiting;
+  ib.classList.toggle('hidden', !waiting);
+  ib.setAttribute('aria-label', tx(`${waiting} RSVP answers to review`, `${waiting} respostas de RSVP para revisar`));
 }
 
 /* ================= CHECKLIST ================= */
@@ -593,6 +604,7 @@ function renderBudget() {
 /* ================= GUESTS ================= */
 const G = { q: '', rsvp: '', diet: '' };
 function renderGuests() {
+  renderInbox();
   const all = S.guests;
   const head = g => 1 + (Number(g.plusOnes) || 0);
   const sum = arr => arr.reduce((a, g) => a + head(g), 0);
@@ -647,7 +659,7 @@ function renderGuests() {
   const sideDot = { Bride: 'bg-coral', Groom: 'bg-sea', Both: 'bg-gold' };
   $('#guestRows').innerHTML = rows.map(g => `<tr class="border-t border-sand/60" data-id="${g.id}">
     <td class="py-1 px-1"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full shrink-0 ${sideDot[g.side] || 'bg-gold'}" aria-hidden="true"></span><input class="cell font-medium" data-f="name" value="${esc(g.name)}" aria-label="${esc(tr('Name'))}"></div></td>
-    <td class="px-1"><select class="cell" data-f="side" aria-label="${esc(tr('Side'))}">${options(SIDES, g.side)}</select></td>
+    <td class="px-1"><select class="cell" data-f="side" aria-label="${esc(tr('Side'))}">${g.side ? '' : `<option value="" selected>${esc(tr('Set side'))}</option>`}${options(SIDES, g.side)}</select></td>
     <td class="px-1"><select class="cell" data-f="country" aria-label="${esc(tr('From'))}">${options(COUNTRIES, g.country)}</select></td>
     <td class="px-1"><select class="cell" data-f="event" aria-label="${esc(tr('Event'))}">${options(EVENTS, g.event)}</select></td>
     <td class="px-1"><select class="cell font-semibold ${RSVP_STYLE[g.rsvp] || ''}" data-f="rsvp" aria-label="RSVP">${options(RSVP, g.rsvp)}</select></td>
@@ -656,6 +668,52 @@ function renderGuests() {
     <td class="px-1"><input class="cell text-xs" data-f="notes" value="${esc(g.notes || '')}" placeholder="${esc(tr('Allergy, table, visa…'))}" aria-label="${esc(tr('Notes'))}"></td>
     <td class="px-1 text-right"><button class="text-muted hover:text-coral-deep px-2" data-del title="${esc(tr('Remove'))}" aria-label="${esc(tr('Remove'))}">✕</button></td>
   </tr>`).join('');
+}
+/* ---------- RSVP review queue ---------- */
+// Answers from the public RSVP page that did not match exactly one guest. Nothing is guessed here either,
+// a person picks the right guest or adds a new one. The update rules are shared with the server (js/rsvp-core.js).
+function renderInbox() {
+  const box = $('#rsvpInbox');
+  const list = S.rsvpInbox || [];
+  box.classList.toggle('hidden', !list.length);
+  if (!list.length) { box.innerHTML = ''; return; }
+  const guestOpts = [...S.guests].sort((a, b) => a.name.localeCompare(b.name))
+    .map(g => `<option value="${esc(g.id)}">${esc(g.name)}${g.rsvp === 'Attending' || g.rsvp === 'Declined' ? ' · ' + esc(tr(g.rsvp)) : ''}</option>`).join('');
+  const ans = e => e.attending
+    ? `${esc(tr(e.event))} · ${e.guests} ${esc(plural(e.guests, 'guest', 'guests', 'convidado', 'convidados'))} · ${esc(tr(e.diet))}${e.dietOther ? ' (' + esc(e.dietOther) + ')' : ''}${e.travelHelp ? ' · ' + esc(tr('wants travel help')) : ''}`
+    : esc(tr('Cannot come'));
+  box.innerHTML = `<div class="inbox-panel" role="region" aria-label="${esc(tr('RSVP answers to review'))}">
+    <div class="inbox-head"><h3 class="font-serif inbox-title">${esc(tr('RSVP answers to review'))} <span class="inbox-count">${list.length}</span></h3>
+    <p class="text-xs">${esc(tr('These names did not match exactly one guest on your list. Pick the right guest, or add them as new.'))}</p></div>
+    <div class="inbox-list">${list.map(e => `<div class="inbox-item" data-inbox="${esc(e.id)}">
+      <div class="inbox-who"><b>${esc(e.name)}</b><span class="inbox-ans">${ans(e)}</span><span class="inbox-when text-xs">${esc(new Date(e.at).toLocaleString(locale(), { dateStyle: 'medium', timeStyle: 'short' }))}</span></div>
+      <div class="inbox-actions">
+        <select class="field inbox-pick" aria-label="${esc(tr('Match to an existing guest'))}"><option value="">${esc(tr('Match to an existing guest'))}…</option>${guestOpts}</select>
+        <button class="inbox-btn inbox-match" type="button" data-act="match" disabled>${esc(tr('Match'))}</button>
+        <button class="inbox-btn inbox-new" type="button" data-act="new">${esc(tr('Add as new guest'))}</button>
+      </div>
+    </div>`).join('')}</div>
+  </div>`;
+}
+function settleInbox(entryId, guestId) {
+  const i = S.rsvpInbox.findIndex(x => x.id === entryId);
+  if (i < 0) return;
+  const entry = S.rsvpInbox[i];
+  const now = new Date().toISOString();
+  let name;
+  if (guestId) {
+    const g = S.guests.find(x => x.id === guestId);
+    if (!g) return;
+    RsvpCore.applyToGuest(g, entry, now);
+    name = g.name;
+  } else {
+    const g = RsvpCore.newGuest(entry, uid(), now);
+    S.guests.push(g);
+    name = g.name;
+  }
+  S.rsvpInbox.splice(i, 1);
+  save(); render();
+  toast(guestId ? tx(`Matched to ${name}`, `Associado a ${name}`) : tx(`${name} added. Set their side in the table`, `${name} adicionado. Defina o lado na tabela`));
 }
 function addGuest(d) {
   S.guests.push({ id: uid(), name: d.name.trim(), side: d.side || 'Bride', country: d.country || 'Nigeria', event: d.event || 'Lagos', rsvp: d.rsvp || 'Not sent', diet: d.diet || 'No restrictions', plusOnes: Number(d.plusOnes) || 0, notes: d.notes || '' });
@@ -747,7 +805,7 @@ function mergeMap(B, L, R) {
 function merge3(B, L, R) {
   B = B || {};
   const out = { ...R };
-  ['tasks', 'funds', 'pots', 'expenses', 'guests', 'docs'].forEach(k => { out[k] = mergeList(B[k], L[k], R[k]); });
+  ['tasks', 'funds', 'pots', 'expenses', 'guests', 'docs', 'rsvpInbox'].forEach(k => { out[k] = mergeList(B[k], L[k], R[k]); });
   out.rates = mergeMap(B.rates, L.rates, R.rates);
   ['weddingDate', 'baseCurrency', 'version'].forEach(k => { out[k] = pickWhole(B[k], L[k], R[k]); });
   delete out.ui;
@@ -1096,6 +1154,16 @@ function startApp() {
   $('#guestRows').addEventListener('change', e => {
     const row = e.target.closest('tr'); const g = S.guests.find(v => v.id === row.dataset.id); const f = e.target.dataset.f; if (!g || !f) return;
     g[f] = f === 'plusOnes' ? Math.max(0, Number(e.target.value) || 0) : e.target.value; save(); render();
+  });
+  $('#rsvpInbox').addEventListener('change', e => {
+    const pick = e.target.closest('.inbox-pick'); if (!pick) return;
+    pick.closest('.inbox-item').querySelector('.inbox-match').disabled = !pick.value;
+  });
+  $('#rsvpInbox').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const item = b.closest('.inbox-item'); const id = item.dataset.inbox;
+    if (b.dataset.act === 'match') { const v = $('.inbox-pick', item).value; if (v) settleInbox(id, v); }
+    else settleInbox(id, null);
   });
   $('#guestRows').addEventListener('click', e => {
     if (!e.target.closest('[data-del]')) return;

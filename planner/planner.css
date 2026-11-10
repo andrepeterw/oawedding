@@ -388,3 +388,21 @@ details > summary::-webkit-details-marker { display: none; }
 .hc-totals { display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; margin-top:.9rem; padding-top:.7rem; border-top:1px solid var(--p-line) }
 .hc-note { margin:.5rem 0 0 }
 @media (max-width:30rem) { .hc-row { grid-template-columns:5rem 1fr 2rem } }
+
+/* RSVP review queue (Guests tab) */
+.inbox-badge { display:inline-block; margin-left:.35rem; min-width:1.25rem; padding:0 .35rem; border-radius:999px; background:var(--p-coral-strong); color:#fff; font-size:.7rem; font-weight:700; line-height:1.25rem; text-align:center }
+.inbox-panel { background:var(--p-gold-soft); border:2px solid var(--p-gold); border-radius:1rem; padding:1rem 1.1rem }
+.inbox-head { margin-bottom:.6rem }
+.inbox-title { font-size:1.15rem; font-weight:600; margin:0 0 .15rem }
+.inbox-count { display:inline-block; margin-left:.3rem; padding:0 .5rem; border-radius:999px; background:var(--p-coral-strong); color:#fff; font-size:.8rem; font-family:var(--font-body, inherit) }
+.inbox-item { background:#fff; border-radius:.75rem; padding:.7rem .8rem; margin-top:.55rem; display:grid; gap:.55rem }
+.inbox-who { display:flex; flex-wrap:wrap; align-items:baseline; gap:.2rem .7rem }
+.inbox-ans { font-size:.9rem }
+.inbox-when { color:var(--p-muted) }
+.inbox-actions { display:flex; flex-wrap:wrap; gap:.45rem }
+.inbox-pick { flex:1 1 12rem; min-width:0 }
+.inbox-btn { border-radius:999px; padding:.45rem .95rem; font-weight:600; font-size:.875rem; border:1px solid var(--p-sea-deep); background:#fff; color:var(--p-sea-deep); cursor:pointer }
+.inbox-match { background:var(--p-sea-deep); color:var(--p-on-dark) }
+.inbox-btn:disabled { opacity:.45; cursor:not-allowed }
+.inbox-badge.hidden { display:none }
+.inbox-list { max-height:28rem; overflow-y:auto; padding-right:.2rem }

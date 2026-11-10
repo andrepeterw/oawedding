@@ -29,58 +29,79 @@
 
     <section>
       <div class="container container--narrow">
-        <p class="placeholder-text lang-en" style="margin-bottom: var(--space-sm);">The RSVP form opens very soon. Below is a preview of the questions we will ask, including which celebration, or both, you will join.</p>
-        <p class="placeholder-text lang-pt" style="margin-bottom: var(--space-sm);">O formulário de confirmação abre muito em breve. Abaixo está uma prévia das perguntas que vamos fazer, incluindo de qual celebração, ou das duas, você vai participar.</p>
+        <form class="form" id="rsvp-form" action="/api/rsvp" method="post" novalidate>
+          <label>
+            <span class="lang-en">Full name</span><span class="lang-pt">Nome completo</span>
+            <input type="text" name="name" autocomplete="name" maxlength="120" required />
+          </label>
 
-        <!--
-          RSVP form: Per the build guide (Step 9), create a free Tally (tally.so) or
-          Formspree (formspree.io) form with the same fields as below, then either
-          (a) replace this whole <form> with the embed Tally or Formspree provides, or
-          (b) set this form's action to the Formspree endpoint, remove "disabled" from
-              the fieldset, and re-enable the button.
-          Fields: name, which event (Nigerian Ceremony, Brazilian Reception, both, or
-          cannot attend), number of guests, dietary notes, travel or visa help.
-        -->
-        <form class="form" action="#" method="post" onsubmit="return false;">
-          <fieldset class="form__fields" disabled style="border:0;padding:0;margin:0;display:grid;gap:var(--space-sm);">
-            <label>
-              <span class="lang-en">Full name</span><span class="lang-pt">Nome completo</span>
-              <input type="text" name="name" autocomplete="name" required />
-            </label>
+          <fieldset>
+            <legend class="lang-en">Which celebration will you join?</legend>
+            <legend class="lang-pt">De qual celebração você vai participar?</legend>
+            <label class="choice"><input type="radio" name="event" value="lagos" required /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027</span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027</span></label>
+            <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027</span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027</span></label>
+            <label class="choice"><input type="radio" name="event" value="both" /> <span class="lang-en">Both celebrations</span><span class="lang-pt">As duas celebrações</span></label>
+            <label class="choice"><input type="radio" name="event" value="no" /> <span class="lang-en">I am sorry, I cannot come</span><span class="lang-pt">Sinto muito, não poderei ir</span></label>
+          </fieldset>
 
-            <fieldset>
-              <legend class="lang-en">Which celebration will you join?</legend>
-              <legend class="lang-pt">De qual celebração você vai participar?</legend>
-              <label class="choice"><input type="radio" name="event" value="lagos" /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027</span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027</span></label>
-              <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027</span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027</span></label>
-              <label class="choice"><input type="radio" name="event" value="both" /> <span class="lang-en">Both celebrations</span><span class="lang-pt">As duas celebrações</span></label>
-              <label class="choice"><input type="radio" name="event" value="no" /> <span class="lang-en">I am sorry, I cannot come</span><span class="lang-pt">Sinto muito, não poderei ir</span></label>
-            </fieldset>
-
+          <div class="form__attending" id="rsvp-attending">
             <label>
               <span class="lang-en">Number of guests, including you</span><span class="lang-pt">Número de convidados, incluindo você</span>
-              <input type="number" name="guests" min="1" max="10" value="1" />
+              <input type="number" name="guests" min="1" max="10" value="1" inputmode="numeric" />
             </label>
 
             <label>
-              <span class="lang-en">Dietary notes or allergies</span><span class="lang-pt">Restrições alimentares ou alergias</span>
-              <textarea name="dietary" rows="3"></textarea>
+              <span class="lang-en">Dietary needs</span><span class="lang-pt">Necessidades alimentares</span>
+              <select name="dietary" id="rsvp-dietary">
+                <option value="none" data-pt="Sem restrições alimentares">No dietary restrictions</option>
+                <option value="vegetarian" data-pt="Vegetariano">Vegetarian</option>
+                <option value="vegan" data-pt="Vegano">Vegan</option>
+                <option value="pescatarian" data-pt="Pescetariano">Pescatarian</option>
+                <option value="halal" data-pt="Halal">Halal</option>
+                <option value="gluten_free" data-pt="Sem glúten">Gluten free</option>
+                <option value="dairy_free" data-pt="Sem lactose">Dairy free</option>
+                <option value="nut_allergy" data-pt="Alergia a nozes e castanhas">Nut allergy</option>
+                <option value="other" data-pt="Outro, por favor especifique">Other, please specify</option>
+              </select>
+            </label>
+
+            <label id="rsvp-other" hidden>
+              <span class="lang-en">Please tell us more</span><span class="lang-pt">Conte-nos um pouco mais</span>
+              <input type="text" name="dietaryOther" maxlength="200" />
             </label>
 
             <label class="choice">
-              <input type="checkbox" name="travel_help" value="yes" />
+              <input type="checkbox" name="travelHelp" value="yes" />
               <span class="lang-en">I would like travel or visa guidance for the city that is new to me</span>
               <span class="lang-pt">Gostaria de orientação de viagem ou de visto para a cidade que é nova para mim</span>
             </label>
+          </div>
 
-            <button class="btn btn--primary" type="submit"><span class="lang-en">Send my RSVP</span><span class="lang-pt">Enviar minha confirmação</span></button>
-          </fieldset>
+          <!-- Honeypot: hidden from people. A bot that fills it in is quietly ignored. -->
+          <div class="form__hp" aria-hidden="true">
+            <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <button class="btn btn--primary" type="submit" id="rsvp-send"><span class="lang-en">Send my RSVP</span><span class="lang-pt">Enviar minha confirmação</span></button>
+
+          <div class="form__note" id="rsvp-error" role="alert" hidden></div>
         </form>
+
+        <div class="form__thanks" id="rsvp-thanks" role="status" tabindex="-1" hidden>
+          <h2 class="lang-en">Thank you</h2>
+          <h2 class="lang-pt">Obrigado</h2>
+          <p class="lang-en">We have your answer. We cannot wait to celebrate with you.</p>
+          <p class="lang-pt">Recebemos a sua resposta. Mal podemos esperar para celebrar com você.</p>
+          <p class="lang-en">Need to change something? You can send the form again with the same name.</p>
+          <p class="lang-pt">Precisa mudar algo? Você pode enviar o formulário de novo, com o mesmo nome.</p>
+          <button class="btn btn--small" type="button" id="rsvp-again"><span class="lang-en">Change my answer</span><span class="lang-pt">Mudar minha resposta</span></button>
+        </div>
       </div>
     </section>
   </main>
 
   <footer id="site-footer" class="site-footer"></footer>
   <script src="/js/main.js" defer></script>
+  <script src="/js/rsvp.js" defer></script>
 </body>
 </html>

@@ -988,3 +988,23 @@ html:not([data-lang]) .lang-pt {
   .proposal__photo { aspect-ratio: auto; }
   .proposal__photo img { position: absolute; inset: 0; }
 }
+
+/* RSVP form extras */
+.form select {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  font: inherit;
+  color: var(--color-ink);
+}
+.form__attending { display: grid; gap: var(--space-sm); }
+.form__attending[hidden], #rsvp-other[hidden], .form__thanks[hidden], .form__note[hidden], .form[hidden] { display: none; }
+/* Honeypot: off screen, not display:none, so simple bots still see and fill it. */
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__note { padding: 0.8rem 1rem; border-radius: var(--radius); background: #fbe9e3; color: #6b2412; border: 1px solid #e7b9aa; font-size: 0.95rem; }
+.form__thanks { text-align: center; padding: var(--space-md) var(--space-sm); background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); }
+.form__thanks:focus { outline: none; }
+.form [aria-invalid="true"] { border-color: var(--color-coral-strong); }

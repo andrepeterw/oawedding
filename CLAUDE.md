@@ -9,10 +9,10 @@ should read as one love story told in two homes. Tone: elegant and timeless,
 warm and intimate. The couple is Christian, evangelical, and wants faith
 visibly at the center of the site without excluding guests of other
 backgrounds. Guests are Brazilian, Nigerian (mostly Urhobo), American, and
-Namibian. Build mobile first, static, fast, and simple. Do not add a backend
-database for the public site, use third party tools for RSVP (Tally or
-Formspree) and photo uploads (shared Google Photos albums, one per city)
-instead. There is also a planner page at /planner for the couple only,
+Namibian. Build mobile first, static, fast, and simple. The public site has no
+database of its own. RSVP answers go through one small function, api/rsvp.js,
+into the planner's Redis record (see RSVP to planner below), so no Tally or
+Formspree is used. Photo uploads use shared Google Photos albums, one per city. There is also a planner page at /planner for the couple only,
 specified in CLAUDE_CODE_add_planner_page.md, never link to it from the public
 site.
 
@@ -71,4 +71,21 @@ revision number. The client (the SYNC section of planner.js) is local first,
 debounced, and merges three ways per record and per field, so both people can
 edit at once. The ui section of the state is never synced. Without the database
 the planner keeps working on one device and the Sync panel explains why sync is
-off. No npm packages, keep it that way.
+off. The only npm package is redis (for a Redis Cloud REDIS_URL), keep it that way.
+
+RSVP to planner (added Nov 2026): the public form on rsvp.html (js/rsvp.js) posts to
+api/rsvp.js, which writes into the same Redis record as the planner. The record is found
+from the PLANNER_KEY environment variable (the couple's sync code, set in Vercel, never in
+the repo or in chat), hashed like the planner does. The function can only write: no way to
+read the guest list, budget or checklist. An exact name match (trimmed, case and accent
+folded, punctuation stripped) to exactly one guest updates that row (RSVP Attending or
+Declined, event, diet, plus ones, lastRsvpAt, source "rsvp-form"). No match, or more than
+one, adds an entry to data.rsvpInbox, shown as a review queue at the top of the planner's
+Guests tab (Match to an existing guest, or Add as new guest, with a badge on the tab).
+Declined guests stay on the list. Saves use the same compare and set on the revision, with up
+to 5 retries. A hidden "website" honeypot and Redis counters (per name and per visitor)
+slow down bots and double clicks, that is a light deterrent, not real security. The
+update rules live once in js/rsvp-core.js, used by both the server and the planner. Shared
+Redis code lives in api/_lib/store.js (underscore means it is not deployed as a function).
+The planner's sync merges rsvpInbox per record like guests. The RSVP deadline is 19th February.
+The planner stays the only place that shows who answered, the public page never does.

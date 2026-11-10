@@ -974,3 +974,17 @@ html:not([data-lang]) .lang-pt {
 .section--ocean .eyebrow {
   color: var(--color-blush);
 }
+
+/* Our Story: the proposal in two columns with the photo between them */
+.proposal__grid { display: grid; gap: var(--space-md); margin-top: var(--space-md); }
+.proposal .container { max-width: 84rem; }
+.proposal__col p { font-size: 0.98rem; line-height: 1.65; }
+.proposal__col p:last-child { margin-bottom: 0; }
+.proposal__amen { font-family: var(--font-heading); font-style: italic; font-size: 1.2rem !important; color: var(--color-ocean); }
+.proposal__photo { margin: 0; position: relative; aspect-ratio: 4 / 5; }
+.proposal__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 100%; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(22, 63, 66, 0.2); }
+@media (min-width: 62rem) {
+  .proposal__grid { grid-template-columns: 1fr minmax(18rem, 28rem) 1fr; align-items: stretch; gap: var(--space-md); }
+  .proposal__photo { aspect-ratio: auto; }
+  .proposal__photo img { position: absolute; inset: 0; }
+}

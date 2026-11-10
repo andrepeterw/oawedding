@@ -105,6 +105,9 @@ const PT = {
   'No guests here yet. Add one above, or use “Paste list” to drop in many names at once.': 'Ainda não há convidados aqui. Adicione um acima, ou use “Colar lista” para incluir vários nomes de uma vez.',
   'Total headcount': 'Total de pessoas', 'invitations': 'convites', 'incl. plus ones': 'com acompanhantes',
   'Bride · Groom': 'Noiva · Noivo', 'Attending': 'Confirmado', 'awaiting reply': 'aguardando resposta', 'declined': 'recusaram',
+  'Headcount by event': 'Pessoas por evento', 'Both events': 'Os dois eventos', 'Lagos only': 'Só Lagos', 'Brazil only': 'Só Brasil',
+  'Not confirmed yet': 'Ainda não confirmado', 'In Lagos in total': 'Em Lagos no total', 'In Salvador in total': 'Em Salvador no total',
+  'Counts include plus ones. Declined guests are left out. Change a guest’s event in the table below.': 'A contagem inclui acompanhantes. Quem recusou fica de fora. Mude o evento de um convidado na tabela abaixo.',
   'Dietary for caterer': 'Alimentação para o buffet', 'No restrictions recorded': 'Nenhuma restrição registrada',
   'Allergy, table, visa…': 'Alergia, mesa, visto…',
   'Paste a guest list': 'Colar uma lista de convidados',
@@ -604,6 +607,29 @@ function renderGuests() {
     `<div class="bg-white rounded-2xl shadow-card p-4"><div class="text-xs uppercase tracking-wider">${esc(tr('Bride · Groom'))}</div><div class="font-serif text-3xl font-semibold mt-1 tabular-nums">${sum(bride)} <span class="text-muted text-xl">·</span> ${sum(groom)}</div><div class="h-2 rounded-full bg-sea mt-2 overflow-hidden" aria-hidden="true"><div class="bar h-full bg-coral" style="width:${bPct}%"></div></div></div>` +
     card(tr('Attending'), sum(attending), `${all.filter(g => ['Invited','Maybe'].includes(g.rsvp)).length} ${tr('awaiting reply')} · ${all.filter(g => g.rsvp === 'Declined').length} ${tr('declined')}`, 'bg-sea text-cream') +
     `<div class="bg-white rounded-2xl shadow-card p-4"><div class="text-xs uppercase tracking-wider mb-2">${esc(tr('Dietary for caterer'))}</div><div class="flex flex-wrap gap-1">${Object.keys(dietCounts).length ? Object.entries(dietCounts).sort((a, b) => b[1] - a[1]).map(([d, n]) => `<button class="rounded-full bg-gold-soft text-gold-deep px-2 py-0.5 text-xs font-semibold" data-diet="${esc(d)}">${esc(tr(d))} ${n}</button>`).join('') : `<span class="text-xs text-muted">${esc(tr('No restrictions recorded'))}</span>`}</div></div>`;
+
+  // Headcount by event: who is going to Lagos only, Brazil only, or both. Declined guests are not counted.
+  const live = all.filter(g => g.rsvp !== 'Declined');
+  const evRows = [
+    { key: 'Both', label: tr('Both events'), color: 'var(--p-gold)' },
+    { key: 'Lagos', label: tr('Lagos only'), color: 'var(--p-sea-deep)' },
+    { key: 'Brazil', label: tr('Brazil only'), color: 'var(--p-coral)' },
+  ].map(r => {
+    const list = live.filter(g => (g.event || 'Lagos') === r.key);
+    const yes = sum(list.filter(g => g.rsvp === 'Attending'));
+    const total = sum(list);
+    return { ...r, yes, wait: total - yes, total, invites: list.length };
+  });
+  const evMax = Math.max(1, ...evRows.map(r => r.total));
+  const evBy = k => evRows.find(r => r.key === k).total;
+  $('#eventChart').innerHTML =
+    `<div class="hc-head"><h3 class="font-serif hc-title">${esc(tr('Headcount by event'))}</h3>` +
+    `<div class="hc-legend text-xs text-muted"><span><i class="hc-key hc-key--solid"></i>${esc(tr('Attending'))}</span><span><i class="hc-key hc-key--soft"></i>${esc(tr('Not confirmed yet'))}</span></div></div>` +
+    evRows.map(r => `<div class="hc-row"><div class="hc-label">${esc(r.label)}</div>` +
+      `<div class="hc-track" role="img" aria-label="${esc(`${r.label}: ${r.total}, ${r.yes} ${tr('Attending').toLowerCase()}`)}"><div class="hc-fill bar" style="width:${(r.total / evMax * 100).toFixed(1)}%;--hc:${r.color}"><span class="hc-yes" style="flex:${r.yes}"></span><span class="hc-wait" style="flex:${r.wait}"></span></div></div>` +
+      `<div class="hc-num tabular-nums">${r.total}</div></div>`).join('') +
+    `<div class="hc-totals text-sm"><span>${esc(tr('In Lagos in total'))}: <b class="tabular-nums">${evBy('Lagos') + evBy('Both')}</b></span><span>${esc(tr('In Salvador in total'))}: <b class="tabular-nums">${evBy('Brazil') + evBy('Both')}</b></span></div>` +
+    `<p class="text-xs text-muted hc-note">${esc(tr('Counts include plus ones. Declined guests are left out. Change a guest’s event in the table below.'))}</p>`;
 
   $$('.side-btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.side === S.ui.side));
   $('#gRsvpFilter').innerHTML = `<option value="">${esc(tr('Any RSVP'))}</option>` + RSVP.map(r => `<option value="${esc(r)}" ${r === G.rsvp ? 'selected' : ''}>${esc(tr(r))}</option>`).join('');

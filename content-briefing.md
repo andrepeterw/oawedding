@@ -75,7 +75,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - Visa information is shown to everyone, not only to guests who technically need it.
 
 ### RSVP, registry, gallery, FAQ, contact
-- RSVP deadline: around December 2026, to be confirmed. The form is a visible but disabled preview until a Tally or Formspree form is connected.
+- RSVP deadline: 19th February (2027). The form is a visible but disabled preview until a Tally or Formspree form is connected.
 - Registry: Pix key live (the phone number key, under Andre Peter Duque Wiggins), international guests pending a PayPal.me link that Andre Peter creates himself.
 - Gallery: one Google Photos album per city, links pending. FAQ: twelve entries covering getting there, dates, visas, lodging, dress codes, RSVP, language, livestream, registry and photos.
 - Contact: a disabled form preview. No home address, phone number or personal email is published.
@@ -109,7 +109,7 @@ Mobile first. Sunrise scroll effect with a reduced motion fallback. Flower foote
 2. **Salvador:** choose the beach house for the Brazilian Reception (then update the stays, the map and the draft timeline).
 3. **Dress code** for the Nigerian Ceremony.
 4. **Guest lists:** who is invited to which event (the same 170 guests at both, or split by city).
-5. **RSVP:** the deadline (around December 2026, close), and connecting a Tally or Formspree form.
+5. **RSVP:** connecting the form (see the RSVP to planner plan). The deadline is set to 19th February.
 6. **Contact:** connect a form, choose a way to be reached that does not publish personal details.
 7. **Hashtag:** confirm #OurAlliance2027 with Kev.
 8. **Adapted traditions:** agree with Kev on the final wording for aso-ebi and money spraying.

@@ -995,8 +995,8 @@ html:not([data-lang]) .lang-pt {
 .form__thanks:focus { outline: none; }
 .form [aria-invalid="true"] { border-color: var(--color-coral-strong); }
 
-/* Our Story: the painting below the text */
-.story-painting { margin: var(--space-md) auto 0; max-width: 26rem; }
+/* Our Story: the painting right below the page title */
+.story-painting { margin: var(--space-sm) auto 0; max-width: 22rem; }
 .story-painting img { width: 100%; height: auto; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(22, 63, 66, 0.2); }
 
 /* Our Faith: the verse card on its own */

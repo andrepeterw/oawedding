@@ -31,7 +31,7 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 | Page | File | Notes |
 |---|---|---|
 | Home | `index.html` | Full page sunrise background that builds as you scroll and ends at the footer, content in front of it. Both dates and cities, countdown to June 12, the God centered line, two event cards with add to calendar, hashtag and share buttons. |
-| Our Story | `our-story.html` | How they met, the journey, a favorite memory, and a painting below the text. The long proposal story was removed in November 2026. |
+| Our Story | `our-story.html` | How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story was removed in November 2026. |
 | Our Alliance | `our-alliance.html` | The couple, the wedding party, the family (including a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
 | Our Faith | `our-faith.html` | Both faith stories, Philippians 1:6, ceremony songs, a welcome for guests of any background. |
 | Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced. Traditions, a glossary, dishes, add to calendar. |

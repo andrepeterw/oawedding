@@ -17,7 +17,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 ## Site map
 
 1. **Home.** A sunrise that builds as the visitor scrolls (a fixed sky behind the whole page with the content in front of it, lavender and rose dawn warming to gold, a sun rising over the sea, finishing as the footer arrives, static under reduced motion), both dates and cities ("Lagos. June 12." and "Salvador. June 19."), a countdown to the nearer date with a note about the reception a week later, the line "It is important to us that God is at the center of our wedding", the two event cards with add to calendar links, the hashtag with share buttons.
-2. **Our Story.** How they met, the journey, a favorite memory, and a painting below the text. The long proposal story (July 9, 2026, Porto da Barra) was removed from the page in November 2026 at Andre Peter's request.
+2. **Our Story.** How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story (July 9, 2026, Porto da Barra) was removed from the page in November 2026 at Andre Peter's request.
 3. **Our Alliance.** One page: the couple (two full portraits), the wedding party, the family, and a tribute to Kev's father.
 4. **Our Faith.** Both faith stories, the verse, the ceremony songs, a welcome for guests of every background.
 5. **Our Ceremonies** (navigation group): **Nigerian Ceremony** and **Brazilian Reception**.

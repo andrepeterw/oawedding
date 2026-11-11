@@ -70,7 +70,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - A clearly placed link to Getting to Salvador, add to calendar.
 
 ### Travel
-- **Getting to Salvador:** the Brazilian government visa page (https://www.gov.br/pt-br/servicos/obter-visto-para-viajar-ao-brasil) as the official source, confirm with the nearest consulate. About 40 guests travel from Nigeria. As of April 2025 Brazil began requiring an online visa from United States, Canadian and Australian passport holders, to be reconfirmed before launch. Six suggested stays (Airbnb) in Salvador, budget and things to do pending, a city map.
+- **Getting to Salvador:** the Brazilian government visa page (https://www.gov.br/pt-br/servicos/obter-visto-para-viajar-ao-brasil) as the official source, confirm with the nearest consulate. Some guests travel from Nigeria. As of April 2025 Brazil began requiring an online visa from United States, Canadian and Australian passport holders, to be reconfirmed before launch. Six suggested stays (Airbnb) in Salvador, budget and things to do pending, a city map.
 - **Getting to Lagos:** visa guidance for Nigeria by passport (most guests from Brazil, the United States and Namibia should plan to apply in advance, Nigeria offers an electronic visa through the Nigeria Immigration Service, confirm on the official site and with the nearest embassy), lodging, budget and things to do pending, a city map.
 - Visa information is shown to everyone, not only to guests who technically need it.
 

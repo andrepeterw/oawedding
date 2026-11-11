@@ -11,7 +11,7 @@ There are two linked celebrations:
 1. **Nigerian Ceremony**: Urhobo traditional ceremony and church (white) wedding, the same day, on **June 12, 2027, in Lagos, Nigeria**.
 2. **Brazilian Reception**: a smaller gathering at a beach house on **June 19, 2027, in Salvador, Bahia**. The venue is not chosen yet. Espaco Tropicalia is no longer the plan.
 
-Guests are Brazilian, Nigerian (mostly Urhobo), American and Namibian. About 40 guests are expected to travel from Nigeria to Brazil.
+Guests are Brazilian, Nigerian (mostly Urhobo), American and Namibian. Some guests are expected to travel from Nigeria to Brazil.
 
 The repository is public on GitHub (andrepeterw/oawedding) and deploys on Vercel from the `main` branch. Every push redeploys.
 

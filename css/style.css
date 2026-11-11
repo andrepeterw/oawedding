@@ -1001,3 +1001,7 @@ html:not([data-lang]) .lang-pt {
 
 /* Our Faith: the verse card on its own */
 .verse-solo { max-width: 38rem; margin-inline: auto; }
+
+/* Our Story: even spacing between the three blocks of text, each separated by the gold line */
+.story-text .divider { margin: var(--space-md) 0; }
+.story-text h2 { margin-top: 0; }

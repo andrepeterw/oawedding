@@ -17,7 +17,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 ## Site map
 
 1. **Home.** A sunrise that builds as the visitor scrolls (a fixed sky behind the whole page with the content in front of it, lavender and rose dawn warming to gold, a sun rising over the sea, finishing as the footer arrives, static under reduced motion), both dates and cities ("Lagos. June 12." and "Salvador. June 19."), a countdown to the nearer date with a note about the reception a week later, the line "It is important to us that God is at the center of our wedding", the two event cards with add to calendar links, the hashtag with share buttons.
-2. **Our Story.** How they met, the journey, the proposal told in Andre Peter's own words (July 9, 2026, Porto da Barra), a favorite memory.
+2. **Our Story.** How they met, the journey, a favorite memory, and a painting below the text. The long proposal story (July 9, 2026, Porto da Barra) was removed from the page in November 2026 at Andre Peter's request.
 3. **Our Alliance.** One page: the couple (two full portraits), the wedding party, the family, and a tribute to Kev's father.
 4. **Our Faith.** Both faith stories, the verse, the ceremony songs, a welcome for guests of every background.
 5. **Our Ceremonies** (navigation group): **Nigerian Ceremony** and **Brazilian Reception**.
@@ -39,13 +39,13 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - The journey: an unimaginable collision of two very different worlds that God ordained, built on learning each other's language (emotional, life, safety).
 - Fun facts on Our Alliance: Andre Peter asked for Kev's LinkedIn instead of her phone number, they wrote a song together, and they once got lost on a safari in the middle of the desert and almost had to camp with the lions.
 - Kev: lifelong learner, raised by pastors who planted churches, worship leader from a young age, learning piano, tennis, swimming and especially hiking, Francine Rivers (*Redeeming Love*, *The Masterpiece*), a heart for repositioning disadvantaged young people.
-- Andre Peter: international educator in design and computer science, musician since childhood (keyboards, drums, guitar, still writes songs), surfs (not well, by his own account), serves the Tarkwa Bay community through Tarkwa Tech, reads Eckhart Tolle, Machiavelli and Paulo Freire.
+- Andre Peter: international educator in design and computer science, musician since childhood (keyboards, drums, guitar, still writes songs), surfs (not well, by his own account), serves the Tarkwa Bay community through Tarkwa Tech. The page no longer names his reading or the Tarkwa Tech project in the bio.
 
 ### Wedding party and family
 - Maid of honor: Kev's sister. Bridesmaids: Jay Jay, Mirabel, Rejoyce, Labake, Oyin.
 - Best Men: Andre Peter's brother. Groomsmen: Kleber Lima, Luan Michel, Lucas Bomfim, Bruno Andrade, Rafael Santiago.
 - Kev's family: mother Dr. Funmi Akpokiniovo, sister Tejiri, brothers Ufuoma and Ruona Akpokiniovo.
-- Andre Peter's family: father Anton Andre Wiggins (an apostle, officiates the ceremony in Lagos), mother Angela Vaz, stepmother Ide Wiggins, brother Anton Jr, sisters Agatha Vaz and Hadassa Wiggins.
+- Andre Peter's family: father Anton Andre Wiggins (an apostle, no longer officiating), mother Angela Vaz, stepfather Aloísio Vaz (late), stepmother Ide Wiggins, brother Anton Jr, sisters Agatha Vaz and Hadassa Wiggins.
 - In loving memory: Kev's father, Mr. Robert Akpokiniovo.
 
 ### Faith
@@ -54,8 +54,8 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - Welcome note, in Kev's spirit: everyone is welcome without watering down what the couple believes, and the ceremony is a chance to encounter the light of God.
 
 ### Nigerian Ceremony (June 12, 2027, Lagos)
-- Church, venue and time: to be announced (marked as coming soon on the page). Dress code: to be announced. Officiant: Andre Peter's father.
-- A livestream placeholder block for guests who cannot travel ("Livestream link coming soon").
+- Church, venue and time: to be announced (marked as coming soon on the page). Dress code: to be announced. Officiant: to be announced (Andre Peter's father will no longer officiate).
+- A livestream placeholder block at the very top of the page, right under the hero, for guests who cannot travel ("Livestream link coming soon").
 - Traditions shown: traditional attire, a family blessing and prayer over the couple. aso-ebi and money spraying are adapted for the day, not done in their fully traditional form. (Kev's original interview also named bringing in the bride, drumming and the prostration of the groom and groomsmen, which Andre Peter later trimmed from the page. They still happen, the site just does not list them.)
 - Urhobo and Pidgin glossary with pronunciations: Migwo, Vrendo, Item 7, No wahala, Abeg.
 - Nigerian dishes and drinks: jollof rice, fried rice, asun, small chops, zobo.

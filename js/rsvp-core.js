@@ -63,7 +63,9 @@
         guests: attending ? guests : 0,
         diet: attending ? DIET_MAP[dietKey] : 'No restrictions',
         dietOther: attending && dietKey === 'other' ? cleanText(body.dietaryOther, 200) : '',
-        travelHelp: attending && body.travelHelp === true
+        travelHelp: attending && body.travelHelp === true,
+        // "Have you been invited to the chosen celebration(s)?" Only recorded, nothing is blocked.
+        invited: attending && (body.invited === 'yes' || body.invited === 'no') ? body.invited : ''
       }
     };
   }
@@ -78,6 +80,7 @@
     var bits = [];
     if (sub.dietOther) bits.push('diet: ' + sub.dietOther);
     if (sub.travelHelp) bits.push('would like travel or visa help');
+    if (sub.invited === 'no') bits.push('says they were not invited');
     return bits.join('; ');
   }
 
@@ -110,7 +113,7 @@
   function inboxEntry(sub, id, nowIso) {
     return {
       id: id, name: sub.name, attending: sub.attending, event: sub.event, guests: sub.guests,
-      diet: sub.diet, dietOther: sub.dietOther, travelHelp: sub.travelHelp,
+      diet: sub.diet, dietOther: sub.dietOther, travelHelp: sub.travelHelp, invited: sub.invited || '',
       at: nowIso, status: 'needs review'
     };
   }

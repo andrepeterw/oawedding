@@ -22,7 +22,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 4. **Our Faith.** Both faith stories, the verse, the ceremony songs, a welcome for guests of every background.
 5. **Our Ceremonies** (navigation group): **Nigerian Ceremony** and **Brazilian Reception**.
 6. **Travel and Accommodation** (navigation group): **Getting to Lagos** and **Getting to Salvador**.
-7. **RSVP.** Event selector (Nigerian Ceremony, Brazilian Reception, both, or cannot come), number of guests, dietary notes, a travel or visa help flag.
+7. **RSVP.** Event selector (Nigerian Ceremony and Brazilian Reception both marked "Invited Guests Only", both, or cannot come), a "Have you been invited to the chosen celebration(s)?" Yes or No question, number of guests, a dietary dropdown, a travel or visa help flag.
 8. **Registry.** Honeymoon or cash fund. Pix key live, an international option pending.
 9. **Gallery.** One shared album per city.
 10. **FAQ.** Answered per city where it matters.
@@ -42,9 +42,9 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - Andre Peter: international educator in design and computer science, musician since childhood (keyboards, drums, guitar, still writes songs), surfs (not well, by his own account), serves the Tarkwa Bay community through Tarkwa Tech. The page no longer names his reading or the Tarkwa Tech project in the bio.
 
 ### Wedding party and family
-- Maid of honor: Kev's sister. Bridesmaids: Jay Jay, Mirabel, Rejoyce, Labake, Oyin.
-- Best Men: Andre Peter's brother. Groomsmen: Kleber Lima, Luan Michel, Lucas Bomfim, Bruno Andrade, Rafael Santiago.
-- Kev's family: mother Dr. Funmi Akpokiniovo, sister Tejiri, brothers Ufuoma and Ruona Akpokiniovo.
+- Sister of the Bride: Tejiri Akpokiniovo. Bridesmaids: Jay Jay, Mirabel, Rejoyce, Labake, Oyin, Debbie.
+- Brother of the Groom: Anton Andre Wiggins. Groomsmen (first names only): Jeffery, Kleber, Luan, Lucas, Bruno, Rafael.
+- Kev's family: mother Dr. Funmi Akpokiniovo, sister Tejiri, brothers Ufuoma and Ruona Akpokiniovo, nephew Nkosinathi Mbulawa.
 - Andre Peter's family: father Anton Andre Wiggins (an apostle, no longer officiating), mother Angela Vaz, stepfather Aloísio Vaz (late), stepmother Ide Wiggins, brother Anton Jr, sisters Agatha Vaz and Hadassa Wiggins.
 - In loving memory: Kev's father, Mr. Robert Akpokiniovo.
 
@@ -57,16 +57,17 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - Church, venue and time: to be announced (marked as coming soon on the page). Dress code: to be announced. Officiant: to be announced (Andre Peter's father will no longer officiate).
 - A livestream placeholder block at the very top of the page, right under the hero, for guests who cannot travel ("Livestream link coming soon").
 - Traditions shown: traditional attire, a family blessing and prayer over the couple. aso-ebi and money spraying are adapted for the day, not done in their fully traditional form. (Kev's original interview also named bringing in the bride, drumming and the prostration of the groom and groomsmen, which Andre Peter later trimmed from the page. They still happen, the site just does not list them.)
-- Urhobo and Pidgin glossary with pronunciations: Migwo, Vrendo, Item 7, No wahala, Abeg.
-- Nigerian dishes and drinks: jollof rice, fried rice, asun, small chops, zobo.
+- A video placeholder under the livestream, an introduction to the Urhobo traditional ceremony for Brazilian guests (the video itself is still to be made).
+- The glossary of Urhobo and Pidgin words and the Nigerian menu section were removed from the page in November 2026.
 - Links to Getting to Lagos, add to calendar (Google Calendar and an .ics file).
 
 ### Brazilian Reception (June 19, 2027, Salvador)
 - Beach house venue: to be announced. Timing: late afternoon into sunset, ending around sunset.
 - Dress code: semi formal, not casual, women in spring colors.
-- Elements: the sea, Bahia's colors, acarajé, and Brazilian dishes (moqueca, pãozinho delícia, brigadeiro, caipirinha and much more). Music: an even mix of Nigerian and Brazilian gospel.
+- By invitation only: a clear note on the page says this is a simple, intimate gathering with limited space, for invited guests only. Guests who attend the Nigerian Ceremony do not need to come to Brazil. It is mainly for Brazilian family and friends who cannot make it to Nigeria.
+- The sections on the sea, Bahia and the table, and on music and dance, were removed in November 2026.
 - Community moments: mixed seating in short bursts, a cultural showcase moment, a shared or collaborative activity.
-- A draft order of the day, carried over from early planning and clearly labeled as a draft.
+- The order of the day is a placeholder ("coming soon"). The old draft timeline was removed in November 2026.
 - A clearly placed link to Getting to Salvador, add to calendar.
 
 ### Travel
@@ -76,7 +77,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 
 ### RSVP, registry, gallery, FAQ, contact
 - RSVP deadline: 19th February (2027). The form is a visible but disabled preview until a Tally or Formspree form is connected.
-- Registry: Pix key live (the phone number key, under Andre Peter Duque Wiggins), international guests pending a PayPal.me link that Andre Peter creates himself.
+- Registry: Pix key live (the phone number key, under Andre Peter Duque Wiggins), a card with Andre Peter's GBP bank details at Wise (account number, sort code, IBAN, Swift) for the United Kingdom and international transfers, and international guests also pending a PayPal.me link that Andre Peter creates himself. No USD details yet.
 - Gallery: one Google Photos album per city, links pending. FAQ: twelve entries covering getting there, dates, visas, lodging, dress codes, RSVP, language, livestream, registry and photos.
 - Contact: a disabled form preview. No home address, phone number or personal email is published.
 
@@ -97,7 +98,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 | Nigerian ceremony elements | Lists four elements plus the prostration | The page keeps Andre Peter's later trimmed wording (attire and family blessing, aso-ebi and money spraying adapted). |
 | Names | Kev and Peter | Oghenekevwe only in titles and on Home, Kev elsewhere, Andre Peter always. |
 | Suggested stays | Not mentioned | The six Airbnb links were chosen near the old venue, so they are labeled as general Salvador suggestions until the beach house is chosen. |
-| Order of the day | Moves into the ceremony pages | A draft timeline sits on the Brazilian Reception, rows kept as written (it still includes a "ceremony begins" row from the old single venue plan, to be confirmed). |
+| Order of the day | Moves into the ceremony pages | The Brazilian Reception only has a placeholder for the order of the day. The draft timeline was removed in November 2026. |
 
 ## Technical checklist
 
@@ -106,7 +107,7 @@ Mobile first. Sunrise scroll effect with a reduced motion fallback. Flower foote
 ## Open items
 
 1. **Lagos:** the church, venue and time for the Nigerian Ceremony.
-2. **Salvador:** choose the beach house for the Brazilian Reception (then update the stays, the map and the draft timeline).
+2. **Salvador:** choose the beach house for the Brazilian Reception (then update the stays, the map and the order of the day).
 3. **Dress code** for the Nigerian Ceremony.
 4. **Guest lists:** who is invited to which event (the same 170 guests at both, or split by city).
 5. **RSVP:** connecting the form (see the RSVP to planner plan). The deadline is set to 19th February.
@@ -117,6 +118,6 @@ Mobile first. Sunrise scroll effect with a reduced motion fallback. Flower foote
 10. **Domain name,** RSVP and gallery tools, honeymoon fund (Pix is live, an international link is pending).
 11. **Photoshoot** for Home, Our Story and Our Alliance.
 12. **Livestream:** who is securing it for Lagos, and the real link.
-13. **Order of the day** for the Nigerian Ceremony, to confirm with Andre Peter's father. Also confirm which rows of the Salvador draft timeline still apply.
+13. **Order of the day** for the Nigerian Ceremony, to confirm with Andre Peter's father. The Salvador order of the day is a placeholder until the beach house is chosen.
 14. **Visa rules:** reconfirm the Brazil rule for United States, Canadian and Australian passports on the gov.br page, and the Nigeria rules and official address, before launch.
 15. **Travel content:** lodging, budget and things to do for both cities, plus the Brazil and Nigeria visa step by step guides.

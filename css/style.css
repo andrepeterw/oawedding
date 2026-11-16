@@ -1005,3 +1005,41 @@ html:not([data-lang]) .lang-pt {
 /* Our Story: even spacing between the three blocks of text, each separated by the gold line */
 .story-text .divider { margin: var(--space-md) 0; }
 .story-text h2 { margin-top: 0; }
+
+/* Our Faith: everything centered, the gold dividers too */
+body[data-page="our-faith"] main { text-align: center; }
+body[data-page="our-faith"] .divider { margin-inline: auto; }
+body[data-page="our-faith"] .card { text-align: center; }
+
+/* Nigerian Ceremony: video placeholder under the livestream */
+.video-card { text-align: center; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; margin-top: var(--space-sm); border-radius: var(--radius); overflow: hidden; background: #000; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-frame--placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+  color: var(--color-cream-text);
+  background: radial-gradient(circle at 30% 25%, rgba(243, 215, 154, 0.25), transparent 55%), linear-gradient(135deg, var(--color-ocean) 0%, #2a6b6e 100%);
+  box-shadow: 0 10px 30px rgba(22, 63, 66, 0.2);
+}
+.video-frame__play { width: clamp(3.5rem, 12vw, 5rem); height: auto; }
+.video-frame__label { font-family: var(--font-heading); font-size: 1.15rem; letter-spacing: 0.02em; }
+
+/* Brazilian Reception: invitation only note */
+.invite-note { border: 1px solid var(--color-gold); border-left-width: 5px; border-radius: var(--radius); background: rgba(255, 255, 255, 0.7); padding: var(--space-sm) var(--space-md); margin: var(--space-sm) 0; }
+.invite-note p { margin: 0 0 0.5rem; }
+.invite-note p:last-child { margin-bottom: 0; }
+.invite-note__title { font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-ocean); }
+
+/* RSVP: invited only tag and the invited question */
+.invited-tag { font-style: normal; font-weight: 600; color: var(--color-coral-text); white-space: nowrap; }
+.form__invited[hidden] { display: none; }
+
+/* Registry: bank details */
+.bank { display: grid; gap: 0.7rem; margin: var(--space-sm) 0 0; }
+.bank dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ocean-soft); }
+.bank dd { margin: 0.1rem 0 0; font-weight: 600; overflow-wrap: anywhere; }
+.bank dd.bank__use { font-weight: 400; font-size: 0.85rem; color: var(--color-ink-soft); }
+
+/* Form fieldsets: let a long legend wrap inside the box instead of crossing the border */
+.form fieldset legend { float: left; width: 100%; padding: 0; margin-bottom: 0.4rem; }
+.form fieldset legend + * { clear: both; }

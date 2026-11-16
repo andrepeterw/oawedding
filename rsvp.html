@@ -38,10 +38,17 @@
           <fieldset>
             <legend class="lang-en">Which celebration will you join?</legend>
             <legend class="lang-pt">De qual celebração você vai participar?</legend>
-            <label class="choice"><input type="radio" name="event" value="lagos" required /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027</span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027</span></label>
-            <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027</span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027</span></label>
+            <label class="choice"><input type="radio" name="event" value="lagos" required /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027 <em class="invited-tag">(Invited Guests Only)</em></span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027 <em class="invited-tag">(Somente convidados)</em></span></label>
+            <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027 <em class="invited-tag">(Invited Guests Only)</em></span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027 <em class="invited-tag">(Somente convidados)</em></span></label>
             <label class="choice"><input type="radio" name="event" value="both" /> <span class="lang-en">Both celebrations</span><span class="lang-pt">As duas celebrações</span></label>
             <label class="choice"><input type="radio" name="event" value="no" /> <span class="lang-en">I am sorry, I cannot come</span><span class="lang-pt">Sinto muito, não poderei ir</span></label>
+          </fieldset>
+
+          <fieldset class="form__invited" id="rsvp-invited">
+            <legend class="lang-en">Have you been invited to the chosen celebration(s)?</legend>
+            <legend class="lang-pt">Você foi convidado para a(s) celebração(ões) escolhida(s)?</legend>
+            <label class="choice"><input type="radio" name="invited" value="yes" /> <span class="lang-en">Yes</span><span class="lang-pt">Sim</span></label>
+            <label class="choice"><input type="radio" name="invited" value="no" /> <span class="lang-en">No</span><span class="lang-pt">Não</span></label>
           </fieldset>
 
           <div class="form__attending" id="rsvp-attending">

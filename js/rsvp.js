@@ -7,6 +7,7 @@
   if (!form) return;
   var attending = document.getElementById("rsvp-attending");
   var other = document.getElementById("rsvp-other");
+  var invitedBox = document.getElementById("rsvp-invited");
   var diet = document.getElementById("rsvp-dietary");
   var send = document.getElementById("rsvp-send");
   var errorBox = document.getElementById("rsvp-error");
@@ -18,11 +19,13 @@
   var MESSAGES = {
     en: {
       invalid: "Please add your name and choose a celebration, then try again.",
+      invited: "Please tell us whether you have been invited, then send again.",
       too_many: "That is a lot of tries in a short time. Please wait a few minutes and try again.",
       generic: "We could not save your answer just now. Please try again in a little while."
     },
     pt: {
       invalid: "Por favor, preencha seu nome e escolha uma celebração, e tente de novo.",
+      invited: "Por favor, diga se você foi convidado, e envie de novo.",
       too_many: "Foram muitas tentativas em pouco tempo. Aguarde alguns minutos e tente de novo.",
       generic: "Não conseguimos salvar sua resposta agora. Tente novamente daqui a pouco."
     }
@@ -50,6 +53,7 @@
 
   function syncVisibility() {
     attending.hidden = selectedEvent() === "no";
+    invitedBox.hidden = selectedEvent() === "no";
     other.hidden = diet.value !== "other" || selectedEvent() === "no";
   }
   form.addEventListener("change", syncVisibility);
@@ -76,6 +80,8 @@
     var event = selectedEvent();
     nameField.setAttribute("aria-invalid", name.length < 2 ? "true" : "false");
     if (name.length < 2 || !event) { showError("invalid"); return; }
+    var invitedChoice = form.querySelector('input[name="invited"]:checked');
+    if (event !== "no" && !invitedChoice) { showError("invited"); return; }
 
     var payload = {
       name: name,
@@ -84,6 +90,7 @@
       dietary: diet.value,
       dietaryOther: form.elements.dietaryOther.value,
       travelHelp: form.elements.travelHelp.checked,
+      invited: invitedChoice ? invitedChoice.value : "",
       website: form.elements.website.value   // honeypot, people leave it empty
     };
 

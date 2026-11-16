@@ -34,12 +34,12 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 | Our Story | `our-story.html` | How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story was removed in November 2026. |
 | Our Alliance | `our-alliance.html` | The couple, the wedding party, the family (including a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
 | Our Faith | `our-faith.html` | Both faith stories, Philippians 1:6, ceremony songs, a welcome for guests of any background. |
-| Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced. Traditions, a glossary, dishes, add to calendar. |
-| Brazilian Reception | `brazilian-reception.html` | Beach house to be announced, semi formal dress, a draft order of the day, Brazilian dishes. |
+| Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced. A video placeholder (an introduction to the Urhobo ceremony for Brazilian guests), traditions, add to calendar. |
+| Brazilian Reception | `brazilian-reception.html` | Beach house to be announced, a clear "by invitation only" note (simple, intimate, limited space, and Nigerian Ceremony guests do not need to come), semi formal dress, an order of the day placeholder. |
 | Getting to Lagos | `getting-to-lagos.html` | Nigeria visa guidance by passport, lodging, map. |
 | Getting to Salvador | `getting-to-salvador.html` | Brazil visa guidance (with a reconfirm note for United States, Canadian and Australian passports), suggested stays, map. |
 | RSVP | `rsvp.html` | Live form, see "RSVP flow" below. Reply by 19th February. |
-| Registry | `registry.html` | Honeymoon or cash fund. Pix key live, international option pending. |
+| Registry | `registry.html` | Honeymoon or cash fund. Pix key live, GBP bank details (Wise) for UK and international transfers, a PayPal style link still pending. |
 | Gallery | `gallery.html` | One shared Google Photos album per city, links pending. |
 | FAQ | `faq.html` | Twelve entries. |
 | Contact | `contact.html` | Disabled form preview. No private contact details are published. |
@@ -71,7 +71,7 @@ A planning tool for the couple only, not linked from the public site, set to noi
 
 ## RSVP flow
 
-1. A guest fills in `rsvp.html`: full name, which celebration (Lagos, Salvador, both, or cannot come), number of guests, a dietary dropdown (No dietary restrictions, Vegetarian, Vegan, Pescatarian, Halal, Gluten free, Dairy free, Nut allergy, Other with a text box), and a travel or visa help checkbox. A hidden honeypot field catches basic bots.
+1. A guest fills in `rsvp.html`: full name, which celebration (Lagos, Salvador, both, or cannot come), number of guests, a dietary dropdown (No dietary restrictions, Vegetarian, Vegan, Pescatarian, Halal, Gluten free, Dairy free, Nut allergy, Other with a text box), and a travel or visa help checkbox, and a "Have you been invited to the chosen celebration(s)?" Yes or No question (only recorded, shown in the planner's notes and review queue). The two celebration options are marked "Invited Guests Only". A hidden honeypot field catches basic bots.
 2. The page posts to `api/rsvp.js`, a write only function. It finds the planner's Redis record from the `PLANNER_KEY` environment variable (the couple's sync code, set in Vercel and never in the repo).
 3. An exact name match to exactly one guest (case, extra spaces, punctuation and accents ignored) updates that row: Attending or Declined, event, diet, plus ones. Declined guests stay on the list. No match, or more than one match, adds the answer to a review queue in the planner (Match to an existing guest, or Add as new guest), with a count badge on the Guests tab.
 4. Guests see a thank you either way. Guests who decline see a different message from guests who are coming. They never see whether they were matched.
@@ -86,7 +86,7 @@ Done: all pages above, the sunrise Home, monogram and favicon, bilingual content
 
 Placeholders by design (do not invent content for these):
 - Nigerian Ceremony: church, venue, time, address and map, dress code.
-- Brazilian Reception: the beach house, its address and map, and the draft order of the day (some rows may no longer apply).
+- Brazilian Reception: the beach house, its address and map, and the order of the day (a placeholder).
 - Livestream link for Lagos, Gallery album links, the registry's international payment link.
 - Travel content: lodging, budget and things to do for both cities, and step by step visa guides.
 - Contact: a way to reach the couple that does not publish personal details, and a connected form.

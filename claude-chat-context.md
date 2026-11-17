@@ -1,6 +1,6 @@
 # Context for Claude: the Kev and Andre Peter wedding website (current version)
 
-Paste this whole file at the start of a Claude chat, or attach it, so Claude knows where the website stands. It describes the live version as of 17 November 2026. If something here disagrees with what you see on the site, the site wins, and please tell Claude so it can correct itself.
+Paste this whole file at the start of a Claude chat, or attach it, so Claude knows where the website stands. It describes the live version as of 17 November 2026 (after commit b6d756c). If something here disagrees with what you see on the site, the site wins, and please tell Claude so it can correct itself.
 
 ## What this is
 
@@ -30,12 +30,12 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 
 | Page | File | Notes |
 |---|---|---|
-| Home | `index.html` | Full page sunrise background that builds as you scroll and ends at the footer, content in front of it. Both dates and cities, countdown to June 12, the God centered line, two event cards with add to calendar, hashtag and share buttons. |
+| Home | `index.html` | Full page sunrise background that builds as you scroll and ends at the footer, content in front of it. Both dates and cities, countdown to June 12, the God centered line, then a "Find your way around" section with three cards: Our Story, Our Alliance, Our Faith. The event cards and the hashtag and share buttons were removed from Home. |
 | Our Story | `our-story.html` | A painting right below the page title, then three blocks of text (How we met, Our journey together, A favorite memory) separated by gold lines. The favorite memory invites guests to ask the couple about the proposal. The long proposal story was removed in November 2026. |
 | Our Alliance | `our-alliance.html` | The couple, the wedding party (Sister of the Bride, Bridesmaids, Brother of the Groom, Groomsmen with first names only), the family (Kev's family includes a nephew, Andre Peter's includes a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
 | Our Faith | `our-faith.html` | Everything centered. Both faith stories, a welcome for guests of any background, and one card with the verse (Philippians 1:6, the reference on its own line). The Ceremony worship and Officiant cards were removed. |
-| Our Ceremony (Lagos) | `our-ceremony.html` | Links to RSVP Lagos. Formerly nigerian-ceremony.html. The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced (Andre Peter's father will no longer officiate). Below the livestream, a video placeholder (an introduction to the Urhobo ceremony for Brazilian guests). Then traditions and add to calendar. The glossary and the menu sections were removed. |
-| Our Reception (Salvador) | `our-reception.html` | Links to Getting to Salvador and RSVP Salvador. Formerly brazilian-reception.html. Beach house to be announced, a clear "by invitation only" note (simple, intimate, limited space, and Nigerian Ceremony guests do not need to come), semi formal dress, an order of the day placeholder. |
+| Our Ceremony (Lagos) | `our-ceremony.html` | Links to RSVP Lagos. Formerly nigerian-ceremony.html. The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced (Andre Peter's father will no longer officiate). Below the livestream, a Vimeo video titled "Learn about the Urhobo Ceremony" (an introduction for Brazilian guests, with an intro paragraph whose first "Urhobo" links to Wikipedia), and a small caption saying the video was made with AI, with its five sources. Then traditions and add to calendar. The glossary and the menu sections were removed. |
+| Our Reception (Salvador) | `our-reception.html` | Links to Getting to Salvador and RSVP Salvador. Formerly brazilian-reception.html. Beach house to be announced, semi formal dress (the "by invitation only" box was removed), an order of the day placeholder. |
 | Getting to Salvador (subpage of Our Reception, not in the navigation) | `getting-to-salvador.html` | Brazil visa guidance (with a reconfirm note for United States, Canadian and Australian passports), suggested stays, map. |
 | RSVP Lagos and RSVP Salvador (subpages, not in the navigation) | `rsvp-lagos.html`, `rsvp-salvador.html` | Live forms, see "RSVP flow" below. "Please reply by 19th February." The old rsvp.html redirects to RSVP Lagos. |
 | Registry | `registry.html` | Honeymoon or cash fund. Pix key live, a card with GBP bank details at Wise for UK and international transfers (the numbers are on the page, not repeated here), and a PayPal style link still pending. No USD details yet. |
@@ -81,15 +81,18 @@ Environment variables on Vercel: `PLANNER_KEY` (the sync code), and the Redis co
 
 ## Recent changes (November 2026)
 
-- Brazil only links: the Our Reception menu item, the footer and Home links to the Salvador pages, the Home Reception card, a few FAQ sentences and the Traveling with us block on Our Alliance appear only to visitors detected in Brazil (an IP based guess through `/api/country`, kept in a cookie). The pages themselves stay open by direct address.
+- Home: event cards and the Share section removed, three explore cards (Our Story, Our Alliance, Our Faith).
+- Our Ceremony: Urhobo video embedded (Vimeo), new heading and intro, AI caption with sources in small type. Playback was not verified in the local preview, so check it on the live site and allow the domain in Vimeo embed privacy if needed.
+- Our Reception: "by invitation only" note removed.
+- Brazil only links: the Our Reception menu item, the footer and Home links to the Salvador pages, a few FAQ sentences and the Traveling with us block on Our Alliance appear only to visitors detected in Brazil (an IP based guess through `/api/country`, kept in a cookie). The pages themselves stay open by direct address.
 
 - Home: a full page sunrise with the content in front, the OA monogram, hero line "Our Alliance". Footer flowers moved to the bottom right.
 - Our Story: new painting under the title, proposal story removed, even spacing and gold lines between the three text blocks.
 - Our Alliance: wedding party titles and names updated, nephew added to Kev's family, Andre Peter's bio shortened.
 - Our Faith: all centered, officiant and worship cards removed.
-- Nigerian Ceremony: livestream first, then a video placeholder, menu and glossary removed, officiant to be announced.
-- Brazilian Reception: "by invitation only" note, sea and music sections removed, order of the day is a placeholder.
-- RSVP: reply by 19th February, "(Invited Guests Only)" on both celebration options, a new invited question, a different thank you for guests who decline.
+- Nigerian Ceremony: livestream first, then the video, menu and glossary removed, officiant to be announced.
+- Brazilian Reception: sea and music sections removed, order of the day is a placeholder.
+- RSVP: reply by 19th February, two separate pages (RSVP Lagos and RSVP Salvador), a different thank you for guests who decline.
 - Registry: GBP bank details card added.
 - Planner: headcount by event chart and an RSVP review queue, connected to the live RSVP form.
 

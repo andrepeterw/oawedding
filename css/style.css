@@ -1019,6 +1019,6 @@ body[data-page="our-faith"] .card { text-align: center; }
 html:not([data-country="BR"]) .brazil-only { display: none !important; }
 
 /* Nigerian Ceremony: caption under the video */
-.video-caption { margin-top: var(--space-sm); font-size: 0.85rem; color: var(--color-ink-soft); text-align: left; }
+.video-caption { margin-top: var(--space-sm); font-size: 0.72rem; color: var(--color-ink-soft); text-align: left; }
 .video-caption p { margin: 0 0 0.4rem; font-weight: 600; }
 .video-caption ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.25rem; }

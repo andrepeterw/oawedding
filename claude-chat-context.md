@@ -1,6 +1,6 @@
 # Context for Claude: the Kev and Andre Peter wedding website (current version)
 
-Paste this whole file at the start of a Claude chat, or attach it, so Claude knows where the website stands. It describes the live version as of 10 November 2026. If something here disagrees with what you see on the site, the site wins, and please tell Claude so it can correct itself.
+Paste this whole file at the start of a Claude chat, or attach it, so Claude knows where the website stands. It describes the live version as of 17 November 2026. If something here disagrees with what you see on the site, the site wins, and please tell Claude so it can correct itself.
 
 ## What this is
 
@@ -20,7 +20,7 @@ The repository is public on GitHub (andrepeterw/oawedding) and deploys on Vercel
 - Andre Peter is called "Peter" by Brazilian family and friends and "Andre" by Nigerian ones, so the site always shows the full name **Andre Peter**.
 - Kev's full name, **Oghenekevwe**, appears only in page `<title>` tags and on the Home page. Everywhere else in the body, the footer and calendar entries she is **Kev**.
 - Hashtag: **#OurAlliance2027** (a play on "aliança", the Portuguese word for wedding ring and covenant). Still to confirm with Kev before it goes on signage.
-- Monogram: an "OA" monogram in deep teal and copper. It sits on the Home hero, to the left of the names in the header, and is the favicon.
+- Monogram: an "OA" monogram in deep teal and copper. It sits on the Home hero (under the "Our Alliance" line above the names), to the left of the names in the header, and is the favicon.
 
 ## Writing style (important)
 
@@ -31,15 +31,15 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 | Page | File | Notes |
 |---|---|---|
 | Home | `index.html` | Full page sunrise background that builds as you scroll and ends at the footer, content in front of it. Both dates and cities, countdown to June 12, the God centered line, two event cards with add to calendar, hashtag and share buttons. |
-| Our Story | `our-story.html` | How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story was removed in November 2026. |
-| Our Alliance | `our-alliance.html` | The couple, the wedding party, the family (including a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
-| Our Faith | `our-faith.html` | Both faith stories, Philippians 1:6, ceremony songs, a welcome for guests of any background. |
-| Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced. A video placeholder (an introduction to the Urhobo ceremony for Brazilian guests), traditions, add to calendar. |
+| Our Story | `our-story.html` | A painting right below the page title, then three blocks of text (How we met, Our journey together, A favorite memory) separated by gold lines. The favorite memory invites guests to ask the couple about the proposal. The long proposal story was removed in November 2026. |
+| Our Alliance | `our-alliance.html` | The couple, the wedding party (Sister of the Bride, Bridesmaids, Brother of the Groom, Groomsmen with first names only), the family (Kev's family includes a nephew, Andre Peter's includes a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
+| Our Faith | `our-faith.html` | Everything centered. Both faith stories, a welcome for guests of any background, and one card with the verse (Philippians 1:6, the reference on its own line). The Ceremony worship and Officiant cards were removed. |
+| Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced (Andre Peter's father will no longer officiate). Below the livestream, a video placeholder (an introduction to the Urhobo ceremony for Brazilian guests). Then traditions and add to calendar. The glossary and the menu sections were removed. |
 | Brazilian Reception | `brazilian-reception.html` | Beach house to be announced, a clear "by invitation only" note (simple, intimate, limited space, and Nigerian Ceremony guests do not need to come), semi formal dress, an order of the day placeholder. |
 | Getting to Lagos | `getting-to-lagos.html` | Nigeria visa guidance by passport, lodging, map. |
 | Getting to Salvador | `getting-to-salvador.html` | Brazil visa guidance (with a reconfirm note for United States, Canadian and Australian passports), suggested stays, map. |
-| RSVP | `rsvp.html` | Live form, see "RSVP flow" below. Reply by 19th February. |
-| Registry | `registry.html` | Honeymoon or cash fund. Pix key live, GBP bank details (Wise) for UK and international transfers, a PayPal style link still pending. |
+| RSVP | `rsvp.html` | Live form, see "RSVP flow" below. "Please reply by 19th February." |
+| Registry | `registry.html` | Honeymoon or cash fund. Pix key live, a card with GBP bank details at Wise for UK and international transfers (the numbers are on the page, not repeated here), and a PayPal style link still pending. No USD details yet. |
 | Gallery | `gallery.html` | One shared Google Photos album per city, links pending. |
 | FAQ | `faq.html` | Twelve entries. |
 | Contact | `contact.html` | Disabled form preview. No private contact details are published. |
@@ -79,6 +79,18 @@ A planning tool for the couple only, not linked from the public site, set to noi
 6. The function returns a short reference if saving fails (for example `no_planner_key`, `no_planner_record`, `no_database`), which the page shows in brackets.
 
 Environment variables on Vercel: `PLANNER_KEY` (the sync code), and the Redis connection (`REDIS_URL` from the Redis integration, or Upstash `KV_REST_API_URL` and token). The shared Redis code is in `api/_lib/store.js`, and the rules for turning an answer into a guest row are in `js/rsvp-core.js`, used by both the server and the planner.
+
+## Recent changes (November 2026)
+
+- Home: a full page sunrise with the content in front, the OA monogram, hero line "Our Alliance". Footer flowers moved to the bottom right.
+- Our Story: new painting under the title, proposal story removed, even spacing and gold lines between the three text blocks.
+- Our Alliance: wedding party titles and names updated, nephew added to Kev's family, Andre Peter's bio shortened.
+- Our Faith: all centered, officiant and worship cards removed.
+- Nigerian Ceremony: livestream first, then a video placeholder, menu and glossary removed, officiant to be announced.
+- Brazilian Reception: "by invitation only" note, sea and music sections removed, order of the day is a placeholder.
+- RSVP: reply by 19th February, "(Invited Guests Only)" on both celebration options, a new invited question, a different thank you for guests who decline.
+- Registry: GBP bank details card added.
+- Planner: headcount by event chart and an RSVP review queue, connected to the live RSVP form.
 
 ## Where things stand
 

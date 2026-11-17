@@ -50,6 +50,9 @@
     var choice = String(body.event || '');
     var attending = choice !== 'no';
     if (attending && !EVENT_MAP[choice]) return { ok: false };
+    // Two pages post here: RSVP Lagos (only Lagos or no) and RSVP Salvador (the full choice).
+    var page = body.page === 'lagos' || body.page === 'salvador' ? body.page : '';
+    if (page === 'lagos' && attending && choice !== 'lagos') return { ok: false };
     var guests = Math.floor(Number(body.guests));
     if (!(guests >= 1 && guests <= 10)) guests = 1;
     var dietKey = String(body.dietary || 'none');
@@ -59,7 +62,9 @@
       sub: {
         name: name,
         attending: attending,
-        event: attending ? EVENT_MAP[choice] : '',
+        page: page,
+        // a "no" from RSVP Lagos is a no to Lagos. From RSVP Salvador it stays unspecific.
+        event: attending ? EVENT_MAP[choice] : (page === 'lagos' ? 'Lagos' : ''),
         guests: attending ? guests : 0,
         diet: attending ? DIET_MAP[dietKey] : 'No restrictions',
         dietOther: attending && dietKey === 'other' ? cleanText(body.dietaryOther, 200) : '',
@@ -85,10 +90,10 @@
   }
 
   // Update a guest row in place from an answer (also used for a brand new row).
-  function applyToGuest(g, sub, nowIso) {
+  function applyToGuest(g, sub, nowIso, eventOverride) {
     if (sub.attending) {
       g.rsvp = 'Attending';
-      g.event = sub.event;
+      g.event = eventOverride || sub.event;
       g.diet = sub.diet;
       g.plusOnes = Math.max(0, (Number(sub.guests) || 1) - 1);
     } else {
@@ -103,6 +108,31 @@
     return g;
   }
 
+  // Two forms can reach the same guest, but a guest row holds one status and one event.
+  // This decides whether a new answer can be applied as it is, or must wait for a person.
+  //  - not answered yet (anything but Attending or Declined): apply
+  //  - Attending again: apply. If the answer came through the form and names the other
+  //    celebration, the guest is going to both, so the event becomes Both
+  //  - Declined again: apply
+  //  - Attending changed to Declined, or Declined to Attending: conflict, a person decides
+  //  - Attending set by hand in the planner (no form answer yet) with a different event: conflict,
+  //    because the planner's default event is not something the guest chose
+  function unionEvent(a, b) {
+    if (!a || a === b) return b;
+    if (!b) return a;
+    return 'Both';
+  }
+  function resolve(g, sub) {
+    var confirmed = g.rsvp === 'Attending' || g.rsvp === 'Declined';
+    if (!confirmed) return { action: 'apply' };
+    if (g.rsvp === 'Attending' && sub.attending) {
+      if (g.source === 'rsvp-form') return { action: 'apply', event: unionEvent(g.event, sub.event) };
+      return g.event === sub.event ? { action: 'apply' } : { action: 'conflict', reason: 'different celebration' };
+    }
+    if (g.rsvp === 'Declined' && !sub.attending) return { action: 'apply' };
+    return { action: 'conflict', reason: sub.attending ? 'now attending' : 'now declining' };
+  }
+
   // A new guest row. The side stays blank, the form cannot know it.
   function newGuest(sub, id, nowIso) {
     var g = { id: id, name: sub.name, side: '', country: 'Other', event: sub.event || 'Lagos', rsvp: 'Not sent', diet: 'No restrictions', plusOnes: 0, notes: '' };
@@ -110,13 +140,16 @@
   }
 
   // A review queue entry for the planner.
-  function inboxEntry(sub, id, nowIso) {
-    return {
-      id: id, name: sub.name, attending: sub.attending, event: sub.event, guests: sub.guests,
+  function inboxEntry(sub, id, nowIso, extra) {
+    var entry = {
+      id: id, name: sub.name, page: sub.page || '', attending: sub.attending, event: sub.event, guests: sub.guests,
       diet: sub.diet, dietOther: sub.dietOther, travelHelp: sub.travelHelp, invited: sub.invited || '',
       at: nowIso, status: 'needs review'
     };
+    // conflict: true, reason, matchedGuestId and existing (the row as it was) when it clashed with an earlier answer
+    if (extra) for (var k in extra) entry[k] = extra[k];
+    return entry;
   }
 
-  return { EVENT_MAP: EVENT_MAP, DIET_MAP: DIET_MAP, normName: normName, parseSubmission: parseSubmission, applyToGuest: applyToGuest, newGuest: newGuest, inboxEntry: inboxEntry };
+  return { EVENT_MAP: EVENT_MAP, DIET_MAP: DIET_MAP, normName: normName, parseSubmission: parseSubmission, resolve: resolve, unionEvent: unionEvent, applyToGuest: applyToGuest, newGuest: newGuest, inboxEntry: inboxEntry };
 });

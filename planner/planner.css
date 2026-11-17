@@ -406,3 +406,6 @@ details > summary::-webkit-details-marker { display: none; }
 .inbox-btn:disabled { opacity:.45; cursor:not-allowed }
 .inbox-badge.hidden { display:none }
 .inbox-list { max-height:28rem; overflow-y:auto; padding-right:.2rem }
+
+.inbox-tag { display:inline-block; padding:0 .5rem; border-radius:999px; background:var(--p-sea-soft); color:var(--p-sea-deep); font-size:.72rem; font-weight:700; line-height:1.3rem }
+.inbox-conflict { background:var(--p-coral-soft); border-left:4px solid var(--p-coral-strong); border-radius:.5rem; padding:.45rem .7rem; font-size:.85rem }

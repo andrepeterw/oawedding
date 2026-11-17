@@ -565,36 +565,9 @@ html:not([data-lang]) .lang-pt {
 }
 
 /* ==========================================================================
-   Structure update: two ceremonies, grouped navigation, sunrise Home,
+   Structure update: two ceremonies, sunrise Home,
    flower footer, forms and small components.
    ========================================================================== */
-
-/* ----------------------------- Grouped navigation ------------------------- */
-.nav-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  margin-block: 0.35rem;
-  padding-block: 0.45rem;
-  border-block: 1px solid var(--color-border);
-}
-
-.nav-group__label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ink-soft);
-  padding: 0.2rem 0.5rem;
-}
-
-.nav-group__label.is-active-group {
-  color: var(--color-coral-text);
-}
-
-.site-nav .nav-group a {
-  padding-left: 1.25rem;
-}
 
 /* ------------------------------ Sunrise (Home) ---------------------------- */
 /* The sky is fixed behind the whole page, the content scrolls in front of it.
@@ -1030,9 +1003,6 @@ body[data-page="our-faith"] .card { text-align: center; }
 .invite-note p:last-child { margin-bottom: 0; }
 .invite-note__title { font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-ocean); }
 
-/* RSVP: invited only tag and the invited question */
-.invited-tag { font-style: normal; font-weight: 600; color: var(--color-coral-text); white-space: nowrap; }
-.form__invited[hidden] { display: none; }
 
 /* Registry: bank details */
 .bank { display: grid; gap: 0.7rem; margin: var(--space-sm) 0 0; }
@@ -1043,3 +1013,7 @@ body[data-page="our-faith"] .card { text-align: center; }
 /* Form fieldsets: let a long legend wrap inside the box instead of crossing the border */
 .form fieldset legend { float: left; width: 100%; padding: 0; margin-bottom: 0.4rem; }
 .form fieldset legend + * { clear: both; }
+
+/* Shown only to visitors in Brazil. Hidden until js/main.js confirms the country, and for everyone else.
+   This hides links only, the pages themselves stay open to anyone with the address. */
+html:not([data-country="BR"]) .brazil-only { display: none !important; }

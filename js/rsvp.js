@@ -1,13 +1,19 @@
-/* RSVP page: sends the form to /api/rsvp (see api/rsvp.js) and shows a thank you.
-   No sync code and no account, the server knows where to write. */
+/* RSVP pages (RSVP Lagos and RSVP Salvador): send the form to /api/rsvp (see api/rsvp.js)
+   and show a thank you. No sync code and no account, the server knows where to write.
+
+   One script serves both pages. The form says which page it is with data-rsvp-page:
+   - "lagos":    asks "Will you join Our Ceremony?" (Yes or No). A Yes is sent as the Lagos
+                 celebration, a No as "cannot come", both tagged page "lagos".
+   - "salvador": keeps the full celebration choice (Lagos, Salvador, both, or cannot come).
+   Either way the payload has the same shape that js/rsvp-core.js expects. */
 (function () {
   "use strict";
 
   var form = document.getElementById("rsvp-form");
   if (!form) return;
+  var page = form.getAttribute("data-rsvp-page") === "lagos" ? "lagos" : "salvador";
   var attending = document.getElementById("rsvp-attending");
   var other = document.getElementById("rsvp-other");
-  var invitedBox = document.getElementById("rsvp-invited");
   var diet = document.getElementById("rsvp-dietary");
   var send = document.getElementById("rsvp-send");
   var errorBox = document.getElementById("rsvp-error");
@@ -18,14 +24,12 @@
 
   var MESSAGES = {
     en: {
-      invalid: "Please add your name and choose a celebration, then try again.",
-      invited: "Please tell us whether you have been invited, then send again.",
+      invalid: "Please add your name and choose an answer, then try again.",
       too_many: "That is a lot of tries in a short time. Please wait a few minutes and try again.",
       generic: "We could not save your answer just now. Please try again in a little while."
     },
     pt: {
-      invalid: "Por favor, preencha seu nome e escolha uma celebração, e tente de novo.",
-      invited: "Por favor, diga se você foi convidado, e envie de novo.",
+      invalid: "Por favor, preencha seu nome e escolha uma resposta, e tente de novo.",
       too_many: "Foram muitas tentativas em pouco tempo. Aguarde alguns minutos e tente de novo.",
       generic: "Não conseguimos salvar sua resposta agora. Tente novamente daqui a pouco."
     }
@@ -46,14 +50,18 @@
   labelOptions();
   new MutationObserver(labelOptions).observe(document.documentElement, { attributes: true, attributeFilter: ["data-lang"] });
 
+  // The answer in the shape the server expects: "lagos", "salvador", "both" or "no".
   function selectedEvent() {
+    if (page === "lagos") {
+      var j = form.querySelector('input[name="join"]:checked');
+      return j ? (j.value === "yes" ? "lagos" : "no") : "";
+    }
     var r = form.querySelector('input[name="event"]:checked');
     return r ? r.value : "";
   }
 
   function syncVisibility() {
     attending.hidden = selectedEvent() === "no";
-    invitedBox.hidden = selectedEvent() === "no";
     other.hidden = diet.value !== "other" || selectedEvent() === "no";
   }
   form.addEventListener("change", syncVisibility);
@@ -80,17 +88,15 @@
     var event = selectedEvent();
     nameField.setAttribute("aria-invalid", name.length < 2 ? "true" : "false");
     if (name.length < 2 || !event) { showError("invalid"); return; }
-    var invitedChoice = form.querySelector('input[name="invited"]:checked');
-    if (event !== "no" && !invitedChoice) { showError("invited"); return; }
 
     var payload = {
+      page: page,
       name: name,
       event: event,
       guests: Number(form.elements.guests.value) || 1,
       dietary: diet.value,
       dietaryOther: form.elements.dietaryOther.value,
       travelHelp: form.elements.travelHelp.checked,
-      invited: invitedChoice ? invitedChoice.value : "",
       website: form.elements.website.value   // honeypot, people leave it empty
     };
 

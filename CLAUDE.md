@@ -18,11 +18,13 @@ site.
 
 Site map: Home (sunrise scroll effect, both dates and cities, countdown to the
 nearer date), Our Story, Our Alliance (couple, wedding party, family, in loving
-memory), Our Faith, Our Ceremonies group (Nigerian Ceremony, Brazilian
-Reception), Travel and Accommodation group (Getting to Lagos, Getting to
-Salvador), RSVP (event selector), Registry, Gallery (one album per city), FAQ,
-Contact. The old Meet the Couple, Wedding Party and Family, Traditions and Menu,
-Schedule, Event Details and Travel pages are retired and redirect through
+memory), Our Faith, Our Ceremony (Lagos), Our Reception (Salvador), Registry,
+Gallery (one album per city), FAQ, Contact. The navigation is flat, no dropdowns.
+Subpages that are not in the navigation: Getting to Salvador and RSVP Salvador
+(linked from Our Reception), and RSVP Lagos (linked from Our Ceremony). Getting to
+Lagos was deleted. The old Meet the Couple, Wedding Party and Family, Traditions and Menu,
+Schedule, Event Details and Travel pages, and the old file names nigerian-ceremony,
+brazilian-reception, getting-to-lagos and rsvp, are retired and redirect through
 vercel.json. A footer of small flowers in the bottom right corner appears on every
 page.
 
@@ -89,3 +91,23 @@ update rules live once in js/rsvp-core.js, used by both the server and the plann
 Redis code lives in api/_lib/store.js (underscore means it is not deployed as a function).
 The planner's sync merges rsvpInbox per record like guests. The RSVP deadline is 19th February.
 The planner stays the only place that shows who answered, the public page never does.
+
+Two RSVP pages (added Nov 2026): rsvp-lagos.html ("Will you join Our Ceremony?", Yes or No) and
+rsvp-salvador.html (the full choice of Lagos, Salvador, both or cannot come). One script,
+js/rsvp.js, serves both and tags the answer with the page. A guest row holds one RSVP status
+and one event, so a second answer is checked in js/rsvp-core.js (resolve): a first answer
+applies, an Attending answer that names the other celebration makes the event Both, a repeat
+applies, but a change of status (Attending to Declined or the reverse), or a different event on
+a row that was set by hand in the planner, is queued in data.rsvpInbox as a conflict with the
+page it came from, the existing answer and the matched guest, and the row is left untouched.
+Unknown names are queued once per page.
+
+Brazil only links (added Nov 2026): every link to Our Reception, Getting to Salvador and RSVP
+Salvador carries class "brazil-only" and is hidden unless html[data-country="BR"]. js/main.js sets
+that from the visitorCountry cookie, or from /api/country (api/country.js reads Vercel's
+x-vercel-ip-country header, an IP based best guess) and then stores the cookie for 12 hours.
+Unknown counts as not Brazil. This hides links only, the three pages stay open to anyone with
+the address. Hidden for non Brazil visitors: the Our Reception menu item, the footer links to
+Our Reception and RSVP Salvador, the Home RSVP Salvador buttons and the whole Reception event
+card, the FAQ sentences that link to the Salvador pages, and the "Traveling with us" section of Our
+Alliance. Locally there is no country header, so set the cookie visitorCountry=BR by hand to see them.

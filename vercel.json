@@ -1,10 +1,54 @@
 {
   "redirects": [
-    { "source": "/meet-the-couple.html", "destination": "/our-alliance.html", "permanent": true },
-    { "source": "/wedding-party.html", "destination": "/our-alliance.html#wedding-party", "permanent": true },
-    { "source": "/traditions.html", "destination": "/nigerian-ceremony.html#traditions", "permanent": true },
-    { "source": "/schedule.html", "destination": "/brazilian-reception.html#order-of-the-day", "permanent": true },
-    { "source": "/event-details.html", "destination": "/brazilian-reception.html", "permanent": true },
-    { "source": "/travel.html", "destination": "/getting-to-salvador.html", "permanent": true }
+    {
+      "source": "/meet-the-couple.html",
+      "destination": "/our-alliance.html",
+      "permanent": true
+    },
+    {
+      "source": "/wedding-party.html",
+      "destination": "/our-alliance.html#wedding-party",
+      "permanent": true
+    },
+    {
+      "source": "/traditions.html",
+      "destination": "/our-ceremony.html#traditions",
+      "permanent": true
+    },
+    {
+      "source": "/schedule.html",
+      "destination": "/our-reception.html#order-of-the-day",
+      "permanent": true
+    },
+    {
+      "source": "/event-details.html",
+      "destination": "/our-reception.html",
+      "permanent": true
+    },
+    {
+      "source": "/travel.html",
+      "destination": "/getting-to-salvador.html",
+      "permanent": true
+    },
+    {
+      "source": "/getting-to-lagos.html",
+      "destination": "/our-ceremony.html",
+      "permanent": true
+    },
+    {
+      "source": "/nigerian-ceremony.html",
+      "destination": "/our-ceremony.html",
+      "permanent": true
+    },
+    {
+      "source": "/brazilian-reception.html",
+      "destination": "/our-reception.html",
+      "permanent": true
+    },
+    {
+      "source": "/rsvp.html",
+      "destination": "/rsvp-lagos.html",
+      "permanent": true
+    }
   ]
 }

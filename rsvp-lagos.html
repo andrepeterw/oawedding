@@ -6,49 +6,42 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png" />
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-  <title>RSVP | Oghenekevwe &amp; Andre Peter</title>
+  <title>RSVP Lagos | Oghenekevwe &amp; Andre Peter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body data-page="rsvp">
+<body data-page="our-ceremony">
   <header id="site-header" class="site-header"></header>
 
   <main>
     <section class="hero" style="padding-block: var(--space-lg);">
       <div class="container">
-        <p class="eyebrow lang-en">RSVP</p>
-        <p class="eyebrow lang-pt">Confirmar Presença</p>
+        <p class="eyebrow lang-en">RSVP Lagos</p>
+        <p class="eyebrow lang-pt">Confirmar presença em Lagos</p>
         <h1 class="lang-en">We can't wait to see you</h1>
         <h1 class="lang-pt">Mal podemos esperar para ver você</h1>
         <p class="lang-en">Please reply by <strong>19th February</strong>.</p>
         <p class="lang-pt">Por favor, responda até <strong>19 de fevereiro</strong>.</p>
+        <p class="lang-en">For Our Ceremony in Lagos, Nigeria, on June 12, 2027. <a href="/our-ceremony.html">Back to Our Ceremony</a></p>
+        <p class="lang-pt">Para a Nossa Cerimônia em Lagos, Nigéria, em 12 de junho de 2027. <a href="/our-ceremony.html">Voltar à Nossa Cerimônia</a></p>
       </div>
     </section>
 
     <section>
       <div class="container container--narrow">
-        <form class="form" id="rsvp-form" action="/api/rsvp" method="post" novalidate>
+        <form class="form" id="rsvp-form" data-rsvp-page="lagos" action="/api/rsvp" method="post" novalidate>
           <label>
             <span class="lang-en">Full name</span><span class="lang-pt">Nome completo</span>
             <input type="text" name="name" autocomplete="name" maxlength="120" required />
           </label>
 
           <fieldset>
-            <legend class="lang-en">Which celebration will you join?</legend>
-            <legend class="lang-pt">De qual celebração você vai participar?</legend>
-            <label class="choice"><input type="radio" name="event" value="lagos" required /> <span class="lang-en">Nigerian Ceremony, Lagos, June 12, 2027 <em class="invited-tag">(Invited Guests Only)</em></span><span class="lang-pt">Cerimônia Nigeriana, Lagos, 12 de junho de 2027 <em class="invited-tag">(Somente convidados)</em></span></label>
-            <label class="choice"><input type="radio" name="event" value="salvador" /> <span class="lang-en">Brazilian Reception, Salvador, June 19, 2027 <em class="invited-tag">(Invited Guests Only)</em></span><span class="lang-pt">Recepção Brasileira, Salvador, 19 de junho de 2027 <em class="invited-tag">(Somente convidados)</em></span></label>
-            <label class="choice"><input type="radio" name="event" value="both" /> <span class="lang-en">Both celebrations</span><span class="lang-pt">As duas celebrações</span></label>
-            <label class="choice"><input type="radio" name="event" value="no" /> <span class="lang-en">I am sorry, I cannot come</span><span class="lang-pt">Sinto muito, não poderei ir</span></label>
-          </fieldset>
-
-          <fieldset class="form__invited" id="rsvp-invited">
-            <legend class="lang-en">Have you been invited to the chosen celebration(s)?</legend>
-            <legend class="lang-pt">Você foi convidado para a(s) celebração(ões) escolhida(s)?</legend>
-            <label class="choice"><input type="radio" name="invited" value="yes" /> <span class="lang-en">Yes</span><span class="lang-pt">Sim</span></label>
-            <label class="choice"><input type="radio" name="invited" value="no" /> <span class="lang-en">No</span><span class="lang-pt">Não</span></label>
+            <legend class="lang-en">Will you join Our Ceremony?</legend>
+            <legend class="lang-pt">Você vai participar da Nossa Cerimônia?</legend>
+            <label class="choice"><input type="radio" name="join" value="yes" required /> <span class="lang-en">Yes, I will be there</span><span class="lang-pt">Sim, estarei lá</span></label>
+            <label class="choice"><input type="radio" name="join" value="no" /> <span class="lang-en">No, I cannot make it</span><span class="lang-pt">Não, não poderei ir</span></label>
           </fieldset>
 
           <div class="form__attending" id="rsvp-attending">
@@ -105,8 +98,8 @@
             <p class="lang-en">Thank you for letting us know. We are sorry you cannot make it, and you will be in our hearts on the day.</p>
             <p class="lang-pt">Obrigado por nos avisar. Sentimos muito que você não possa vir, e você estará em nossos corações naquele dia.</p>
           </div>
-          <p class="lang-en">Need to change something? You can send the form again with the same name.</p>
-          <p class="lang-pt">Precisa mudar algo? Você pode enviar o formulário de novo, com o mesmo nome.</p>
+          <p class="lang-en">Need to change something? You can send the form again with the same name. We will review any change to an answer you already gave.</p>
+          <p class="lang-pt">Precisa mudar algo? Você pode enviar o formulário de novo, com o mesmo nome. Vamos revisar qualquer mudança em uma resposta que você já deu.</p>
           <button class="btn btn--small" type="button" id="rsvp-again"><span class="lang-en">Change my answer</span><span class="lang-pt">Mudar minha resposta</span></button>
         </div>
       </div>

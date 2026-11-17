@@ -9,7 +9,8 @@
    - It can only WRITE an answer. There is no way to read the guest list, budget or
      checklist through it. The planner's own endpoint (api/planner.js) still needs the hash.
    - Exact name match (trimmed, case and accent folded, punctuation stripped) to exactly one
-     guest: that row is updated. No match, or more than one: nothing existing is touched,
+     guest: that row is updated, unless the answer clashes with an earlier one (see core.resolve in
+     js/rsvp-core.js), in which case it is queued as a conflict. No match, or more than one: nothing existing is touched,
      the answer goes to data.rsvpInbox for the couple to review in the planner.
    - Saving uses the same compare and set on the revision as the planner. On a conflict it
      reads the newest copy and applies the same answer again, up to 5 times.
@@ -32,25 +33,45 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 const sha = s => crypto.createHash('sha256').update(s).digest('hex');
 const newId = () => crypto.randomBytes(6).toString('hex');
 
-// Put one submission into the planner data. Returns the changed data, or null when the planner
-// record has no usable shape. Pure apart from the clock.
+// Put one submission into the planner data. Returns what happened:
+//   'matched'  exactly one guest has this name and the answer fits their row, so the row is updated
+//   'conflict' exactly one guest matches but the answer clashes with what the row already says
+//              (for example a Yes after a No), so it goes to the review queue and the row is untouched
+//   'queued'   no match, or more than one: queued for a person, nothing existing is touched
+//   'full'     the queue is full
+function enqueue(data, sub, now, extra) {
+  data.rsvpInbox = Array.isArray(data.rsvpInbox) ? data.rsvpInbox : [];
+  const key = core.normName(sub.name);
+  // a double click, or the same guest changing a queued answer on the same page: keep one entry.
+  // The other page's answer is a separate entry, so a Lagos answer is never lost to a Salvador one.
+  const same = data.rsvpInbox.findIndex(e => e && core.normName(e.name) === key && (e.page || '') === (sub.page || ''));
+  if (same >= 0) {
+    data.rsvpInbox[same] = core.inboxEntry(sub, data.rsvpInbox[same].id || newId(), now, extra);
+    return true;
+  }
+  if (data.rsvpInbox.length >= MAX_INBOX) return false;
+  data.rsvpInbox.push(core.inboxEntry(sub, newId(), now, extra));
+  return true;
+}
+
 function applySubmission(data, sub, now) {
   data.guests = Array.isArray(data.guests) ? data.guests : [];
   const key = core.normName(sub.name);
   const matches = data.guests.filter(g => g && core.normName(g.name) === key);
   if (matches.length === 1) {
-    core.applyToGuest(matches[0], sub, now);
-    return 'matched';
+    const g = matches[0];
+    const verdict = core.resolve(g, sub);
+    if (verdict.action === 'apply') {
+      core.applyToGuest(g, sub, now, verdict.event);
+      return 'matched';
+    }
+    const ok = enqueue(data, sub, now, {
+      conflict: true, reason: verdict.reason, matchedGuestId: g.id,
+      existing: { rsvp: g.rsvp, event: g.event, plusOnes: Number(g.plusOnes) || 0 }
+    });
+    return ok ? 'conflict' : 'full';
   }
-  data.rsvpInbox = Array.isArray(data.rsvpInbox) ? data.rsvpInbox : [];
-  const same = data.rsvpInbox.findIndex(e => e && core.normName(e.name) === key);
-  if (same >= 0) {                         // a repeat (a double click, or a changed answer): keep one entry
-    data.rsvpInbox[same] = core.inboxEntry(sub, data.rsvpInbox[same].id || newId(), now);
-    return 'queued';
-  }
-  if (data.rsvpInbox.length >= MAX_INBOX) return 'full';
-  data.rsvpInbox.push(core.inboxEntry(sub, newId(), now));
-  return 'queued';
+  return enqueue(data, sub, now) ? 'queued' : 'full';
 }
 
 module.exports = async (req, res) => {

@@ -110,7 +110,8 @@ const PT = {
   'Counts include plus ones. Declined guests are left out. Change a guest’s event in the table below.': 'A contagem inclui acompanhantes. Quem recusou fica de fora. Mude o evento de um convidado na tabela abaixo.',
   'RSVP answers to review': 'Respostas de RSVP para revisar', 'Match to an existing guest': 'Associar a um convidado',
   'Match': 'Associar', 'Add as new guest': 'Adicionar como novo convidado', 'Cannot come': 'Não poderá ir', 'wants travel help': 'quer ajuda de viagem', 'says not invited': 'diz que não foi convidado',
-  'These names did not match exactly one guest on your list. Pick the right guest, or add them as new.': 'Estes nomes não correspondem a exatamente um convidado da lista. Escolha o convidado certo, ou adicione como novo.',
+  'These answers need a person: the name did not match exactly one guest, or it differs from an answer already given. Pick the right guest, or add them as new.': 'Estas respostas precisam de uma pessoa: o nome não corresponde a exatamente um convidado, ou difere de uma resposta já dada. Escolha o convidado certo, ou adicione como novo.',
+  'RSVP Lagos': 'RSVP Lagos', 'RSVP Salvador': 'RSVP Salvador', 'Differs from an answer already given': 'Difere de uma resposta já dada', 'Pressing Match replaces it with the new answer.': 'Ao clicar em Associar, ela é substituída pela nova resposta.',
   'Set side': 'Definir lado',
   'Dietary for caterer': 'Alimentação para o buffet', 'No restrictions recorded': 'Nenhuma restrição registrada',
   'Allergy, table, visa…': 'Alergia, mesa, visto…',
@@ -681,16 +682,25 @@ function renderInbox() {
     .map(g => `<option value="${esc(g.id)}">${esc(g.name)}${g.rsvp === 'Attending' || g.rsvp === 'Declined' ? ' · ' + esc(tr(g.rsvp)) : ''}</option>`).join('');
   const ans = e => e.attending
     ? `${esc(tr(e.event))} · ${e.guests} ${esc(plural(e.guests, 'guest', 'guests', 'convidado', 'convidados'))} · ${esc(tr(e.diet))}${e.dietOther ? ' (' + esc(e.dietOther) + ')' : ''}${e.travelHelp ? ' · ' + esc(tr('wants travel help')) : ''}${e.invited === 'no' ? ' · ' + esc(tr('says not invited')) : ''}`
-    : esc(tr('Cannot come'));
+    : esc(tr('Cannot come')) + (e.page === 'lagos' ? ' (Lagos)' : '');
+  const pageTag = e => e.page === 'lagos' ? `<span class="inbox-tag">${esc(tr('RSVP Lagos'))}</span>` : e.page === 'salvador' ? `<span class="inbox-tag">${esc(tr('RSVP Salvador'))}</span>` : '';
+  // an answer that clashes with what the guest already said: show both, and the match is already chosen
+  const clash = e => {
+    if (!e.conflict) return '';
+    const x = e.existing || {};
+    const was = x.rsvp === 'Declined' ? tr('Cannot come') : `${tr(x.event || '')} · ${(x.plusOnes || 0) + 1} ${plural((x.plusOnes || 0) + 1, 'guest', 'guests', 'convidado', 'convidados')}`;
+    return `<div class="inbox-conflict" role="note"><b>${esc(tr('Differs from an answer already given'))}:</b> ${esc(was)}. ${esc(tr('Pressing Match replaces it with the new answer.'))}</div>`;
+  };
   box.innerHTML = `<div class="inbox-panel" role="region" aria-label="${esc(tr('RSVP answers to review'))}">
     <div class="inbox-head"><h3 class="font-serif inbox-title">${esc(tr('RSVP answers to review'))} <span class="inbox-count">${list.length}</span></h3>
-    <p class="text-xs">${esc(tr('These names did not match exactly one guest on your list. Pick the right guest, or add them as new.'))}</p></div>
+    <p class="text-xs">${esc(tr('These answers need a person: the name did not match exactly one guest, or it differs from an answer already given. Pick the right guest, or add them as new.'))}</p></div>
     <div class="inbox-list">${list.map(e => `<div class="inbox-item" data-inbox="${esc(e.id)}">
-      <div class="inbox-who"><b>${esc(e.name)}</b><span class="inbox-ans">${ans(e)}</span><span class="inbox-when text-xs">${esc(new Date(e.at).toLocaleString(locale(), { dateStyle: 'medium', timeStyle: 'short' }))}</span></div>
+      <div class="inbox-who"><b>${esc(e.name)}</b>${pageTag(e)}<span class="inbox-ans">${ans(e)}</span><span class="inbox-when text-xs">${esc(new Date(e.at).toLocaleString(locale(), { dateStyle: 'medium', timeStyle: 'short' }))}</span></div>
+      ${clash(e)}
       <div class="inbox-actions">
-        <select class="field inbox-pick" aria-label="${esc(tr('Match to an existing guest'))}"><option value="">${esc(tr('Match to an existing guest'))}…</option>${guestOpts}</select>
-        <button class="inbox-btn inbox-match" type="button" data-act="match" disabled>${esc(tr('Match'))}</button>
-        <button class="inbox-btn inbox-new" type="button" data-act="new">${esc(tr('Add as new guest'))}</button>
+        <select class="field inbox-pick" aria-label="${esc(tr('Match to an existing guest'))}"><option value="">${esc(tr('Match to an existing guest'))}…</option>${guestOpts.replace(`value="${esc(e.matchedGuestId || '')}"`, `value="${esc(e.matchedGuestId || '')}" selected`)}</select>
+        <button class="inbox-btn inbox-match" type="button" data-act="match" ${e.conflict ? '' : 'disabled'}>${esc(tr('Match'))}</button>
+        ${e.conflict ? '' : `<button class="inbox-btn inbox-new" type="button" data-act="new">${esc(tr('Add as new guest'))}</button>`}
       </div>
     </div>`).join('')}</div>
   </div>`;

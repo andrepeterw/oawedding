@@ -20,9 +20,9 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 2. **Our Story.** How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story (July 9, 2026, Porto da Barra) was removed from the page in November 2026 at Andre Peter's request.
 3. **Our Alliance.** One page: the couple (two full portraits), the wedding party, the family, and a tribute to Kev's father.
 4. **Our Faith.** Both faith stories, the verse, the ceremony songs, a welcome for guests of every background.
-5. **Our Ceremonies** (navigation group): **Nigerian Ceremony** and **Brazilian Reception**.
-6. **Travel and Accommodation** (navigation group): **Getting to Lagos** and **Getting to Salvador**.
-7. **RSVP.** Event selector (Nigerian Ceremony and Brazilian Reception both marked "Invited Guests Only", both, or cannot come), a "Have you been invited to the chosen celebration(s)?" Yes or No question, number of guests, a dietary dropdown, a travel or visa help flag.
+5. **Our Ceremony** (Lagos, the Nigerian Ceremony). Links to RSVP Lagos. **Our Reception** (Salvador, the Brazilian Reception). Links to Getting to Salvador and RSVP Salvador. The navigation is flat, no dropdowns.
+6. **Getting to Salvador** is a subpage of Our Reception, not in the navigation. Getting to Lagos was deleted in November 2026 and redirects to Our Ceremony.
+7. **RSVP, two pages.** **RSVP Lagos** (a subpage of Our Ceremony): "Will you join Our Ceremony?" Yes or No, number of guests, a dietary dropdown, a travel or visa help flag. **RSVP Salvador** (a subpage of Our Reception): the celebration choice (Lagos, Salvador, both, or cannot come), number of guests, a dietary dropdown, a travel or visa help flag. Neither page is in the navigation, the old /rsvp.html redirects to RSVP Lagos, and the Home page has an RSVP Lagos and an RSVP Salvador button.
 8. **Registry.** Honeymoon or cash fund. Pix key live, an international option pending.
 9. **Gallery.** One shared album per city.
 10. **FAQ.** Answered per city where it matters.
@@ -30,7 +30,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 
 Retired pages and where their content went: Meet the Couple and Wedding Party and Family became Our Alliance. Traditions and Menu moved into the Nigerian Ceremony (traditions, glossary, Nigerian dishes) and the Brazilian Reception (Brazilian dishes). Schedule moved into the Brazilian Reception as a draft order of the day. Event Details became the Brazilian Reception. Travel became Getting to Salvador. Old addresses redirect through vercel.json.
 
-A persistent navigation with the English and Portuguese toggle sits on every page, and a footer of small flowers in varying sizes sits in the bottom right corner of every page.
+Links to Our Reception, Getting to Salvador and RSVP Salvador are shown only to visitors detected in Brazil (the pages stay open by direct address, and country detection is a best guess). A persistent navigation with the English and Portuguese toggle sits on every page, and a footer of small flowers in varying sizes sits in the bottom right corner of every page.
 
 ## Page content that is settled
 
@@ -59,7 +59,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 - Traditions shown: traditional attire, a family blessing and prayer over the couple. aso-ebi and money spraying are adapted for the day, not done in their fully traditional form. (Kev's original interview also named bringing in the bride, drumming and the prostration of the groom and groomsmen, which Andre Peter later trimmed from the page. They still happen, the site just does not list them.)
 - A video placeholder under the livestream, an introduction to the Urhobo traditional ceremony for Brazilian guests (the video itself is still to be made).
 - The glossary of Urhobo and Pidgin words and the Nigerian menu section were removed from the page in November 2026.
-- Links to Getting to Lagos, add to calendar (Google Calendar and an .ics file).
+- Links to RSVP Lagos, add to calendar (Google Calendar and an .ics file).
 
 ### Brazilian Reception (June 19, 2027, Salvador)
 - Beach house venue: to be announced. Timing: late afternoon into sunset, ending around sunset.
@@ -72,7 +72,7 @@ A persistent navigation with the English and Portuguese toggle sits on every pag
 
 ### Travel
 - **Getting to Salvador:** the Brazilian government visa page (https://www.gov.br/pt-br/servicos/obter-visto-para-viajar-ao-brasil) as the official source, confirm with the nearest consulate. Some guests travel from Nigeria. As of April 2025 Brazil began requiring an online visa from United States, Canadian and Australian passport holders, to be reconfirmed before launch. Six suggested stays (Airbnb) in Salvador, budget and things to do pending, a city map.
-- **Getting to Lagos:** visa guidance for Nigeria by passport (most guests from Brazil, the United States and Namibia should plan to apply in advance, Nigeria offers an electronic visa through the Nigeria Immigration Service, confirm on the official site and with the nearest embassy), lodging, budget and things to do pending, a city map.
+- **Getting to Lagos** was deleted in November 2026, so the Nigeria visa guidance is no longer on the site.
 - Visa information is shown to everyone, not only to guests who technically need it.
 
 ### RSVP, registry, gallery, FAQ, contact

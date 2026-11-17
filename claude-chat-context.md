@@ -34,19 +34,18 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 | Our Story | `our-story.html` | A painting right below the page title, then three blocks of text (How we met, Our journey together, A favorite memory) separated by gold lines. The favorite memory invites guests to ask the couple about the proposal. The long proposal story was removed in November 2026. |
 | Our Alliance | `our-alliance.html` | The couple, the wedding party (Sister of the Bride, Bridesmaids, Brother of the Groom, Groomsmen with first names only), the family (Kev's family includes a nephew, Andre Peter's includes a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
 | Our Faith | `our-faith.html` | Everything centered. Both faith stories, a welcome for guests of any background, and one card with the verse (Philippians 1:6, the reference on its own line). The Ceremony worship and Officiant cards were removed. |
-| Nigerian Ceremony | `nigerian-ceremony.html` | The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced (Andre Peter's father will no longer officiate). Below the livestream, a video placeholder (an introduction to the Urhobo ceremony for Brazilian guests). Then traditions and add to calendar. The glossary and the menu sections were removed. |
-| Brazilian Reception | `brazilian-reception.html` | Beach house to be announced, a clear "by invitation only" note (simple, intimate, limited space, and Nigerian Ceremony guests do not need to come), semi formal dress, an order of the day placeholder. |
-| Getting to Lagos | `getting-to-lagos.html` | Nigeria visa guidance by passport, lodging, map. |
-| Getting to Salvador | `getting-to-salvador.html` | Brazil visa guidance (with a reconfirm note for United States, Canadian and Australian passports), suggested stays, map. |
-| RSVP | `rsvp.html` | Live form, see "RSVP flow" below. "Please reply by 19th February." |
+| Our Ceremony (Lagos) | `our-ceremony.html` | Links to RSVP Lagos. Formerly nigerian-ceremony.html. The livestream card is at the top. Venue, time, dress code, address and officiant are "coming soon" or to be announced (Andre Peter's father will no longer officiate). Below the livestream, a video placeholder (an introduction to the Urhobo ceremony for Brazilian guests). Then traditions and add to calendar. The glossary and the menu sections were removed. |
+| Our Reception (Salvador) | `our-reception.html` | Links to Getting to Salvador and RSVP Salvador. Formerly brazilian-reception.html. Beach house to be announced, a clear "by invitation only" note (simple, intimate, limited space, and Nigerian Ceremony guests do not need to come), semi formal dress, an order of the day placeholder. |
+| Getting to Salvador (subpage of Our Reception, not in the navigation) | `getting-to-salvador.html` | Brazil visa guidance (with a reconfirm note for United States, Canadian and Australian passports), suggested stays, map. |
+| RSVP Lagos and RSVP Salvador (subpages, not in the navigation) | `rsvp-lagos.html`, `rsvp-salvador.html` | Live forms, see "RSVP flow" below. "Please reply by 19th February." The old rsvp.html redirects to RSVP Lagos. |
 | Registry | `registry.html` | Honeymoon or cash fund. Pix key live, a card with GBP bank details at Wise for UK and international transfers (the numbers are on the page, not repeated here), and a PayPal style link still pending. No USD details yet. |
 | Gallery | `gallery.html` | One shared Google Photos album per city, links pending. |
 | FAQ | `faq.html` | Twelve entries. |
 | Contact | `contact.html` | Disabled form preview. No private contact details are published. |
 
-The navigation has two dropdown groups: **Our Ceremonies** (Nigerian Ceremony, Brazilian Reception) and **Travel and Accommodation** (Getting to Lagos, Getting to Salvador). A footer with small flowers sits in the **bottom right** corner of every page.
+The navigation is flat, with no dropdowns: Home, Our Story, Our Alliance, Our Faith, Our Ceremony, Our Reception, Registry, Gallery, FAQ, Contact. Getting to Salvador and the two RSVP pages are reached from the ceremony pages and the Home page buttons (RSVP Lagos and RSVP Salvador). Getting to Lagos was deleted. A footer with small flowers sits in the **bottom right** corner of every page.
 
-Retired pages (Meet the Couple, Wedding Party, Traditions and Menu, Schedule, Event Details, Travel) redirect permanently through `vercel.json`.
+Retired pages (Meet the Couple, Wedding Party, Traditions and Menu, Schedule, Event Details, Travel, Getting to Lagos, and the old file names of the ceremony pages and RSVP) redirect permanently through `vercel.json`.
 
 ## Stack and files
 
@@ -71,9 +70,9 @@ A planning tool for the couple only, not linked from the public site, set to noi
 
 ## RSVP flow
 
-1. A guest fills in `rsvp.html`: full name, which celebration (Lagos, Salvador, both, or cannot come), number of guests, a dietary dropdown (No dietary restrictions, Vegetarian, Vegan, Pescatarian, Halal, Gluten free, Dairy free, Nut allergy, Other with a text box), and a travel or visa help checkbox, and a "Have you been invited to the chosen celebration(s)?" Yes or No question (only recorded, shown in the planner's notes and review queue). The two celebration options are marked "Invited Guests Only". A hidden honeypot field catches basic bots.
+1. A guest fills in one of two pages. **RSVP Lagos** asks "Will you join Our Ceremony?" (Yes or No). **RSVP Salvador** asks which celebration (Lagos, Salvador, both, or cannot come). Both ask the number of guests, a dietary dropdown (No dietary restrictions, Vegetarian, Vegan, Pescatarian, Halal, Gluten free, Dairy free, Nut allergy, Other with a text box) and a travel or visa help checkbox, and have a hidden honeypot field. One script (`js/rsvp.js`) serves both and tags each answer with its page.
 2. The page posts to `api/rsvp.js`, a write only function. It finds the planner's Redis record from the `PLANNER_KEY` environment variable (the couple's sync code, set in Vercel and never in the repo).
-3. An exact name match to exactly one guest (case, extra spaces, punctuation and accents ignored) updates that row: Attending or Declined, event, diet, plus ones. Declined guests stay on the list. No match, or more than one match, adds the answer to a review queue in the planner (Match to an existing guest, or Add as new guest), with a count badge on the Guests tab.
+3. An exact name match to exactly one guest (case, extra spaces, punctuation and accents ignored) updates that row: Attending or Declined, event, diet, plus ones. Declined guests stay on the list. A second answer is checked first: a repeat applies, an Attending answer for the other celebration makes the event Both, but a change of status (Yes after a No, or a No after a Yes) goes to the review queue as a conflict and the row is left alone. No match, or more than one match, adds the answer to a review queue in the planner (Match to an existing guest, or Add as new guest), with a count badge on the Guests tab.
 4. Guests see a thank you either way. Guests who decline see a different message from guests who are coming. They never see whether they were matched.
 5. Safety: size limit, per name and per visitor limits stored in Redis, up to 5 retries on a save conflict. The honeypot is a light deterrent, not real security.
 6. The function returns a short reference if saving fails (for example `no_planner_key`, `no_planner_record`, `no_database`), which the page shows in brackets.
@@ -81,6 +80,8 @@ A planning tool for the couple only, not linked from the public site, set to noi
 Environment variables on Vercel: `PLANNER_KEY` (the sync code), and the Redis connection (`REDIS_URL` from the Redis integration, or Upstash `KV_REST_API_URL` and token). The shared Redis code is in `api/_lib/store.js`, and the rules for turning an answer into a guest row are in `js/rsvp-core.js`, used by both the server and the planner.
 
 ## Recent changes (November 2026)
+
+- Brazil only links: the Our Reception menu item, the footer and Home links to the Salvador pages, the Home Reception card, a few FAQ sentences and the Traveling with us block on Our Alliance appear only to visitors detected in Brazil (an IP based guess through `/api/country`, kept in a cookie). The pages themselves stay open by direct address.
 
 - Home: a full page sunrise with the content in front, the OA monogram, hero line "Our Alliance". Footer flowers moved to the bottom right.
 - Our Story: new painting under the title, proposal story removed, even spacing and gold lines between the three text blocks.

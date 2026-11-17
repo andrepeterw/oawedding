@@ -6,6 +6,31 @@
 
   var LANG_KEY = "kev-peter-wedding-lang";
 
+  /* Brazil only links. Anything marked class="brazil-only" stays hidden (see css/style.css)
+     unless html[data-country="BR"]. The country comes from /api/country (Vercel's IP guess)
+     and is kept in a cookie so later pages know it at once. Unknown counts as not Brazil. */
+  var COUNTRY_COOKIE = "visitorCountry";
+  function readCountryCookie() {
+    var m = document.cookie.match(new RegExp("(?:^|; )" + COUNTRY_COOKIE + "=([A-Za-z]{2})"));
+    return m ? m[1].toUpperCase() : "";
+  }
+  function setCountry(code) {
+    document.documentElement.setAttribute("data-country", code);
+  }
+  (function detectCountry() {
+    var known = readCountryCookie();
+    if (known) { setCountry(known); return; }
+    fetch("/api/country", { cache: "no-store" })
+      .then(function (res) { return res.ok ? res.json() : { country: "" }; })
+      .then(function (body) {
+        var code = body && /^[A-Za-z]{2}$/.test(body.country || "") ? body.country.toUpperCase() : "";
+        if (!code) return;   // could not tell, stay hidden and ask again on the next page
+        setCountry(code);
+        try { document.cookie = COUNTRY_COOKIE + "=" + code + "; path=/; max-age=43200; SameSite=Lax"; } catch (e) { /* cookies blocked, we just ask again */ }
+      })
+      .catch(function () { /* offline or local: stays hidden */ });
+  })();
+
   function applyLanguage(lang) {
     document.documentElement.setAttribute("data-lang", lang);
     document.querySelectorAll("[data-lang-btn]").forEach(function (btn) {
@@ -42,11 +67,6 @@
       if (link.dataset.nav === current) {
         link.classList.add("is-active");
         link.setAttribute("aria-current", "page");
-        var group = link.closest(".nav-group");
-        if (group) {
-          var label = group.querySelector(".nav-group__label");
-          if (label) label.classList.add("is-active-group");
-        }
       }
     });
   }

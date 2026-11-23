@@ -16,7 +16,7 @@ Formspree is used. Photo uploads use shared Google Photos albums, one per city. 
 specified in CLAUDE_CODE_add_planner_page.md, never link to it from the public
 site.
 
-Site map: Home (a paper invitation: the OA monogram on paper fixed behind the page and blurred as you scroll, both dates and cities, countdown to the
+Site map: Home (a paper invitation: the OA monogram on paper fixed behind the page and blurred as you scroll, an opening seal and veil, both dates and cities, countdown to the
 nearer date), Our Story, Our Alliance (couple, wedding party, family, in loving
 memory), Our Faith, Our Ceremony (Lagos), Our Reception (Salvador), Registry,
 Gallery (one album per city), FAQ, Contact. The navigation is flat, no dropdowns.
@@ -31,7 +31,7 @@ page.
 Naming: Andre Peter goes by "Peter" to Brazilian family and friends and
 "Andre" to Nigerian family and friends. The couple has chosen to display
 his full name, "Andre Peter," everywhere on the site rather than picking
-one, so it reads as one name to everyone rather than favoring either side.
+one, so it reads as one name to everyone rather than favoring either side. Where the names are displayed (header, Home heading, footer) "& Andre Peter" is wrapped in a span.name-pair (no wrapping inside), so on a narrow screen the line breaks before the ampersand: "Oghenekevwe" then "& Andre Peter".
 
 Writing style: no em dashes, en dashes, or hyphens used as punctuation in
 any site copy or in chat responses. Rewrite around them with commas,

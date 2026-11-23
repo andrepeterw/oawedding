@@ -1,4 +1,4 @@
-/* Home page only: the invitation background, the countdown, and sharing. */
+/* Home page only: the invitation background, the opening seal and veil, the countdown, and sharing. */
 (function () {
   "use strict";
 
@@ -8,11 +8,59 @@
           cards) over the first part of the scroll. A cheap opacity fade of a second, already blurred copy. ---- */
   var root = document.documentElement;
   var ticking = false;
+
+  /* ---- Opening gesture (seal and veil). Everything here is wrapped so a failure leaves Home as it was. ---- */
+  var seal = document.getElementById("seal");
+  var veil = document.querySelector(".veil");
+  var sealOpen = false;
+  var removeSeal = function () {
+    if (seal && seal.parentNode) seal.parentNode.removeChild(seal);
+    seal = null;
+  };
+  var openSeal = function () {
+    if (sealOpen || !seal) return;
+    sealOpen = true;                       // once per page load, it never comes back, not even at the very top
+    try {
+      var paper = seal;
+      paper.classList.add("is-opening");
+      var done = false;
+      var finish = function () { if (!done) { done = true; removeSeal(); } };
+      paper.addEventListener("animationend", function (e) { if (e.animationName === "seal-paper-away") finish(); });
+      setTimeout(finish, 1300);            // never depends on the animation event
+    } catch (e) { removeSeal(); }
+  };
+  try {
+    root.classList.add("seal-armed");      // cancels the CSS fail safe that would let the seal go after 6 seconds
+    if (reduceMotion) {
+      removeSeal();
+      if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
+      veil = null;
+    } else if (seal) {
+      if (window.getComputedStyle(seal).visibility === "hidden" || window.pageYOffset > 2 || location.hash) {
+        removeSeal();                      // arrived mid page, on a #link, or the fail safe already fired
+      } else {
+        seal.addEventListener("click", openSeal);
+        // a keyboard user tabbing into the page behind the seal opens it too
+        document.addEventListener("focusin", function (e) { if (seal && !seal.contains(e.target)) openSeal(); });
+      }
+    }
+  } catch (e) { removeSeal(); }
+
+  /* ---- --b goes from 0 (the monogram sharp, as on a cover) to 1 (a soft blur behind the cards) over the first
+          part of the scroll. A cheap opacity fade of a second, already blurred copy. The veil lifts with it
+          (--v reaches 1 when --b reaches 0.7), and the first scroll opens the seal. One handler for all of it. ---- */
   var update = function () {
     ticking = false;
     var span = Math.max(1, window.innerHeight * 0.6);
-    var b = Math.min(1, Math.max(0, window.pageYOffset / span));
+    var y = window.pageYOffset;
+    var b = Math.min(1, Math.max(0, y / span));
     root.style.setProperty("--b", b.toFixed(3));
+    if (veil) {
+      var v = Math.min(1, b / 0.7);
+      veil.style.setProperty("--v", v.toFixed(3));
+      veil.classList.toggle("is-gone", v >= 1);
+    }
+    if (seal && !sealOpen && y > 0) openSeal();
   };
   var onScroll = function () {
     if (!ticking) {

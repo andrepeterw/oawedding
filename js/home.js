@@ -1,38 +1,44 @@
-/* Home page only: the sunrise scroll effect, the countdown, and sharing. */
+/* Home page only: the invitation background, the countdown, and sharing. */
 (function () {
   "use strict";
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- Sunrise: --p goes from 0 (dawn) to 1 (full sunrise) over the whole page, reaching 1 as
-          the footer comes into view. The sky is fixed behind the content (see .sunrise-bg). ---- */
+  /* ---- The invitation: --b goes from 0 (the monogram sharp, as on a cover) to 1 (a soft blur behind the
+          cards) over the first part of the scroll. A cheap opacity fade of a second, already blurred copy. ---- */
   var root = document.documentElement;
-  if (!reduceMotion) {
-    var ticking = false;
-    var update = function () {
-      ticking = false;
-      var footer = document.getElementById("site-footer");
-      // the scroll position at which the footer's top edge reaches the bottom of the screen
-      var end = footer ? footer.getBoundingClientRect().top + window.pageYOffset - window.innerHeight : 0;
-      if (!(end > 0)) end = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      var p = Math.min(1, Math.max(0, window.pageYOffset / end));
-      root.style.setProperty("--p", p.toFixed(3));
-    };
-    var onScroll = function () {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(update);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    window.addEventListener("load", onScroll);
-    // the shared footer is loaded after the page, so measure again once it is in place
-    setTimeout(onScroll, 600);
-    setTimeout(onScroll, 1800);
-    update();
-  } else {
-    root.style.setProperty("--p", "0.7");
+  var ticking = false;
+  var update = function () {
+    ticking = false;
+    var span = Math.max(1, window.innerHeight * 0.6);
+    var b = Math.min(1, Math.max(0, window.pageYOffset / span));
+    root.style.setProperty("--b", b.toFixed(3));
+  };
+  var onScroll = function () {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  update();
+
+  /* ---- Cards settle in as the top of each one comes into view. Checked on every scroll, so a card the visitor
+          jumped past (an anchor, a fast flick) is never left hidden. Not with reduced motion. ---- */
+  var pending = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  var revealDue = function () {
+    var line = window.innerHeight * 0.92;
+    pending = pending.filter(function (el) {
+      if (el.getBoundingClientRect().top < line) { el.classList.add("in"); return false; }
+      return true;
+    });
+  };
+  if (!reduceMotion && pending.length) {
+    root.classList.add("reveal-on");
+    window.addEventListener("scroll", revealDue, { passive: true });
+    window.addEventListener("resize", revealDue);
+    revealDue();
   }
 
   /* ---- Countdown to the Nigerian Ceremony, the nearer date ---- */

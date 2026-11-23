@@ -16,7 +16,7 @@ The wedding is two linked celebrations one week apart. The **Nigerian Ceremony**
 
 ## Site map
 
-1. **Home.** A sunrise that builds as the visitor scrolls (a fixed sky behind the whole page with the content in front of it, lavender and rose dawn warming to gold, a sun rising over the sea, finishing as the footer arrives, static under reduced motion), both dates and cities ("Lagos. June 12." and "Salvador. June 19."), a countdown to the nearer date with a note about the reception a week later, the line "It is important to us that God is at the center of our wedding", and three cards to explore the site (Our Story, Our Alliance, Our Faith). The event cards and the share buttons were removed from Home in Nov 2026; add to calendar links live on the two celebration pages.
+1. **Home.** A simulation of a paper invitation (Nov 2026). The monogram on crumpled paper (`images/invitation-portrait.webp` on phones, `images/invitation-landscape.webp` on wide screens) is fixed behind the whole page, sharp on the cover and fading to a soft blur as you scroll (`--b` set by js/home.js). In front: a cover with "Our Alliance", the names and both dates ("Lagos. June 12." and "Salvador. June 19."), then small cards of paper that settle in as you reach them: the countdown to June 12 with a note about the reception a week later, "One love story, told in two homes" with the Philippians 1:6 verse, the God centered line with the RSVP buttons (RSVP Salvador is Brazil only), and "Find your way around" with three links (Our Story, Our Alliance, Our Faith). The footer is paper too, not dark. Reduced motion: no card animation.
 2. **Our Story.** How they met, the journey, a favorite memory, and a painting right below the page title. The long proposal story (July 9, 2026, Porto da Barra) was removed from the page in November 2026 at Andre Peter's request.
 3. **Our Alliance.** One page: the couple (two full portraits), the wedding party, the family, and a tribute to Kev's father.
 4. **Our Faith.** Both faith stories, the verse, the ceremony songs, a welcome for guests of every background.
@@ -85,7 +85,7 @@ Links to Our Reception, Getting to Salvador and RSVP Salvador are shown only to 
 
 - Palette: spring mood blended into a sunrise and a sunset. Tokens live in css/tokens.css: sand and cream base, deep ocean teal, sunset coral (a darker coral for text and buttons so contrast passes), blush, muted gold, plus dawn lavender, dawn rose and sunrise gold for the Home sky.
 - Typography: Playfair Display headings, Inter for body and forms.
-- Motifs: a small gold diamond motif, a wave shape, the Home sunrise, and the footer flowers. The briefing also suggested a light accent color per ceremony page. That is not applied, it was flagged for Andre Peter's approval.
+- Motifs: a small gold diamond motif, a wave shape, the Home paper invitation, and the footer flowers. The briefing also suggested a light accent color per ceremony page. That is not applied, it was flagged for Andre Peter's approval.
 - No photos yet, placeholders are labeled. A photoshoot is planned.
 
 ## Where this overrides the November 9 briefing
@@ -102,7 +102,7 @@ Links to Our Reception, Getting to Salvador and RSVP Salvador are shown only to 
 
 ## Technical checklist
 
-Mobile first. Sunrise scroll effect with a reduced motion fallback. Flower footer on every page. Language toggle on every page. Countdown to June 12, 2027 with a dated secondary note for June 19. City maps on both travel pages. RSVP with the event selector. Gallery by city. FAQ per city. Livestream placeholder. Add to calendar for both dates and simple sharing. No private contact details published. Redirects for retired pages in vercel.json. A private planner at /planner (see CLAUDE.md).
+Mobile first. Paper invitation Home with a blur on scroll and a reduced motion fallback. Flower footer on every page. Language toggle on every page. Countdown to June 12, 2027 with a dated secondary note for June 19. City maps on both travel pages. RSVP with the event selector. Gallery by city. FAQ per city. Livestream placeholder. Add to calendar for both dates and simple sharing. No private contact details published. Redirects for retired pages in vercel.json. A private planner at /planner (see CLAUDE.md).
 
 ## Open items
 

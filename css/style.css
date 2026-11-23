@@ -565,142 +565,218 @@ html:not([data-lang]) .lang-pt {
 }
 
 /* ==========================================================================
-   Structure update: two ceremonies, sunrise Home,
+   Structure update: two ceremonies, invitation Home,
    flower footer, forms and small components.
    ========================================================================== */
 
-/* ------------------------------ Sunrise (Home) ---------------------------- */
-/* The sky is fixed behind the whole page, the content scrolls in front of it.
-   js/home.js sets --p on the page from 0 (dawn) to 1 (full sunrise), reaching 1 as the
-   footer comes into view. Without JavaScript, or with reduced motion, --p rests at a
-   still mid sunrise. */
+/* ------------------------- The invitation (Home) -------------------------- */
+/* A sheet of paper with the monogram is fixed behind the whole page. The sharp copy is always
+   there, a blurred copy fades in over it as you scroll (js/home.js sets --b from 0 to 1), and the
+   content sits on it as small cards of paper. Without JavaScript --b rests at 0.85. */
 :root {
-  --p: 0.55;
+  --b: 0.85;
 }
 
-.sunrise-bg {
+.paper-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  background: #f5ecd7;
   pointer-events: none;
 }
 
-.sunrise__sky,
-.sunrise__glow,
-.sunrise__sun,
-.sunrise__sea {
+.paper-bg__layer,
+.paper-bg__layer img {
   position: absolute;
-  pointer-events: none;
-}
-
-.sunrise__sky {
   inset: 0;
-}
-
-.sunrise__sky--dawn {
-  background: linear-gradient(180deg, var(--color-dawn) 0%, var(--color-dawn-rose) 48%, var(--color-blush) 100%);
-  opacity: calc(1 - var(--p));
-}
-
-.sunrise__sky--day {
-  background: linear-gradient(180deg, #f6e1cf 0%, var(--color-sunrise) 58%, #f1c47f 100%);
-  opacity: var(--p);
-}
-
-.sunrise__glow {
-  left: 50%;
-  bottom: -18vh;
-  width: 150vmax;
-  height: 90vh;
-  transform: translateX(-50%) scale(calc(0.6 + var(--p) * 0.5));
-  background: radial-gradient(ellipse at 50% 100%, rgba(255, 244, 205, 0.95) 0%, rgba(255, 226, 160, 0.5) 32%, rgba(255, 226, 160, 0) 68%);
-  opacity: calc(0.25 + var(--p) * 0.75);
-}
-
-.sunrise__sun {
-  left: 50%;
-  bottom: 9vh;
-  width: min(36vmin, 15rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, #fff6d4 0%, #f9dc8b 58%, #f3c364 100%);
-  transform: translate(-50%, calc((1 - var(--p)) * 62%));
-  opacity: calc(0.3 + var(--p) * 0.7);
-}
-
-/* The sea stays pale so dark text in front of it always stays readable. */
-.sunrise__sea {
-  left: 0;
-  right: 0;
-  bottom: -1px;
+  display: block;
   width: 100%;
-  height: 14vh;
-  color: var(--color-ocean-soft);
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
 }
 
-.sunrise__sea--far {
-  opacity: 0.2;
-  transform: translateY(calc((1 - var(--p)) * 2vh));
+.paper-bg__layer--blur {
+  opacity: var(--b);
+  transform: scale(1.06);
+  filter: blur(7px);
+  will-change: opacity;
 }
 
-.sunrise__sea--near {
-  opacity: 0.3;
-  transform: translateY(calc((1 - var(--p)) * 5vh));
-}
-
-/* Home: the content sits in front of the sky. */
 .home .section--sand {
   background: transparent;
 }
 
-.home .panel {
-  background: rgba(247, 241, 230, 0.84);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(22, 63, 66, 0.1);
-  border-radius: var(--radius);
-  padding: var(--space-md) var(--space-sm);
+/* Cover: names and dates in the free paper under the monogram. */
+.cover {
+  min-height: calc(100svh - 4rem);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
 }
 
-.sunrise {
-  padding: 5.5rem var(--space-sm) var(--space-lg);
-  color: var(--color-ocean);
-}
-
-.sunrise__content {
+.cover__text {
   width: 100%;
-  max-width: 58rem;
+  max-width: 40rem;
   margin-inline: auto;
   text-align: center;
-}
-
-.sunrise__content h1 {
   color: var(--color-ocean);
-  font-size: clamp(2.1rem, 6.4vw, 3.5rem);
 }
 
-.hero__monogram {
-  display: block;
-  width: clamp(5.5rem, 22vw, 8.5rem);
-  height: auto;
-  margin: 0.4rem auto 0.8rem;
+.cover__text h1 {
+  color: var(--color-ocean);
+  font-size: clamp(1.9rem, 7.2vw, 3rem);
+  margin-bottom: 0;
 }
 
-.sunrise__content .eyebrow {
+.cover__text .eyebrow {
   color: color-mix(in srgb, var(--color-coral-text) 70%, #000);
+  margin-bottom: 0.2rem;
 }
 
-.sunrise__content .hero__verse {
+.cover__cue {
+  display: inline-flex;
+  margin-top: var(--space-xs);
+  color: var(--color-ocean);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cover__cue {
+    animation: cue-bob 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes cue-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* A short, wide screen has little free paper, so the cover stays compact. */
+@media (min-aspect-ratio: 1/1) {
+  .cover__text h1 { font-size: clamp(1.6rem, 4.6vh, 2.6rem); }
+  .cover .eyebrow, .cover__cue { display: none; }
+  .cover .dates-device { grid-auto-flow: column; justify-content: center; gap: 1.2rem; margin: 0.2rem 0 0; font-size: clamp(1rem, 2.6vh, 1.4rem); }
+  .cover .dates-device small { align-self: center; }
+}
+
+/* Cards of paper laid on the invitation. */
+.home section:not(.cover) {
+  padding-block: 0.75rem;
+}
+
+.home main {
+  padding-bottom: var(--space-lg);
+}
+
+.invite-card {
+  position: relative;
+  width: calc(100% - 2 * var(--space-sm));
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: var(--space-md) var(--space-sm);
+  text-align: center;
+  color: var(--color-ink);
+  background: rgba(251, 246, 235, 0.94);
+  border: 1px solid rgba(185, 146, 79, 0.55);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 18px 34px -22px rgba(70, 48, 12, 0.5);
+}
+
+/* a thin inner rule, like the border printed on a card */
+.invite-card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(185, 146, 79, 0.3);
+  pointer-events: none;
+}
+
+.invite-card > :first-child { margin-top: 0; }
+.invite-card > :last-child { margin-bottom: 0; }
+
+.invite-card h2 {
+  font-size: clamp(1.4rem, 5.4vw, 1.8rem);
+}
+
+.invite-card__lead {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.1rem;
   color: var(--color-ocean);
 }
+
+.invite-card__small {
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-sm);
+}
+
+.invite-card .hero__verse {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--color-ocean);
+}
+
+.invite-card .hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+
+.invite-links {
+  display: grid;
+  margin-top: var(--space-sm);
+}
+
+.invite-links a {
+  display: block;
+  padding: var(--space-sm) 0;
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid rgba(185, 146, 79, 0.4);
+}
+
+.invite-links a:first-child { border-top: 0; }
+.invite-links h3 { margin: 0 0 0.2rem; font-size: 1.2rem; color: var(--color-ocean); }
+.invite-links p { margin: 0; font-size: 0.92rem; color: var(--color-ink-soft); }
+.invite-links a:hover h3, .invite-links a:focus-visible h3 { color: var(--color-coral-text); }
+
+/* Each card settles in as you reach it. Only when JavaScript is on and motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  html.reveal-on .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  html.reveal-on .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The footer is paper too, not a dark band. */
+.home .site-footer {
+  margin-top: 0;
+  background: rgba(251, 246, 235, 0.97);
+  color: var(--color-ink);
+  border-top: 1px solid rgba(185, 146, 79, 0.55);
+}
+
+.home .site-footer a { color: var(--color-ocean); }
+.home .site-footer__names { color: var(--color-ocean); }
+.home .site-footer__bottom { border-top-color: rgba(185, 146, 79, 0.4); }
+.home .flower-petal { fill: #e9b9a4; }
 
 .dates-device {
   display: grid;
   gap: 0.1rem;
-  margin: var(--space-xs) 0 var(--space-sm);
+  margin: var(--space-xs) 0 var(--space-xs);
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 5vw, 2.1rem);
+  font-size: clamp(1.15rem, 4.4vw, 1.7rem);
   line-height: 1.25;
   color: var(--color-ocean);
 }
@@ -726,8 +802,8 @@ html:not([data-lang]) .lang-pt {
   min-width: 4.2rem;
   padding: 0.55rem 0.4rem;
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(22, 63, 66, 0.14);
+  background: transparent;
+  border: 1px solid rgba(185, 146, 79, 0.55);
   text-align: center;
 }
 

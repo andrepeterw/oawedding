@@ -908,12 +908,11 @@ html.seal-on:not(.seal-armed) .seal {
   height: auto;
 }
 
-.seal__crack {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+.seal__invite {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  line-height: 1.15;
+  color: var(--color-ocean);
 }
 
 .seal__hint {
@@ -932,7 +931,7 @@ html.seal-on:not(.seal-armed) .seal {
   50% { opacity: 0.9; }
 }
 
-/* The opening: a crack, then the seal lifts away and the paper fades. About 0.8 seconds. */
+/* The opening: the seal lifts away and the paper fades. About 0.8 seconds. */
 html .seal.is-opening {
   pointer-events: none;
   background: none;
@@ -950,21 +949,13 @@ html .seal.is-opening {
   pointer-events: none;
 }
 
-.seal.is-opening .seal__crack {
-  animation: seal-crack 0.18s ease-out forwards;
-}
-
 .seal.is-opening .seal__disc {
   animation: seal-away 0.6s 0.16s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+.seal.is-opening .seal__invite,
 .seal.is-opening .seal__hint {
   animation: seal-hint-out 0.2s ease forwards;
-}
-
-@keyframes seal-crack {
-  from { opacity: 0; transform: scaleX(0.7); }
-  to { opacity: 1; transform: scaleX(1); }
 }
 
 @keyframes seal-away {
@@ -997,6 +988,10 @@ html .seal.is-closing .seal__disc {
   animation: seal-in 0.5s 0.15s cubic-bezier(0.2, 0.6, 0.2, 1) both;
 }
 
+html .seal.is-closing .seal__invite {
+  animation: seal-fade-in 0.4s 0.25s ease both;
+}
+
 html .seal.is-closing .seal__hint {
   animation: seal-hint-in 0.3s 0.5s ease both;
 }
@@ -1009,6 +1004,11 @@ html .seal.is-closing .seal__hint {
 @keyframes seal-in {
   from { opacity: 0; transform: translate3d(0, -14vh, 0) scale(0.9); }
   to { opacity: 1; transform: none; }
+}
+
+@keyframes seal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes seal-hint-in {

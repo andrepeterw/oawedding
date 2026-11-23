@@ -11,8 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="/images/invitation-landscape.webp" media="(min-aspect-ratio: 1/1)" />
-  <link rel="preload" as="image" href="/images/invitation-portrait.webp" media="(max-aspect-ratio: 1/1)" />
+  <link rel="preload" as="image" href="/images/paper.webp" />
   <script>
     /* The opening gesture is off unless this runs. Reduced motion: never on. Landing on a #link: no seal. */
     try {
@@ -26,22 +25,12 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body data-page="index" class="home">
-  <!-- The invitation: one sheet of paper with the monogram, fixed behind the whole page. The sharp copy
-       stays underneath, a blurred copy fades in over it as you scroll (js/home.js sets --b from 0 to 1),
-       so the cards read as pieces of paper laid on the invitation. Portrait art on phones, landscape on wide screens. -->
-  <div class="paper-bg" aria-hidden="true">
-    <picture class="paper-bg__layer">
-      <source media="(min-aspect-ratio: 1/1)" srcset="/images/invitation-landscape.webp" />
-      <img src="/images/invitation-portrait.webp" alt="" width="842" height="1869" decoding="async" fetchpriority="high" />
-    </picture>
-    <picture class="paper-bg__layer paper-bg__layer--blur">
-      <source media="(min-aspect-ratio: 1/1)" srcset="/images/invitation-landscape.webp" />
-      <img src="/images/invitation-portrait.webp" alt="" width="842" height="1869" decoding="async" />
-    </picture>
-  </div>
+  <!-- The invitation: one sheet of kraft paper fixed behind the whole page (images/paper.webp), so the cards read
+       as pieces of paper laid on it. The monogram lives on the seal and on the cover. -->
+  <div class="paper-bg" aria-hidden="true"></div>
 
   <!-- The veil: a sheer sheet of paper over the monogram. Four corner flaps lift away as you scroll
-       (js/home.js sets --v, 0 to 1, from the same scroll handler as --b). Decorative, off unless html.veil-on. -->
+       (js/home.js sets --v, 0 to 1, from the scroll handler). Decorative, off unless html.veil-on. -->
   <div class="veil" aria-hidden="true">
     <span class="veil__base"></span>
     <span class="veil__flap veil__flap--tl"></span>
@@ -53,11 +42,12 @@
   <header id="site-header" class="site-header"></header>
 
   <main>
-    <!-- The cover: the monogram is part of the background art, so only the names and dates sit on it. -->
+    <!-- The cover: the monogram, the names and the dates, centered on the paper. -->
     <section class="cover">
       <div class="cover__text">
         <p class="eyebrow lang-en">Our Alliance</p>
         <p class="eyebrow lang-pt">Nossa Aliança</p>
+        <img class="cover__monogram" src="/images/monogram.png" width="700" height="734" alt="OA monogram, the letters O and A intertwined" />
         <h1>Oghenekevwe <span class="name-pair">&amp; Andre Peter</span></h1>
         <p class="dates-device lang-en">
           <span>Lagos. June 12.</span>

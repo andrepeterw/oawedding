@@ -16,7 +16,7 @@ Formspree is used. Photo uploads use shared Google Photos albums, one per city. 
 specified in CLAUDE_CODE_add_planner_page.md, never link to it from the public
 site.
 
-Site map: Home (a paper invitation: the OA monogram on paper fixed behind the page and blurred as you scroll, an opening seal and veil, both dates and cities, countdown to the
+Site map: Home (a paper invitation: kraft paper fixed behind the page, an opening seal that closes again at the top, a lifting veil, both dates and cities, countdown to the
 nearer date), Our Story, Our Alliance (couple, wedding party, family, in loving
 memory), Our Faith, Our Ceremony (Lagos), Our Reception (Salvador), Registry,
 Gallery (one album per city), FAQ, Contact. The navigation is flat, no dropdowns.

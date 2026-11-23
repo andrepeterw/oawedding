@@ -30,7 +30,7 @@ No em dashes, en dashes or hyphens used as punctuation, in site copy and in chat
 
 | Page | File | Notes |
 |---|---|---|
-| Home | `index.html` | A paper invitation. The OA monogram on crumpled paper is fixed behind the whole page, sharp on the cover and blurred as you scroll. In front: names and dates, then small paper cards (countdown, the love story and verse, the God centered line with RSVP buttons, three links to Our Story, Our Alliance and Our Faith). The footer is paper too. An opening gesture sits in front (awaiting approval): a kraft paper seal with the monogram ("Scroll or tap to open") that cracks on the first scroll or tap, then a sheer paper veil with four corner flaps lifts as you scroll. Off with reduced motion, fails open. |
+| Home | `index.html` | A paper invitation. Grey kraft paper (`images/paper.webp`) is fixed behind the whole page. A closed seal (monogram in a gold ring, "Scroll or tap to open") shows first and cracks open on the first scroll or tap. Scrolling back to the very top closes it again. A sheer paper veil with four corner flaps lifts as you scroll. In front: the cover (monogram, names, dates), then small paper cards (countdown, the love story and verse, the God centered line with RSVP buttons, three links to Our Story, Our Alliance and Our Faith). The footer is paper too. Off with reduced motion, fails open. |
 | Our Story | `our-story.html` | A painting right below the page title, then three blocks of text (How we met, Our journey together, A favorite memory) separated by gold lines. The favorite memory invites guests to ask the couple about the proposal. The long proposal story was removed in November 2026. |
 | Our Alliance | `our-alliance.html` | The couple, the wedding party (Sister of the Bride, Bridesmaids, Brother of the Groom, Groomsmen with first names only), the family (Kev's family includes a nephew, Andre Peter's includes a late stepfather, Aloísio Vaz), and a tribute "In Loving Memory" to Kev's father. |
 | Our Faith | `our-faith.html` | Everything centered. Both faith stories, a welcome for guests of any background, and one card with the verse (Philippians 1:6, the reference on its own line). The Ceremony worship and Officiant cards were removed. |
@@ -52,9 +52,9 @@ Retired pages (Meet the Couple, Wedding Party, Traditions and Menu, Schedule, Ev
 Plain HTML, CSS with variables, and vanilla JavaScript. No framework and no build step. The sandbox this project is built in cannot reach the npm registry. The one npm package is `redis`, used by the serverless functions.
 
 - `css/tokens.css`: shared design tokens (colors, fonts, spacing). `css/style.css`: the public site styles. `planner/planner.css`: the planner's own styles, kept separate.
-- `js/main.js`: loads `partials/nav.html` and `partials/footer.html` into every page, runs the EN/PT toggle and the mobile nav. `js/home.js`: the blur on scroll, cards settling in, countdown. `js/rsvp.js` and `js/rsvp-core.js`: the RSVP form and the shared answer rules.
+- `js/main.js`: loads `partials/nav.html` and `partials/footer.html` into every page, runs the EN/PT toggle and the mobile nav. `js/home.js`: the seal, the veil, cards settling in, countdown. `js/rsvp.js` and `js/rsvp-core.js`: the RSVP form and the shared answer rules.
 - Language toggle: `<span class="lang-en">` and `<span class="lang-pt">`, shown or hidden by `html[data-lang]`. The choice is saved in localStorage.
-- `calendar/*.ics`: add to calendar files. `images/`: monogram, favicons, the painting on Our Story.
+- `calendar/*.ics`: add to calendar files. `images/`: monogram, favicons, paper.webp (the Home paper), the painting on Our Story.
 - Palette: sand and cream, deep ocean teal, sunset coral (a darker coral for text and buttons so contrast passes), blush, muted gold, (the old Home sky colors are still in the tokens but unused). Fonts: Playfair Display for headings, Inter for body.
 - Accessibility: contrast was audited, reduced motion turns off the card animation, the layout is mobile first.
 
@@ -86,7 +86,7 @@ Environment variables on Vercel: `PLANNER_KEY` (the sync code), and the Redis co
 - Our Reception: "by invitation only" note removed.
 - Brazil only links: the Our Reception menu item, the footer and Home links to the Salvador pages, a few FAQ sentences and the Traveling with us block on Our Alliance appear only to visitors detected in Brazil (an IP based guess through `/api/country`, kept in a cookie). The pages themselves stay open by direct address.
 
-- Home: redesigned as a paper invitation (monogram paper image behind, blurred on scroll, content on paper cards). Footer flowers moved to the bottom right.
+- Home: redesigned as a paper invitation (plain kraft paper behind, a seal that opens and closes with scroll, a lifting veil, content on paper cards). Footer flowers moved to the bottom right.
 - Our Story: new painting under the title, proposal story removed, even spacing and gold lines between the three text blocks.
 - Our Alliance: wedding party titles and names updated, nephew added to Kev's family, Andre Peter's bio shortened.
 - Our Faith: all centered, officiant and worship cards removed.

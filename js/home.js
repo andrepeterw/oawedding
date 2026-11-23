@@ -4,29 +4,48 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- The invitation: --b goes from 0 (the monogram sharp, as on a cover) to 1 (a soft blur behind the
-          cards) over the first part of the scroll. A cheap opacity fade of a second, already blurred copy. ---- */
+  /* ---- The invitation: kraft paper behind the page, a seal on top at first, a sheer veil that lifts as you scroll. ---- */
   var root = document.documentElement;
   var ticking = false;
 
   /* ---- Opening gesture (seal and veil). Everything here is wrapped so a failure leaves Home as it was. ---- */
   var seal = document.getElementById("seal");
   var veil = document.querySelector(".veil");
-  var sealOpen = false;
+  // The seal is a closed invitation. State: "closed" (shown), "open" (hidden). It opens on the first scroll, a tap
+  // or keyboard focus, and closes again when the visitor scrolls back up to the very top.
+  var sealState = "closed";
+  var away = false;                        // scrolled far enough down that coming back to the top closes it again
   var removeSeal = function () {
     if (seal && seal.parentNode) seal.parentNode.removeChild(seal);
     seal = null;
   };
+  var after = function (el, name, fn) {    // run fn when the animation ends, never depending on the event alone
+    var done = false;
+    var run = function () { if (!done) { done = true; fn(); } };
+    el.addEventListener("animationend", function (e) { if (e.animationName === name) run(); });
+    setTimeout(run, 1300);
+  };
   var openSeal = function () {
-    if (sealOpen || !seal) return;
-    sealOpen = true;                       // once per page load, it never comes back, not even at the very top
+    if (!seal || sealState === "open") return;
+    sealState = "open";
     try {
-      var paper = seal;
-      paper.classList.add("is-opening");
-      var done = false;
-      var finish = function () { if (!done) { done = true; removeSeal(); } };
-      paper.addEventListener("animationend", function (e) { if (e.animationName === "seal-paper-away") finish(); });
-      setTimeout(finish, 1300);            // never depends on the animation event
+      seal.classList.remove("is-closing");
+      seal.classList.add("is-opening");
+      var el = seal;
+      after(el, "seal-paper-away", function () {
+        if (sealState === "open") { el.classList.remove("is-opening"); el.classList.add("is-gone"); }
+      });
+    } catch (e) { removeSeal(); }
+  };
+  var closeSeal = function () {
+    if (!seal || sealState === "closed") return;
+    sealState = "closed";
+    away = false;
+    try {
+      var el = seal;
+      el.classList.remove("is-gone", "is-opening");
+      el.classList.add("is-closing");
+      after(el, "seal-paper-in", function () { if (sealState === "closed") el.classList.remove("is-closing"); });
     } catch (e) { removeSeal(); }
   };
   try {
@@ -36,31 +55,39 @@
       if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
       veil = null;
     } else if (seal) {
-      if (window.getComputedStyle(seal).visibility === "hidden" || window.pageYOffset > 2 || location.hash) {
-        removeSeal();                      // arrived mid page, on a #link, or the fail safe already fired
+      if (window.getComputedStyle(seal).visibility === "hidden") {
+        removeSeal();                      // the fail safe already fired, the seal is not coming back
       } else {
         seal.addEventListener("click", openSeal);
         // a keyboard user tabbing into the page behind the seal opens it too
-        document.addEventListener("focusin", function (e) { if (seal && !seal.contains(e.target)) openSeal(); });
+        document.addEventListener("focusin", function (e) { if (seal && sealState === "closed" && !seal.contains(e.target)) openSeal(); });
+        if (window.pageYOffset > 2 || location.hash) {
+          sealState = "open";              // arrived mid page or on a #link: start open, it still closes on return to the top
+          seal.classList.add("is-gone");
+        }
       }
     }
   } catch (e) { removeSeal(); }
 
-  /* ---- --b goes from 0 (the monogram sharp, as on a cover) to 1 (a soft blur behind the cards) over the first
-          part of the scroll. A cheap opacity fade of a second, already blurred copy. The veil lifts with it
-          (--v reaches 1 when --b reaches 0.7), and the first scroll opens the seal. One handler for all of it. ---- */
+  /* ---- One scroll handler: the veil lifts (--v goes from 0 to 1 over the first 42% of a screen of scrolling),
+          the first scroll opens the seal, and coming back to the very top closes it again. ---- */
   var update = function () {
     ticking = false;
     var span = Math.max(1, window.innerHeight * 0.6);
     var y = window.pageYOffset;
     var b = Math.min(1, Math.max(0, y / span));
-    root.style.setProperty("--b", b.toFixed(3));
     if (veil) {
       var v = Math.min(1, b / 0.7);
       veil.style.setProperty("--v", v.toFixed(3));
       veil.classList.toggle("is-gone", v >= 1);
     }
-    if (seal && !sealOpen && y > 0) openSeal();
+    if (seal) {
+      if (sealState === "closed" && y > 0) openSeal();
+      else if (sealState === "open") {
+        if (y > 60) away = true;
+        else if (away && y <= 1) closeSeal();   // back at the very top: the invitation closes again
+      }
+    }
   };
   var onScroll = function () {
     if (!ticking) {

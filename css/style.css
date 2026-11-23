@@ -575,50 +575,25 @@ html:not([data-lang]) .lang-pt {
 }
 
 /* ------------------------- The invitation (Home) -------------------------- */
-/* A sheet of paper with the monogram is fixed behind the whole page. The sharp copy is always
-   there, a blurred copy fades in over it as you scroll (js/home.js sets --b from 0 to 1), and the
-   content sits on it as small cards of paper. Without JavaScript --b rests at 0.85. */
-:root {
-  --b: 0.85;
-}
-
+/* A sheet of kraft paper (images/paper.webp) is fixed behind the whole page, and the content sits on it as
+   small cards of paper. The monogram is on the seal and the cover. */
 .paper-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
-  overflow: hidden;
-  background: #f5ecd7;
+  background: #d9d2c0 url("/images/paper.webp") center / cover;
   pointer-events: none;
-}
-
-.paper-bg__layer,
-.paper-bg__layer img {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-}
-
-.paper-bg__layer--blur {
-  opacity: var(--b);
-  transform: scale(1.06);
-  filter: blur(7px);
-  will-change: opacity;
 }
 
 .home .section--sand {
   background: transparent;
 }
 
-/* Cover: names and dates in the free paper under the monogram. */
+/* Cover: the monogram, the names and the dates, centered on the paper. */
 .cover {
   min-height: calc(100svh - 4rem);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   padding: var(--space-md) var(--space-sm) var(--space-sm);
 }
 
@@ -634,6 +609,13 @@ html:not([data-lang]) .lang-pt {
   color: var(--color-ocean);
   font-size: clamp(1.9rem, 7.2vw, 3rem);
   margin-bottom: 0;
+}
+
+.cover__monogram {
+  display: block;
+  width: clamp(6rem, 34vw, 10rem);
+  height: auto;
+  margin: 0.4rem auto 0.8rem;
 }
 
 .cover__text .eyebrow {
@@ -659,8 +641,9 @@ html:not([data-lang]) .lang-pt {
   50% { transform: translateY(5px); }
 }
 
-/* A short, wide screen has little free paper, so the cover stays compact. */
+/* A short, wide screen has little room, so the cover stays compact. */
 @media (min-aspect-ratio: 1/1) {
+  .cover__monogram { width: clamp(5rem, 22vh, 9rem); margin-block: 0.2rem 0.4rem; }
   .cover__text h1 { font-size: clamp(1.6rem, 4.6vh, 2.6rem); }
   .cover .eyebrow, .cover__cue { display: none; }
   .cover .dates-device { grid-auto-flow: column; justify-content: center; gap: 1.2rem; margin: 0.2rem 0 0; font-size: clamp(1rem, 2.6vh, 1.4rem); }
@@ -819,33 +802,46 @@ html.veil-on .veil.is-gone {
   will-change: transform;
 }
 
+/* the shade along each cut edge only shows as the corner lifts, so the resting veil is a clean sheet */
+.veil__flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--edge);
+  opacity: clamp(0, calc(var(--v) * 6), 1);
+}
+
 /* each flap is a triangle with its right angle in a corner, and a soft shade along the cut edge */
 .veil__flap--tl {
   top: 0; left: 0;
   transform-origin: 0 0;
   clip-path: polygon(0 0, 100% 0, 0 100%);
-  background-image: linear-gradient(to bottom right, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%), linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  background-image: linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  --edge: linear-gradient(to bottom right, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%);
   transform: translate3d(calc(var(--v) * -70vw), calc(var(--v) * -50vh), 0) rotate(calc(var(--v) * -16deg));
 }
 .veil__flap--tr {
   top: 0; right: 0;
   transform-origin: 100% 0;
   clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background-image: linear-gradient(to bottom left, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%), linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  background-image: linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  --edge: linear-gradient(to bottom left, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%);
   transform: translate3d(calc(var(--v) * 70vw), calc(var(--v) * -50vh), 0) rotate(calc(var(--v) * 16deg));
 }
 .veil__flap--bl {
   bottom: 0; left: 0;
   transform-origin: 0 100%;
   clip-path: polygon(0 0, 0 100%, 100% 100%);
-  background-image: linear-gradient(to top right, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%), linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  background-image: linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  --edge: linear-gradient(to top right, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%);
   transform: translate3d(calc(var(--v) * -70vw), calc(var(--v) * 50vh), 0) rotate(calc(var(--v) * 16deg));
 }
 .veil__flap--br {
   bottom: 0; right: 0;
   transform-origin: 100% 100%;
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
-  background-image: linear-gradient(to top left, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%), linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  background-image: linear-gradient(rgba(250, 244, 230, 0.4), rgba(250, 244, 230, 0.4)), url("/images/paper.webp");
+  --edge: linear-gradient(to top left, rgba(0,0,0,0) 24%, rgba(255, 252, 244, 0.55) 44%, rgba(60, 40, 10, 0.75) 50%);
   transform: translate3d(calc(var(--v) * 70vw), calc(var(--v) * 50vh), 0) rotate(calc(var(--v) * -16deg));
 }
 
@@ -981,6 +977,48 @@ html .seal.is-opening {
 
 @keyframes seal-paper-away {
   to { opacity: 0; transform: translate3d(0, -3vh, 0); }
+}
+
+/* Back at the top, the invitation closes again: the reverse of opening, then it rests as the closed seal. */
+html .seal.is-closing {
+  pointer-events: none;
+  background: none;
+}
+
+html .seal.is-closing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #d9d2c0 url("/images/paper.webp") center / cover;
+  animation: seal-paper-in 0.45s ease both;
+}
+
+html .seal.is-closing .seal__disc {
+  animation: seal-in 0.5s 0.15s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+html .seal.is-closing .seal__hint {
+  animation: seal-hint-in 0.3s 0.5s ease both;
+}
+
+@keyframes seal-paper-in {
+  from { opacity: 0; transform: translate3d(0, -3vh, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes seal-in {
+  from { opacity: 0; transform: translate3d(0, -14vh, 0) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes seal-hint-in {
+  from { opacity: 0; }
+  to { opacity: 0.85; }
+}
+
+/* the open invitation takes no room and no taps */
+html .seal.is-gone {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
